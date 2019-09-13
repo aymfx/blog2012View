@@ -1,0 +1,12 @@
+<header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="<%- url_for() %>" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        <% for (name in theme.menu) { %>
+        <a href="<%- url_for(theme.menu[name]) %>" class="menu-item-link"><%- __('Menu.' + name) %></a>
+        <% } %>
+      </nav>
+    </div>
+  </section>
+</header>

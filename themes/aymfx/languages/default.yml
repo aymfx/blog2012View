@@ -1,0 +1,11 @@
+Menu:
+  Home: Home
+  Archives: Archives
+  Github: Github
+  Tags: Tags
+  About: AboutUs
+  Photos: Photos
+
+Paginator:
+  Prev: Prev
+  Next: Next

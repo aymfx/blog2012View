@@ -1,0 +1,11 @@
+Menu:
+  Home: 首页
+  Archives: 归档
+  Github: 交友
+  Tags: 标签
+  About: 关于我
+  Photos: 相册
+
+Paginator:
+  Prev: 上一页
+  Next: 下一页

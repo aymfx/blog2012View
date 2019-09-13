@@ -1,0 +1,26 @@
+<section class="posts">
+  <% page.posts.each(function (post) { %>
+  <article class="post animated slideInUp">
+    <div class="post-title">
+      <a class="post-title-link" href="<%- url_for(post.path) %>"><%= post.title %></a>
+    </div> 
+    <div class='post-sub'>
+      <i class='iconfont iconriqi'></i>
+      <span class="post-time"><%- date(post.date, "YYYY-MM-DD") %></span>
+      <i class='iconfont iconuser'></i>
+      <span class="post-author"><%=post.author || 'aymfx' %></span>
+      <% if (post.tags && post.tags.length){ %>
+      <i class='iconfont iconbiaoqian'></i>
+      <% post.tags.forEach(function(tag, i){ %>
+      <a href='<%- url_for(tag.path)%>' rel="tag">#<%-tag.name%></a>
+      <% }) %>
+      <%}%>
+    </div>
+    <div class="post-content">
+      <%- post.excerpt %>
+    </div>
+    <div class='more'><a class="post-title-link" href="<%- url_for(post.path) %>">阅读更多</a></div>
+  </article>
+  <% }) %>
+</section>
+<%- partial('_partial/paginator') %>

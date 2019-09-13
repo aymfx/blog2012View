@@ -1,0 +1,9 @@
+{
+  "name": "aymfx",
+  "version": "1.0.0",
+  "description": "这是ly的主题",
+  "main": "index.js",
+  "author": "ly",
+  "license": "MIT",
+  "private": true
+}
