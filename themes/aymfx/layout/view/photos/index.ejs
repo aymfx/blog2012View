@@ -1,6 +1,10 @@
-<section>
+<section class='layout-photo'>
     <% site.posts.forEach(function(page, i){ %>
     <%if(page.isPhoto){%>
-        <%-page.content%>
+    <div class='photo-item'>
+        <h4><%-page.title%>(<%-date(page.date)%>)</h4>
+        <article><%-page.content%></article>
+    </div>
+
     <% }}) %>
 </section>
