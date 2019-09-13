@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>vue实例 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#构造器"><span class="toc-text">构造器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#属性与方法"><span class="toc-text">属性与方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实例生命周期"><span class="toc-text">实例生命周期</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">vue实例</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-11-03</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>好久好久以前啊 </p>
+</blockquote>
+<a id="more"></a>   
+
+<!--markdown--># vue实例
+
+<h1 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h1><blockquote>
+<p>每个 Vue.js 应用都是通过构造函数 Vue 创建一个 Vue 的根实例 启动的</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line"><span class="comment">// 选项</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>扩展 Vue 构造器，从而用预定义选项创建可复用的组件构造器</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</span><br><span class="line"><span class="comment">// 扩展选项</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 所有的 `MyComponent` 实例都将以预定义的扩展选项被创建</span></span><br><span class="line"><span class="keyword">var</span> myComponentInstance = <span class="keyword">new</span> MyComponent()</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性与方法"><a href="#属性与方法" class="headerlink" title="属性与方法"></a>属性与方法</h1><blockquote>
+<p>data 属性<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">data: data</span><br><span class="line">&#125;)</span><br><span class="line">vm.a === data.a <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="comment">// 设置属性也会影响到原始数据</span></span><br><span class="line">vm.a = <span class="number">2</span></span><br><span class="line">data.a <span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="comment">// ... 反之亦然</span></span><br><span class="line">data.a = <span class="number">3</span></span><br><span class="line">vm.a <span class="comment">// -&gt; 3</span></span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<blockquote>
+<p>Vue 实例暴露了一些有用的实例属性与方法。这些属性与方法都有前缀 $，以便与代理的 data 属性区分</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123; <span class="attr">a</span>: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">el: <span class="string">'#example'</span>,</span><br><span class="line">data: data</span><br><span class="line">&#125;)</span><br><span class="line">vm.$data === data <span class="comment">// -&gt; true</span></span><br><span class="line">vm.$el === <span class="built_in">document</span>.getElementById(<span class="string">'example'</span>) <span class="comment">// -&gt; true</span></span><br><span class="line"><span class="comment">// $watch 是一个实例方法</span></span><br><span class="line">vm.$watch(<span class="string">'a'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">newVal, oldVal</span>) </span>&#123;</span><br><span class="line"><span class="comment">// 这个回调将在 `vm.a`  改变后调用</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意，不要在实例属性或者回调函数中（如 vm.$watch(‘a’, newVal =&gt; this.myMethod())）使用箭头函数。因为箭头函数绑定父上下文，所以 this 不会像预想的一样是 Vue 实例，而是 this.myMethod 未被定义。</p>
+</blockquote>
+<h1 id="实例生命周期"><a href="#实例生命周期" class="headerlink" title="实例生命周期"></a>实例生命周期</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">data: &#123;</span><br><span class="line">    a: <span class="number">1</span></span><br><span class="line">&#125;,</span><br><span class="line">created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// `this` 指向 vm 实例</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'a is: '</span> + <span class="keyword">this</span>.a)</span><br><span class="line">&#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// -&gt; "a is: 1"</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="http://cn.vuejs.org/images/lifecycle.png" alt="生命周期"></p>
+<p>原文:<a href="http://vuejs.org/guide/instance.html" target="_blank"></a></p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>jquery回调函数复习 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-add-可以添加一个或者多个回调"><span class="toc-text">callbacks.add(); 可以添加一个或者多个回调</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-disable-禁止列表中的回调列表"><span class="toc-text">callbacks.disable()  禁止列表中的回调列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-empty-清空所有队列"><span class="toc-text">callbacks.empty() 清空所有队列</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-fire-args-执行加入在队列里面的所有函数"><span class="toc-text">callbacks.fire(args);  执行加入在队列里面的所有函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-fired-判定回调是否执行过一次"><span class="toc-text">callbacks.fired() 判定回调是否执行过一次</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-fireWith-context-args"><span class="toc-text">callbacks.fireWith([context],[args])</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-has-callback-判断队列中是否出存在此回调函数"><span class="toc-text">callbacks.has(callback)  判断队列中是否出存在此回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-lock-锁定当前状态-和-callbacks-locked-判断状态是否锁定"><span class="toc-text">callbacks.lock() 锁定当前状态 和 callbacks.locked()  判断状态是否锁定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#callbacks-remove-callbacks-移除一个或者多个回调函数"><span class="toc-text">callbacks.remove(callbacks);  移除一个或者多个回调函数</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">jquery回调函数复习</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-08-11</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>jquery回调函数复习</p>
+</blockquote>
+<a id="more"></a>  
+
+<h2 id="callbacks-add-可以添加一个或者多个回调"><a href="#callbacks-add-可以添加一个或者多个回调" class="headerlink" title="callbacks.add(); 可以添加一个或者多个回调"></a>callbacks.add(); 可以添加一个或者多个回调</h2><blockquote>
+<p>创建一个回调函数</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span> (value) &#123;</span><br><span class="line">	console.log(<span class="string">'foo:'</span>+value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar = <span class="keyword">function</span> (value) &#123;</span><br><span class="line">	console.log(<span class="string">"bar:"</span>+value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是一个函数的情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">callbacks.add(foo);</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">'hello'</span>);//foo:hello</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>继续添加一个函数</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">callbacks.add(bar);</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">'world'</span>);// foo:world  bar:world</span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-disable-禁止列表中的回调列表"><a href="#callbacks-disable-禁止列表中的回调列表" class="headerlink" title="callbacks.disable()  禁止列表中的回调列表"></a>callbacks.disable()  禁止列表中的回调列表</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">var foo = <span class="keyword">function</span> (value) &#123;</span><br><span class="line">	console.log(<span class="string">'foo:'</span>+value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar = <span class="keyword">function</span> (value) &#123;</span><br><span class="line">	console.log(<span class="string">"bar:"</span>+value);</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">callbacks.add(foo);</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">'hello'</span>);//foo:hello</span><br><span class="line"></span><br><span class="line">callbacks.disable(foo);//后面不执行了</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">'hello'</span>);</span><br><span class="line"></span><br><span class="line">callbacks.add(bar);</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">'world'</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-empty-清空所有队列"><a href="#callbacks-empty-清空所有队列" class="headerlink" title="callbacks.empty() 清空所有队列"></a>callbacks.empty() 清空所有队列</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="function"><span class="title">function</span></span>()&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>);</span><br><span class="line">&#125;</span><br><span class="line">var bar = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1 "</span>,value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">callbacks.add(foo);</span><br><span class="line">callbacks.add(bar);</span><br><span class="line"></span><br><span class="line">console.log(callbacks.has(foo)); //<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"我出来了"</span>);  //测试1  测试1 我出来了</span><br><span class="line"></span><br><span class="line">callbacks.empty();</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"我出来了"</span>); //</span><br><span class="line"></span><br><span class="line">console.log(callbacks.has(foo)); //<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-fire-args-执行加入在队列里面的所有函数"><a href="#callbacks-fire-args-执行加入在队列里面的所有函数" class="headerlink" title="callbacks.fire(args);  执行加入在队列里面的所有函数"></a>callbacks.fire(args);  执行加入在队列里面的所有函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line">var bar = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试2"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callbacks.add(foo)</span><br><span class="line">callbacks.add(bar)</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"我是"</span>,<span class="string">"liuyang"</span>); //测试1 我是 测试2 我是</span><br><span class="line"></span><br><span class="line">callbacks.fire([<span class="string">"我是"</span>,<span class="string">"liuyang"</span>]); //测试1 (2) [<span class="string">"我是"</span>, <span class="string">"liuyang"</span>]  测试2 (2) [<span class="string">"我是"</span>, <span class="string">"liuyang"</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-fired-判定回调是否执行过一次"><a href="#callbacks-fired-判定回调是否执行过一次" class="headerlink" title="callbacks.fired() 判定回调是否执行过一次"></a>callbacks.fired() 判定回调是否执行过一次</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line">var bar = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试2"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callbacks.add(foo)</span><br><span class="line"></span><br><span class="line">callbacks.add(foo)</span><br><span class="line"></span><br><span class="line">console.log(callbacks.fired()); //<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"试试"</span>);  //测试1 试试</span><br><span class="line"></span><br><span class="line">console.log(callbacks.fired());  //<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-fireWith-context-args"><a href="#callbacks-fireWith-context-args" class="headerlink" title="callbacks.fireWith([context],[args])"></a>callbacks.fireWith([context],[args])</h2><blockquote>
+<p>context: 该列表中的回调被触发的上下文引用</p>
+</blockquote>
+<blockquote>
+<p>args: 一个参数或参数列表传回给回调列表。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value1,value2)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value1,value2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callbacks.add(foo);</span><br><span class="line"></span><br><span class="line">callbacks.fireWith(window,[<span class="string">"我是"</span>,<span class="string">"aymfx"</span>]);  //测试1 我是 aymfx</span><br><span class="line"></span><br><span class="line">callbacks.fireWith(null,[<span class="string">"我是"</span>,<span class="string">"aymfx"</span>]);  //测试1 我是 aymfx</span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-has-callback-判断队列中是否出存在此回调函数"><a href="#callbacks-has-callback-判断队列中是否出存在此回调函数" class="headerlink" title="callbacks.has(callback)  判断队列中是否出存在此回调函数"></a>callbacks.has(callback)  判断队列中是否出存在此回调函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value1,value2)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value1,value2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var f00 = <span class="keyword">function</span>(value1,value2)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value1,value2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callbacks.add(foo);</span><br><span class="line">console.log(callbacks.has(foo)); //<span class="literal">true</span></span><br><span class="line">console.log(callbacks.has(f00)); //<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-lock-锁定当前状态-和-callbacks-locked-判断状态是否锁定"><a href="#callbacks-lock-锁定当前状态-和-callbacks-locked-判断状态是否锁定" class="headerlink" title="callbacks.lock() 锁定当前状态 和 callbacks.locked()  判断状态是否锁定"></a>callbacks.lock() 锁定当前状态 和 callbacks.locked()  判断状态是否锁定</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">callbacks.add(foo)</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"bar"</span>); //测试1 bar</span><br><span class="line"></span><br><span class="line">console.log(callbacks.locked()); //<span class="literal">false</span></span><br><span class="line"></span><br><span class="line">callbacks.lock();</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"bar1"</span>); //</span><br><span class="line"></span><br><span class="line">console.log(callbacks.locked()); //<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="callbacks-remove-callbacks-移除一个或者多个回调函数"><a href="#callbacks-remove-callbacks-移除一个或者多个回调函数" class="headerlink" title="callbacks.remove(callbacks);  移除一个或者多个回调函数"></a>callbacks.remove(callbacks);  移除一个或者多个回调函数</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var callbacks = $.Callbacks();</span><br><span class="line"></span><br><span class="line">var foo = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试1"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line">var bar = <span class="keyword">function</span>(value)&#123;</span><br><span class="line">	console.log(<span class="string">"测试2"</span>,value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">callbacks.add(foo)</span><br><span class="line"></span><br><span class="line">callbacks.add(bar)</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"哈哈"</span>); //测试1 哈哈 测试2 哈哈</span><br><span class="line"></span><br><span class="line">callbacks.remove(bar);</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"呵呵"</span>); //测试1 呵呵</span><br><span class="line"></span><br><span class="line">callbacks.remove();</span><br><span class="line"></span><br><span class="line">callbacks.fire(<span class="string">"呵呵"</span>); //测试1 呵呵</span><br><span class="line"></span><br><span class="line">console.log(callbacks.has(bar)); //<span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

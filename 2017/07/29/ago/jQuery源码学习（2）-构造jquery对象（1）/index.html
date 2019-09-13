@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>jQuery源码学习（2）-构造jquery对象（1） | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#构造函数jQuery"><span class="toc-text">构造函数jQuery</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#jQuery-fn-init-selector-context-rootjQuery"><span class="toc-text">jQuery.fn.init(selector,context,rootjQuery)</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">jQuery源码学习（2）-构造jquery对象（1）</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-29</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>jQuery源码学习（2）-构造jquery对象（1）</p>
+</blockquote>
+<a id="more"></a>  
+
+<h1 id="构造函数jQuery"><a href="#构造函数jQuery" class="headerlink" title="构造函数jQuery"></a>构造函数jQuery</h1><blockquote>
+<p>jQuery(select [,context])</p>
+</blockquote>
+<ul>
+<li>第一个参数是选择器，用于选择docunment里面的html元素，当传入的参数不是选择器时，会返回一个空的jquery对象</li>
+<li>第二个是上下文对象，也就是限制从哪个范围开始查找元素，默认从document</li>
+<li>当指定了第二个参数，实际上就是调用了$(selsect).find(xxx)</li>
+</ul>
+<blockquote>
+<p>jQuery(html[,ownerDocument])、jQuery(html,props)</p>
+</blockquote>
+<ul>
+<li>html 表示如果是html代码，jquery将其转换成一个jquery对象，可以进行插入dom 操作<ul>
+<li>类似于:$(“<div>ly</div>“).appendTo(‘body’),可以是单标签</li>
+</ul>
+</li>
+<li>ownerDocument 表示可以创建新的文档对象，默认当前文档</li>
+<li>props 必须是单标签写法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;&lt;div/&gt;&quot;, &#123;　　　　</span><br><span class="line">            &quot;class&quot;: &quot;test&quot;,</span><br><span class="line">            　　　　text: &quot;Click me!&quot;,</span><br><span class="line">            　　　　click: function() &#123;　　　　</span><br><span class="line">                $(this).toggleClass(&quot;bar&quot;);　　　</span><br><span class="line">            &#125;　　</span><br><span class="line">        &#125;).appendTo(&quot;body&quot;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>jQuery(element) jQuery(elementArray)</p>
+</blockquote>
+<ul>
+<li>该方法是将dom元素封装成jquery元素然年调用jquery方法</li>
+<li>多用于事件的监听</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&apos;div&apos;).click(function()&#123;</span><br><span class="line">    $(this).show();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>jQuery(object)</p>
+<ul>
+<li>对于普通的js对象也可以包装成jquery对象的</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var names = &#123;</span><br><span class="line">            first: &apos;liu&apos;,</span><br><span class="line">            last: &apos;yang&apos;</span><br><span class="line">        &#125;</span><br><span class="line">        var $names = $(names);</span><br><span class="line">        console.log($names);</span><br><span class="line">        $names.on(&apos;binds&apos;, function() &#123;</span><br><span class="line">            console.log(&apos;我叫&apos;, $names[0].first + $names[0].last);</span><br><span class="line">        &#125;)</span><br><span class="line">    $names.trigger(&apos;binds&apos;); //自动触发</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> jQuery(callback) </p>
+</blockquote>
+<ul>
+<li>如果传入一个函数，在document绑定一个ready事件监听函数，当dom加载时执行</li>
+<li>ready比load早执行，不是原生函数,它由DOMContentLoaded事件onreadystatechange事件以及函数doScrollCheck()的统称</li>
+</ul>
+<blockquote>
+<p>jQuery(jQuery object)</p>
+</blockquote>
+<ul>
+<li>如归传入的是jquery对象，会创建一个一样的副本，并且返回，他们引用的同一个地址</li>
+</ul>
+<blockquote>
+<p>jQuery()</p>
+</blockquote>
+<ul>
+<li>不传参则返回一个空的jquery对象</li>
+</ul>
+<h2 id="jQuery-fn-init-selector-context-rootjQuery"><a href="#jQuery-fn-init-selector-context-rootjQuery" class="headerlink" title="jQuery.fn.init(selector,context,rootjQuery)"></a>jQuery.fn.init(selector,context,rootjQuery)</h2><blockquote>
+<p>12个分支</p>
+</blockquote>
+<ul>
+<li>也就是有12种处理方式的写法，具体参考书吧</li>
+<li>以下也有讲解</li>
+</ul>
+<blockquote>
+<p>selector:接收的是dom对象</p>
+</blockquote>
+<blockquote>
+<p>context : 上下文对象</p>
+</blockquote>
+<blockquote>
+<p>rootjQuery</p>
+</blockquote>
+<ul>
+<li>用于以下情况</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//id查找失败</span><br><span class="line">if (elem.id !== match[2]) &#123;</span><br><span class="line">    return rootjQuery.find(selector);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//selector是选择器且没有context</span><br><span class="line"></span><br><span class="line">if (!context || context.jquery) &#123;</span><br><span class="line">        return (context || rootjQuery).find(selector);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//selector是函数</span><br><span class="line"></span><br><span class="line">if (jQuery.isFunction(selector)) &#123;</span><br><span class="line">        return rootjQuery.ready(selector);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">//怎么定义rootjQuery？</span><br><span class="line"> rootjQuery = jQuery(document);</span><br><span class="line"></span><br><span class="line">//如果判断选择器是false，返回的是空的$();</span><br><span class="line">    if (!selector) &#123;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">//如果字符串是body，则获取document.body</span><br><span class="line">    if (selector === &quot;body&quot; &amp;&amp; !context &amp;&amp; document.body) &#123;</span><br><span class="line">        console.log(&quot;是我呀&quot;);</span><br><span class="line">        this.context = document;</span><br><span class="line">        this[0] = document.body;</span><br><span class="line">        this.selector = selector;</span><br><span class="line">        this.length = 1;</span><br><span class="line">        return this;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//用于匹配html代码以及id,第一个是selector 第二个是html或者undefind </span><br><span class="line">    quickExpr = /^(?:[^#&lt;]*(&lt;[\w\W]+&gt;)[^&gt;]*$|#([\w\-]*)$)/,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//  匹配单标记</span><br><span class="line"></span><br><span class="line"> rsingleTag = /^&lt;(\w+)\s*\/?&gt;(?:&lt;\/\1&gt;)?$/,</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

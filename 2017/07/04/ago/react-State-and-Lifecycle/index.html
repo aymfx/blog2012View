@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react-State and Lifecycle | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#利用定时器实现-UI-的刷新"><span class="toc-text">利用定时器实现 UI 的刷新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#从函数到类的转变-Converting-a-Function-to-a-Class"><span class="toc-text">从函数到类的转变 Converting a Function to a Class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生命周期-Adding-Lifecycle-Methods-to-a-Class"><span class="toc-text">生命周期 Adding Lifecycle Methods to a Class</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#state-状态的改变是异步的-State-Updates-May-Be-Asynchronous"><span class="toc-text">state 状态的改变是异步的 State Updates May Be Asynchronous</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#父元素向子元素传递信息-The-Data-Flows-Down"><span class="toc-text">父元素向子元素传递信息 The Data Flows Down</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react-State and Lifecycle</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-04</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react-State and Lifecycle</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="利用定时器实现-UI-的刷新"><a href="#利用定时器实现-UI-的刷新" class="headerlink" title="利用定时器实现 UI 的刷新"></a>利用定时器实现 UI 的刷新</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Clock(props) &#123;</span><br><span class="line">  return (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Hello, world!&lt;/h1&gt;</span><br><span class="line">      &lt;h2&gt;It is &#123;props.date.toLocaleTimeString()&#125;.&lt;/h2&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function tick() &#123;</span><br><span class="line">  ReactDOM.render(</span><br><span class="line">    &lt;Clock date=&#123;new Date()&#125; /&gt;,</span><br><span class="line">    document.getElementById(&apos;root&apos;)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">setInterval(tick, 1000);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样的方法导致 ui 每秒都在更新，即时用户没有改变数据也在实时刷新，导致性能差，替代的方法是定义一个 state 作为一个定时器，他类似于 props，但是他是私有的，控制着整个组件。</p>
+</blockquote>
+<h1 id="从函数到类的转变-Converting-a-Function-to-a-Class"><a href="#从函数到类的转变-Converting-a-Function-to-a-Class" class="headerlink" title="从函数到类的转变 Converting a Function to a Class"></a>从函数到类的转变 Converting a Function to a Class</h1><blockquote>
+<p>function 的写法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Add(props)&#123;</span><br><span class="line">    return (&lt;div&gt;</span><br><span class="line">         &#123;props.a&#125;+&#123;props.b&#125;=&#123;props.a+props.b&#125;</span><br><span class="line">    &lt;/div&gt;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>es6 写法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Add extends Component &#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                这是es6的语法哦</span><br><span class="line">                &#123;this.props.a&#125;+&#123;this.props.b&#125; = &#123;this.props.a+this.props.b&#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>新增一个 class constructor 来初始化 this.state</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class Show extends Component&#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state=&#123;</span><br><span class="line">            name:&apos;ly&apos;,</span><br><span class="line">            age:18</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;p&gt;name:&#123;this.state.name&#125;&lt;/p&gt;</span><br><span class="line">                &lt;p&gt;age:&#123;this.state.age&#125;&lt;/p&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="生命周期-Adding-Lifecycle-Methods-to-a-Class"><a href="#生命周期-Adding-Lifecycle-Methods-to-a-Class" class="headerlink" title="生命周期 Adding Lifecycle Methods to a Class"></a>生命周期 Adding Lifecycle Methods to a Class</h1><blockquote>
+<p>componentDidMount 执行的条件是在第一次加载组件完成时触发</p>
+</blockquote>
+<blockquote>
+<p>componentWillUnmount 执行的条件是组件即将被销毁</p>
+</blockquote>
+<blockquote>
+<p>利用这两个钩子函数可以实现时钟的实时更新，仅在局部的更新</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">class Show extends Component&#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state=&#123;</span><br><span class="line">            name:&apos;ly&apos;,</span><br><span class="line">            age:18,</span><br><span class="line">            date: new Date().toLocaleString()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentDidMount()&#123;</span><br><span class="line">        this.timer = setInterval(() =&gt; this.show(),1000)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    show () &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            date:new Date().toLocaleString()</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        //状态不能通过this.state.date=new Date().toLocalString() The only place where you can assign this.state is the constructor. 构造器可以直接操作</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    componentWillUnmount()&#123;</span><br><span class="line">            clearInterval(this.timer)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render () &#123;</span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;p&gt;name:&#123;this.state.name&#125;&lt;/p&gt;</span><br><span class="line">                &lt;p&gt;age:&#123;this.state.age&#125;&lt;/p&gt;</span><br><span class="line">                &lt;p&gt;现在的时间:&#123;this.state.date&#125;&lt;/p&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="state-状态的改变是异步的-State-Updates-May-Be-Asynchronous"><a href="#state-状态的改变是异步的-State-Updates-May-Be-Asynchronous" class="headerlink" title="state 状态的改变是异步的 State Updates May Be Asynchronous"></a>state 状态的改变是异步的 State Updates May Be Asynchronous</h1><blockquote>
+<p>我们在使用 props 和 state 时 不应该依赖它们的值来计算下一个状态</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//wrong</span><br><span class="line"></span><br><span class="line">componentDidMount () &#123;</span><br><span class="line">        this.setState(&#123;</span><br><span class="line">            counter1:this.state.counter1+this.state.counter2</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// correct</span><br><span class="line">componentDidMount () &#123;</span><br><span class="line">        this.setState(function (prevState,props) &#123;</span><br><span class="line">            console.log(prevState,props);</span><br><span class="line">             return &#123;</span><br><span class="line">                 counter1:prevState.counter1+props.counter2</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="父元素向子元素传递信息-The-Data-Flows-Down"><a href="#父元素向子元素传递信息-The-Data-Flows-Down" class="headerlink" title="父元素向子元素传递信息 The Data Flows Down"></a>父元素向子元素传递信息 The Data Flows Down</h1><blockquote>
+<p>A component may choose to pass its state down as props to its child components</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">class Down extends Component&#123;</span><br><span class="line">     constructor(props)&#123;</span><br><span class="line">         super(props)</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     render () &#123;</span><br><span class="line">         return (</span><br><span class="line">             &lt;div&gt;</span><br><span class="line">                 &lt;p&gt;从父元素传数据过来了&#123;this.props.data&#125;&lt;/p&gt;</span><br><span class="line">             &lt;/div&gt;</span><br><span class="line">         )</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class App extends Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.state=&#123;</span><br><span class="line">            data:&quot;飞呀飞呀&quot;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    return (</span><br><span class="line">      &lt;div className=&quot;App&quot;&gt;</span><br><span class="line">            &lt;Show/&gt;</span><br><span class="line">            &lt;Add/&gt;</span><br><span class="line">            &lt;Down data=&#123;this.state.data&#125;/&gt;</span><br><span class="line"></span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>This is commonly called a “top-down” or “unidirectional” data flow</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

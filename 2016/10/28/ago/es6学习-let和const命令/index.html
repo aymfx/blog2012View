@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>es6学习-let和const命令 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言："><span class="toc-text">前言：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#let和const命令"><span class="toc-text">let和const命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#const-命令"><span class="toc-text">const 命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ES6-声明变量的六种方法"><span class="toc-text">ES6 声明变量的六种方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#顶层对象请参考博客吧"><span class="toc-text">顶层对象请参考博客吧</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">es6学习-let和const命令</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-10-28</span>
+        </div>
+        <div class="article-container">
+          <h1 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">做的学习笔记，参考的是http:<span class="comment">//es6.ruanyifeng.com/#docs/intro，里面的博客</span></span><br></pre></td></tr></table></figure>
+
+ <a id="more"></a>   
+
+<h1 id="let和const命令"><a href="#let和const命令" class="headerlink" title="let和const命令"></a>let和const命令</h1><pre><code>let:它所声明的变量，只在本代码块内有效</code></pre><p>​    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 10; i++) &#123;&#125;</span><br><span class="line">	console.log(i);</span><br><span class="line">	//ReferenceError: i is not define</span><br></pre></td></tr></table></figure>
+
+<pre><code>for循环还有一个特别之处，就是循环语句部分是一个父作用域，而循环体内部是一个单独的子作用域</code></pre><p>​    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="built_in">let</span> i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">	  <span class="built_in">let</span> i = <span class="string">'abc'</span>;</span><br><span class="line">	  console.log(i);</span><br><span class="line">	&#125;</span><br><span class="line">	// abc</span><br><span class="line">	// abc</span><br><span class="line">	// abc</span><br></pre></td></tr></table></figure>
+
+<pre><code>不存在变量提升 let 它所声明的变量一定要在声明后使用，否则报错。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// var 的情况</span><br><span class="line">	console.log(foo); // 输出undefined</span><br><span class="line">	var foo = 2;</span><br><span class="line">	</span><br><span class="line">	// <span class="built_in">let</span> 的情况</span><br><span class="line">	console.log(bar); // 报错ReferenceError</span><br><span class="line">	<span class="built_in">let</span> bar = 2;</span><br></pre></td></tr></table></figure>
+
+<pre><code>暂时性死区（temporal dead zone，简称 TDZ）：只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响，对于typeof来说不再是安全的操作了</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var tmp = 123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">	  tmp = <span class="string">'abc'</span>; // ReferenceError</span><br><span class="line">	  <span class="built_in">let</span> tmp;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">typeof x; // ReferenceError</span><br><span class="line"><span class="built_in">let</span> x;</span><br></pre></td></tr></table></figure>
+
+<pre><code>不允许重复声明 </code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// 报错</span><br><span class="line">	<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">	  <span class="built_in">let</span> a = 10;</span><br><span class="line">	  var a = 1;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	// 报错</span><br><span class="line">	<span class="function"><span class="title">function</span></span> () &#123;</span><br><span class="line">	  <span class="built_in">let</span> a = 10;</span><br><span class="line">	  <span class="built_in">let</span> a = 1;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="const-命令"><a href="#const-命令" class="headerlink" title="const 命令"></a>const 命令</h1><pre><code>const声明一个只读的常量。一旦声明，常量的值就不能改变。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const PI = 3.1415;</span><br><span class="line">PI // 3.1415</span><br><span class="line"></span><br><span class="line">PI = 3;</span><br><span class="line">// TypeError: Assignment to constant variable.</span><br></pre></td></tr></table></figure>
+
+<pre><code>const的作用域与let命令相同：只在声明所在的块级作用域内有效。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  const MAX = 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">MAX // Uncaught ReferenceError: MAX is not defined</span><br></pre></td></tr></table></figure>
+
+<pre><code>const命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">  console.log(MAX); // ReferenceError</span><br><span class="line">  const MAX = 5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>本质：实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量。但对于复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指针，const只能保证这个指针是固定的，至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const foo = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">// 为 foo 添加一个属性，可以成功</span><br><span class="line">foo.prop = 123;</span><br><span class="line">foo.prop // 123</span><br><span class="line"></span><br><span class="line">// 将 foo 指向另一个对象，就会报错</span><br><span class="line">foo = &#123;&#125;; // TypeError: <span class="string">"foo"</span> is <span class="built_in">read</span>-only</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const a = [];</span><br><span class="line">a.push(<span class="string">'Hello'</span>); // 可执行</span><br><span class="line">a.length = 0;    // 可执行</span><br><span class="line">a = [<span class="string">'Dave'</span>];    // 报错</span><br></pre></td></tr></table></figure>
+
+<pre><code>如果真的想将对象冻结，应该使用Object.freeze方法。</code></pre><p>const foo = Object.freeze({});</p>
+<p>// 常规模式时，下面一行不起作用；<br>// 严格模式时，该行会报错<br>foo.prop = 123;</p>
+<h1 id="ES6-声明变量的六种方法"><a href="#ES6-声明变量的六种方法" class="headerlink" title="ES6 声明变量的六种方法"></a>ES6 声明变量的六种方法</h1><pre><code>ES5 只有两种声明变量的方法：var命令和function命令。ES6除了添加let和const命令，后面章节还会提到，另外两种声明变量的方法：import命令和class命令。所以，ES6 一共有6种声明变量的方法。</code></pre><h1 id="顶层对象请参考博客吧"><a href="#顶层对象请参考博客吧" class="headerlink" title="顶层对象请参考博客吧"></a>顶层对象请参考博客吧</h1> 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

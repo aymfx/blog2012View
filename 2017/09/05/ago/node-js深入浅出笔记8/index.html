@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记8 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高效使用内存"><span class="toc-text">高效使用内存</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域"><span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量的主动释放"><span class="toc-text">变量的主动释放</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包"><span class="toc-text">闭包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内存指标"><span class="toc-text">内存指标</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看内存使用情况"><span class="toc-text">查看内存使用情况</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内存泄露"><span class="toc-text">内存泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#慎将内存当做缓存"><span class="toc-text">慎将内存当做缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关注队列状态"><span class="toc-text">关注队列状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存泄露排查"><span class="toc-text">内存泄露排查</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#大内存的应用"><span class="toc-text">大内存的应用</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记8</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-05</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="高效使用内存"><a href="#高效使用内存" class="headerlink" title="高效使用内存"></a>高效使用内存</h1><h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><blockquote>
+<p>和JavaScript一样，按照作用域链查找元素标识符，对于内存来讲，当最外层的函数或者变量，一旦失去作用，局部的变量和函数就要被回收</p>
+</blockquote>
+<h2 id="变量的主动释放"><a href="#变量的主动释放" class="headerlink" title="变量的主动释放"></a>变量的主动释放</h2><blockquote>
+<p>对于定义在全局上面的对象或者变量，我们需要手动清除</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="string">'i am global'</span>;</span><br><span class="line"><span class="keyword">var</span> b = &#123;</span><br><span class="line">    user:<span class="string">'ly'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过delete</span></span><br><span class="line"><span class="keyword">delete</span> a;</span><br><span class="line"><span class="comment">//也可以设置为null或者undefind</span></span><br><span class="line">b=<span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><blockquote>
+<p>先看下典型的闭包函数吧</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> s = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"ly"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(name+<span class="string">' like  eat meat'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">s()();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>本来 name 是s下面的局部变量，我们在外部访问不到，但是由于s返回的是一个匿名对象，于是我们的s函数在执行完毕，不会消失，name也不会消失，于是通过返回的函数，我们间接的访问了局部变量，于是呢，内存占用着。</p>
+</blockquote>
+<h1 id="内存指标"><a href="#内存指标" class="headerlink" title="内存指标"></a>内存指标</h1><h2 id="查看内存使用情况"><a href="#查看内存使用情况" class="headerlink" title="查看内存使用情况"></a>查看内存使用情况</h2><ul>
+<li><p>os模块的totalmem() 和freemem()可以查看</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">require</span>(<span class="string">'os'</span>);</span><br><span class="line"><span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//totalmem()</span></span><br><span class="line">a.totalmem()</span><br><span class="line"><span class="number">8540053504</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//freemem()</span></span><br><span class="line"></span><br><span class="line">a.freemem()</span><br><span class="line"><span class="number">4428193792</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>process.memoryUsage()</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line">process.memoryUsage()</span><br><span class="line">   &#123; <span class="attr">rss</span>: <span class="number">21786624</span>,</span><br><span class="line">     heapTotal: <span class="number">8425472</span>,</span><br><span class="line">     heapUsed: <span class="number">4790112</span>,</span><br><span class="line">     external: <span class="number">9187</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>rss是resident set size 的缩写，即常驻内存的部分，进程的内存总共有几部分，一部分是rss，其余部分在交换区（swap）或者文件系统(filesystem)中</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="comment">//展示我们内存的使用量</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> showMem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> mem = process.memoryUsage();</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> format = <span class="function"><span class="params">bytes</span> =&gt;</span> ((bytes/<span class="number">1024</span>/<span class="number">1024</span>).toFixed(<span class="number">2</span>)+<span class="string">'MB'</span>);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"内存总量："</span>+format(mem.heapTotal)+<span class="string">" 内存使用量："</span>+format(mem.heapUsed)+<span class="string">" rss:"</span>+format(mem.rss));</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'-----------------------------------------------------------------------------'</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> useMem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> size = <span class="number">1024</span>*<span class="number">20</span>*<span class="number">1024</span>;</span><br><span class="line">        <span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(size);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>; i&lt;size;i++)&#123;</span><br><span class="line">            arr[i] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> total = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;<span class="number">15</span>;j++)&#123;</span><br><span class="line">        showMem();</span><br><span class="line">        total.push(useMem());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//当我们把 var arr = new Array(size); 变成 var arr = new Buffer(size);,我们可以看到rss变的很大，并且没有中断程序。因为Buffer不属于v8管，因为i/o的v8管不住啊</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="内存泄露"><a href="#内存泄露" class="headerlink" title="内存泄露"></a>内存泄露</h1><blockquote>
+<p>主要的三个原因</p>
+</blockquote>
+<ul>
+<li>缓存</li>
+<li>队列消费不及时</li>
+<li>作用域未释放</li>
+</ul>
+<h2 id="慎将内存当做缓存"><a href="#慎将内存当做缓存" class="headerlink" title="慎将内存当做缓存"></a>慎将内存当做缓存</h2><blockquote>
+<p>两个问题</p>
+</blockquote>
+<ul>
+<li>当一个对象被命中作为缓存来使用的话，他将会常驻老生代，缓存中储存的键越多，存活的对象就越多，这将导致垃圾回收，对这些对象做无用功</li>
+<li>当使用对象的键值对缓存东西，因为普通的对象不想缓存一样有过期策略，所以也会造成内存泄露</li>
+</ul>
+<blockquote>
+<p>缓存的限制策略</p>
+<ul>
+<li>就是设置一个缓存的上限，使得内存不会溢出</li>
+<li>详细方法参见书吧</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>node解决缓存的方案是采用外部的缓存软件，它具有良好的缓存过期淘汰策略以及自有的内存管理主要解决了一下两个问题</p>
+<ul>
+<li>将缓存转移到外部，减少常驻内存的对象数量，让垃圾回收更高效</li>
+<li>进程间可以共享缓存</li>
+</ul>
+</blockquote>
+<h2 id="关注队列状态"><a href="#关注队列状态" class="headerlink" title="关注队列状态"></a>关注队列状态</h2><blockquote>
+<p>队列产生的原因，当事件处理的速度低于产生事件的速度，这就会形成堆积</p>
+</blockquote>
+<blockquote>
+<p>解决方案</p>
+<ul>
+<li>异步超时机制</li>
+<li>还有就是拒绝模式。当队列拥塞时</li>
+</ul>
+</blockquote>
+<h2 id="内存泄露排查"><a href="#内存泄露排查" class="headerlink" title="内存泄露排查"></a>内存泄露排查</h2><blockquote>
+<p>通过node-heapdump以及node-memwatch两种方式进行排查</p>
+</blockquote>
+<blockquote>
+<p>注意：用上面两款工具需要安装pyhton程序</p>
+</blockquote>
+<h1 id="大内存的应用"><a href="#大内存的应用" class="headerlink" title="大内存的应用"></a>大内存的应用</h1><blockquote>
+<p>stream模块用于处理大文件</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>前端 基础 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-常用的语义化标签有哪些"><span class="toc-text">1.常用的语义化标签有哪些</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-清除浮动的方式有哪些"><span class="toc-text">2.清除浮动的方式有哪些</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">前端 基础</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2019-03-11</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>前端 基础</p>
+</blockquote>
+<a id="more"></a> 
+<h3 id="1-常用的语义化标签有哪些"><a href="#1-常用的语义化标签有哪些" class="headerlink" title="1.常用的语义化标签有哪些"></a>1.常用的语义化标签有哪些</h3><ul>
+<li><strong>header</strong>  <strong>nav</strong>  <strong>main</strong> <strong>article</strong> <strong>section</strong> <strong>aside</strong> <strong>footer</strong> 等</li>
+</ul>
+<h3 id="2-清除浮动的方式有哪些"><a href="#2-清除浮动的方式有哪些" class="headerlink" title="2.清除浮动的方式有哪些"></a>2.清除浮动的方式有哪些</h3><ul>
+<li>1、父级div定义伪类：after和zoom</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=<span class="string">"text/css"</span>&gt; </span><br><span class="line">   .div1&#123;background:#000080;border:1px solid red;&#125;</span><br><span class="line">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span><br><span class="line">   </span><br><span class="line">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span><br><span class="line">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/*清除浮动代码*/</span></span><br><span class="line">   .clearfloat:after&#123;<span class="attr">display</span>:block;clear:both;content:<span class="string">""</span>;visibility:hidden;height:<span class="number">0</span>&#125;</span><br><span class="line">   .clearfloat&#123;<span class="attr">zoom</span>:<span class="number">1</span>&#125;</span><br><span class="line">   &lt;<span class="regexp">/style&gt; </span></span><br><span class="line"><span class="regexp">&lt;div class="div1 clearfloat"&gt; </span></span><br><span class="line"><span class="regexp">&lt;div class="left"&gt;Left&lt;/</span>div&gt; </span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"right"</span>&gt;Right&lt;<span class="regexp">/div&gt; </span></span><br><span class="line"><span class="regexp">&lt;/</span>div&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"div2"</span>&gt;</span><br><span class="line">   div2</span><br><span class="line">   &lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>2.在结尾处添加空div标签clear:both</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;style type=<span class="string">"text/css"</span>&gt; </span><br><span class="line">   .div1&#123;background:#000080;border:1px solid red&#125;</span><br><span class="line">   .div2&#123;background:#800080;border:1px solid red;height:100px;margin-top:10px&#125;</span><br><span class="line">   </span><br><span class="line">   .left&#123;float:left;width:20%;height:200px;background:#DDD&#125;</span><br><span class="line">   .right&#123;float:right;width:30%;height:80px;background:#DDD&#125;</span><br><span class="line">   </span><br><span class="line">   <span class="comment">/*清除浮动代码*/</span></span><br><span class="line">   .clearfloat&#123;<span class="attr">clear</span>:both&#125;</span><br><span class="line">   &lt;<span class="regexp">/style&gt; </span></span><br><span class="line"><span class="regexp">&lt;div class="div1"&gt; </span></span><br><span class="line"><span class="regexp">&lt;div class="left"&gt;Left&lt;/</span>div&gt; </span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"right"</span>&gt;Right&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div class="clearfloat"&gt;&lt;/</span>div&gt;</span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;div class="div2"&gt;</span></span><br><span class="line"><span class="regexp">   div2</span></span><br><span class="line"><span class="regexp">   &lt;/</span>div&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>父元素设置 overflow：hidden</strong></p>
+</li>
+<li><p><strong>父元素也设置浮动</strong></p>
+</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>git温习 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常用的命令"><span class="toc-text">常用的命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令查看"><span class="toc-text">命令查看</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-GIT-（工作区-暂存区-版本git-clone-url-：-取远git-status（查看当前状态）-取代码之后本地代码哪些发生改变"><span class="toc-text">1. GIT （工作区/暂存区/版本git clone [url] ： 取远git status（查看当前状态） 取代码之后本地代码哪些发生改变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4、删除："><span class="toc-text">4、删除：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5、多人协作解决冲突：同步更新远程仓库里面的代码"><span class="toc-text">5、多人协作解决冲突：同步更新远程仓库里面的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6、分支"><span class="toc-text">6、分支</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#标签"><span class="toc-text">标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建分支"><span class="toc-text">创建分支</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">git温习</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-10-08</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>Git是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+</blockquote>
+ <a id="more"></a>   
+
+<p>#安装<br>    需要下载:Git-2.10.0-64-bit.exe</p>
+<p>#配置<br>    ssh 配置：Git GUI — 帮助 —show ssh key–拷贝<br>    进入 github – 右上角 – setting – SSH and GPG keys<br>    利用命令:ssh-keygen -t rsa -C “你的邮箱”</p>
+<p>##配置个人用户信息和电子邮件地址</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name “ ”</span><br><span class="line">git config --global user.email “ ”</span><br><span class="line">git config --list (查看所有配置项)</span><br><span class="line">git commit --amend --author=<span class="string">'Your Name '</span> 修改用户名</span><br></pre></td></tr></table></figure>
+
+<h1 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h1><h3 id="命令查看"><a href="#命令查看" class="headerlink" title="命令查看"></a>命令查看</h3><pre><code>git config --list</code></pre><h3 id="1-GIT-（工作区-暂存区-版本git-clone-url-：-取远git-status（查看当前状态）-取代码之后本地代码哪些发生改变"><a href="#1-GIT-（工作区-暂存区-版本git-clone-url-：-取远git-status（查看当前状态）-取代码之后本地代码哪些发生改变" class="headerlink" title="1. GIT （工作区/暂存区/版本git clone [url] ： 取远git status（查看当前状态） 取代码之后本地代码哪些发生改变"></a>1. GIT （工作区/暂存区/版本git clone [url] ： 取远git status（查看当前状态） 取代码之后本地代码哪些发生改变</h3><p>git  add filename（将文件从工作区添加到暂存区）<br>git add .（上面的简写，所有的文件）<br>git commit -m “注释” （将缓存区的文件放到版本区）<br>git reset HEAD filename 撤销操作：将 filename 从暂存区撤回到工作区。<br>git remote 获取远程仓库的名称 origin（远程仓库的名称可以修改的）<br>git remote -v 获取远程仓库的地址这里写代码片<br>git push origin master(分支) 将本地资源同步到远程仓库2、例如：工作区的文件删除了，可以通过此命令还原 checkout commit_id （commit_id log 信息 id 名称。）<br>git log 日志 操作情况<br>git ls-files：查看暂存区的文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">### 3、对比：查看三个分区的差异</span><br><span class="line"></span><br><span class="line">​``` bash</span><br><span class="line">git diff 对比的是工作区和暂存区代码的不同</span><br><span class="line">git diff --cached（--staged） 对比的是暂存区与版本库代码的不同</span><br><span class="line">git diff master 对比的是工作区与版本库代码的不同</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、删除："><a href="#4、删除：" class="headerlink" title="4、删除："></a>4、删除：</h3><pre><code>git rm filename 删除暂存区的文件，前提是工作区已经删除此文件了。
+git rm -f filename 删除暂存区和工作区的文件。
+git rm --cached filename 删除暂存区的文件，不会删除工作区。</code></pre><h3 id="5、多人协作解决冲突：同步更新远程仓库里面的代码"><a href="#5、多人协作解决冲突：同步更新远程仓库里面的代码" class="headerlink" title="5、多人协作解决冲突：同步更新远程仓库里面的代码"></a>5、多人协作解决冲突：同步更新远程仓库里面的代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git fetch 将远程中的代码与本地代码手动合并</span><br><span class="line">git fetch 显示冲突</span><br><span class="line">git diff master origin/master 对比代码 显示区别</span><br><span class="line">git merge origin/master 手动合并</span><br><span class="line">git pull 将远程中的代码与本地代码自动合并(commit)</span><br></pre></td></tr></table></figure>
+
+<h3 id="6、分支"><a href="#6、分支" class="headerlink" title="6、分支"></a>6、分支</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">git branch 查看分支</span><br><span class="line">git branch new1 创建分支</span><br><span class="line">git checkout new1 切换分支</span><br><span class="line">git merge new1 合并分支</span><br><span class="line">git checkout -b new2 创建并切换分支（组合的写法）</span><br><span class="line">git branch --merged 查看当前分支下合并的分支</span><br><span class="line">git branch --no-merged 查看当前分支下没有合并的分支</span><br><span class="line">git branch -d new1 删除一个与当前分支合并下的分支。</span><br><span class="line">git branch -D new2 强制删除一个本地分支</span><br><span class="line">git push origin :branchname 删除远程创库的分支。</span><br></pre></td></tr></table></figure>
+
+<h1 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git tag v1.0</span><br><span class="line">git push origin v1.0</span><br></pre></td></tr></table></figure>
+
+<h1 id="创建分支"><a href="#创建分支" class="headerlink" title="创建分支"></a>创建分支</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git branch new1</span><br><span class="line">git push origin master</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

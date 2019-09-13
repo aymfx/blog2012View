@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记13 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#构建WebSocket服务"><span class="toc-text">构建WebSocket服务</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#websocket与传统的http优势"><span class="toc-text">websocket与传统的http优势</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSocket握手"><span class="toc-text">WebSocket握手</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSocket数据传输"><span class="toc-text">WebSocket数据传输</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络服务与安全"><span class="toc-text">网络服务与安全</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#TLS-SSL"><span class="toc-text">TLS/SSL</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记13</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-12</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="构建WebSocket服务"><a href="#构建WebSocket服务" class="headerlink" title="构建WebSocket服务"></a>构建WebSocket服务</h1><blockquote>
+<p>websocket基于事件编程的编程模型与node自定义事件相差无几,node的事件驱动十分商场与大量客户端保持高并发得连接</p>
+</blockquote>
+<h2 id="websocket与传统的http优势"><a href="#websocket与传统的http优势" class="headerlink" title="websocket与传统的http优势"></a>websocket与传统的http优势</h2><ul>
+<li>客户端与服务端只建立一个tcp连接，可以使用更少的连接</li>
+<li>websocket服务器可以推送数据到客户端，这远比http请求响应模式更加灵活，更加高效</li>
+<li>有更轻量级的协议头，减少数据传输量</li>
+</ul>
+<blockquote>
+<p>websocket客户端实例</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> socket = <span class="keyword">new</span> WebSocket(<span class="string">'ws://127.0.0.1:1366/updates'</span>);</span><br><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    setInterval(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(socket.bufferedAmount == <span class="number">0</span>)</span><br><span class="line">                socket.send(getUpdateData());</span><br><span class="line">        &#125;,<span class="number">50</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">socket.onmessage = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//做些啥</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>WebSocket协议主要两个部分：握手和传输数据</p>
+</blockquote>
+<h2 id="WebSocket握手"><a href="#WebSocket握手" class="headerlink" title="WebSocket握手"></a>WebSocket握手</h2><blockquote>
+<p>客户端在建立连接的时候，通过http发送请求报文，它比普通的http请求协议多了以下两个东西,表示服务端协议升级为WebSocket</p>
+<ul>
+<li>Upgrade:websocket</li>
+<li>Connection:Upgrade</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>还有三个特别参数</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a2.png" alt="流程图"></p>
+<ul>
+<li>Sec-WebSocket-Key:用于安全校验</li>
+</ul>
+<blockquote>
+<p>它的属性值用base64编码，服务器收到后与他自己的字符串进行相连，然后通过sha1安全散列算法计算出结果后，在进行base64编码，最后返回客户端，算法如下<br>var crypto = require(“crypto”);<br>var val = crypto.createHash(‘sha1’).update(key).digest(‘base64’);</p>
+</blockquote>
+<ul>
+<li>Sec-WebSocket-Protocol:指定自协议</li>
+<li>Sec-WebSocket-Version：版本号</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//示例代码，跑不起来</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//client.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> WebSocket = <span class="function"><span class="keyword">function</span> (<span class="params">url</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//伪代码，解析ws://127.0.0.1:12010/updates,用于请求</span></span><br><span class="line">    <span class="keyword">this</span>.options = parseUrl(url);</span><br><span class="line">    <span class="keyword">this</span>.connect();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">WebSocket.prototype.onopen = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"干嘛的"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">WebSocket.prototype.setSocket = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">this</span> = that;</span><br><span class="line">    <span class="keyword">var</span> key = <span class="keyword">new</span> BUffer(<span class="keyword">this</span>.options.protocolVersion+<span class="string">'-'</span>+<span class="built_in">Date</span>.now()).toString(<span class="string">'base64'</span>);</span><br><span class="line">    <span class="keyword">var</span> shasum = crypto.createHash(<span class="string">'sha1'</span>);</span><br><span class="line">    <span class="keyword">var</span> expected = shasum.update(key+<span class="string">'258EAFA5-E914-47DA-95CA-C5ABoDC85B11'</span>).digest(<span class="string">'base64'</span>);</span><br><span class="line">    <span class="keyword">var</span> options = &#123;</span><br><span class="line">        port:<span class="keyword">this</span>.options.port,</span><br><span class="line">        host:<span class="keyword">this</span>.options.hostname,</span><br><span class="line">        headers: &#123;</span><br><span class="line">            <span class="string">'Connection'</span>:<span class="string">'Upgrade'</span>,</span><br><span class="line">            <span class="string">'Upgrade'</span>:<span class="string">'websocket'</span>,</span><br><span class="line">            <span class="string">'Sec-WebSocket-Version'</span>:<span class="keyword">this</span>.options.protocolVersion,</span><br><span class="line">            <span class="string">'Sec-WebSocket-Key'</span>:key</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">var</span> req = http.request(options);</span><br><span class="line">    req.end();</span><br><span class="line">    req.on(<span class="string">'upgrade'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">res,socket,upgradeHead</span>)</span>&#123;</span><br><span class="line">        <span class="comment">//连接成功</span></span><br><span class="line">        that.setSocket(socket);</span><br><span class="line">        <span class="comment">//触发open事件</span></span><br><span class="line">        that.onopen();</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//server.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">var</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</span><br><span class="line"><span class="keyword">var</span> server=http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html;charset=utf-8'</span> &#125;);</span><br><span class="line">    res.write(<span class="string">'在学习'</span>);</span><br><span class="line">    res.write(<span class="string">'mess'</span>);</span><br><span class="line">    res.end(<span class="string">"node"</span>);</span><br><span class="line"></span><br><span class="line">&#125;).listen(<span class="number">12010</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在收到upgrade请求后，告之客户端允许切换协议</span></span><br><span class="line">server.on(<span class="string">'upgrade'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">req,socket,upgradeHead</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> head = <span class="keyword">new</span> Buffer(upgradeHead.length);</span><br><span class="line">    upgradeHead.copy(head);</span><br><span class="line">    <span class="keyword">var</span> key = req.headers[<span class="string">'sec-websocket-key'</span>];</span><br><span class="line">    <span class="keyword">var</span> shasum = crypto.createHash(<span class="string">'sha1'</span>);</span><br><span class="line">    key = shasum.update(key+<span class="string">'258EAFA5-E914-47DA-95CA-C5ABoDC85B11'</span>).digest(<span class="string">'base64'</span>);</span><br><span class="line">    <span class="keyword">var</span> headers = [</span><br><span class="line">        <span class="string">'HTTP/1.1 101 SWitching Protocols'</span>,</span><br><span class="line">        <span class="string">'Upgrade:websocket'</span>,</span><br><span class="line">        <span class="string">'Connection:Upgrade'</span>,</span><br><span class="line">        <span class="string">'Sec-WebSocket-Accept:'</span>+key,</span><br><span class="line">        <span class="string">'Sec-WebSocket-Protocol:'</span>+protocol</span><br><span class="line">    ];</span><br><span class="line">    <span class="comment">//让数据立即发送</span></span><br><span class="line">    socket.setNoDelay(<span class="literal">true</span>);</span><br><span class="line">    socket.write(headers.concat(<span class="string">''</span>,<span class="string">''</span>).join(<span class="string">'\r\n'</span>));</span><br><span class="line">    <span class="comment">// 建立服务器端的WebSocket连接</span></span><br><span class="line">    <span class="keyword">var</span> websocket = <span class="keyword">new</span> WebSocket();</span><br><span class="line">    websocket.setSocket(socket);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="WebSocket数据传输"><a href="#WebSocket数据传输" class="headerlink" title="WebSocket数据传输"></a>WebSocket数据传输</h2><blockquote>
+<p>完成握手后，就不在进行http交互，而是开始WebSocket的数据帧协议，实现客户端与服务端的数据交互  示意图如下</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a8.png" alt="流程图"></p>
+<blockquote>
+<p>握手完成后将会触发onopen()</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">socket.onopen = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">//<span class="doctag">TODO:</span>opened()</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>由于服务端没有onopen()方法可言,为了完成TCP套接字到websocket事件的封装，需要在接收数据时处理，websocket的数据帧协议即是在底层data事件上封装完成的</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接收</span></span><br><span class="line">WebSocket.prototype.setSocket = <span class="function"><span class="keyword">function</span> (<span class="params">socket</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.socket = socket;</span><br><span class="line">    <span class="keyword">this</span>.socket.on(<span class="string">'data'</span>,<span class="keyword">this</span>.receiver);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//发送</span></span><br><span class="line"></span><br><span class="line">WebSocket.prototype.send = <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>._send(data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="网络服务与安全"><a href="#网络服务与安全" class="headerlink" title="网络服务与安全"></a>网络服务与安全</h1><blockquote>
+<p>node 提供了3个模块，分别是crypto,tls,https,其中crypto主要用于加密解密，SHA！,md5等加密算法在其中都有体现，真正用于网络层的是另外两个,tls提供了与net类似的功能，区别在于建立tls/ssl加密的tcp连接上，对于https而言，他与http接口一致，只是多了安全连接。</p>
+</blockquote>
+<h2 id="TLS-SSL"><a href="#TLS-SSL" class="headerlink" title="TLS/SSL"></a>TLS/SSL</h2><blockquote>
+<p>秘钥之间的加密解密。是非对称结构，如图所示</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a8.png" alt="流程图"></p>
+<blockquote>
+<p>利用node底层opensll生成私钥和公钥</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器 私钥</span></span><br><span class="line">openssl genrsa -out server.key <span class="number">1024</span></span><br><span class="line"><span class="comment">//服务器 公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> server.key -pubout -out server.pem</span><br><span class="line"><span class="comment">//客户端 私钥</span></span><br><span class="line">openssl genrsa -out client.key <span class="number">1024</span></span><br><span class="line"><span class="comment">//客户端 公钥</span></span><br><span class="line">openssl rsa -<span class="keyword">in</span> client.key -pubout -out client.pem</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>依然存在中间人伪造站点的情况</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a10.png" alt="流程图"></p>
+<blockquote>
+<p>数字证书解决这一波问题，详情自己百度，我就简单的写写</p>
+</blockquote>
+<ul>
+<li>为了得到签名证书，服务器端需要通过自己的的私钥生成csr文件。ca机构将通过这个文件颁发属于该服务器端的签名证书，只要通过ca机构的就能验证证书是否合法</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

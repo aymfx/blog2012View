@@ -1,0 +1,710 @@
+body {
+  background-color: #f2f2f2;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  margin: 0;
+  padding-top: 84px;
+}
+a,
+abbr,
+acronym,
+address,
+applet,
+big,
+blockquote,
+body,
+caption,
+cite,
+code,
+dd,
+del,
+dfn,
+div,
+dl,
+dt,
+em,
+fieldset,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+html,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+object,
+ol,
+p,
+pre,
+q,
+s,
+samp,
+small,
+span,
+strike,
+strong,
+sub,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+tr,
+tt,
+ul,
+var {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+.article-container figure.highlight.js table:before {
+  content: "js";
+}
+.article-container figure.highlight.javascript table:before {
+  content: "javascript";
+}
+.article-container figure.highlight.python table:before {
+  content: "python";
+}
+.article-container figure.highlight.ruby table:before {
+  content: "ruby";
+}
+.article-container figure.highlight.xml table:before {
+  content: "xml";
+}
+.article-container figure.highlight.html table:before {
+  content: "html";
+}
+.article-container figure.highlight.css table:before {
+  content: "css";
+}
+.article-container figure.highlight.perl table:before {
+  content: "perl";
+}
+.article-container figure.highlight.sql table:before {
+  content: "sql";
+}
+.article-container figure.highlight.coffeescript table:before {
+  content: "coffeescript";
+}
+.article-container figure.highlight.java table:before {
+  content: "java";
+}
+.article-container figure.highlight.scala table:before {
+  content: "scala";
+}
+.article-container figure.highlight.kotlin table:before {
+  content: "kotlin";
+}
+.article-container figure.highlight.c table:before {
+  content: "c";
+}
+.article-container figure.highlight.c\+\+ table:before {
+  content: "c\+\+";
+}
+.article-container figure.highlight.go table:before {
+  content: "go";
+}
+.article-container figure.highlight.less table:before {
+  content: "less";
+}
+.article-container figure.highlight.sass table:before {
+  content: "sass";
+}
+.article-container figure.highlight.scss table:before {
+  content: "scss";
+}
+.article-container figure.highlight.stylus table:before {
+  content: "stylus";
+}
+.article-container figure.highlight.styl table:before {
+  content: "styl";
+}
+.article-container figure.highlight.typescript table:before {
+  content: "typescript";
+}
+.article-container figure.highlight.ts table:before {
+  content: "ts";
+}
+.article-container figure.highlight.bash table:before {
+  content: "bash";
+}
+.article-container figure.highlight.yml table:before {
+  content: "yml";
+}
+.article-container figure.highlight.gradle table:before {
+  content: "gradle";
+}
+.article-container pre,
+.article-container .highlight {
+  overflow: auto;
+  margin: 1rem 0;
+  padding: 0;
+  padding-top: 1.4rem;
+  background: #282c34;
+  color: #90a4ae;
+  font-size: $code-font-size;
+  line-height: $line-height-code-block;
+}
+figure.highlight {
+  position: relative;
+}
+blockquote {
+  margin: 0;
+  padding: 0 0.6rem;
+  border-left: 0.2rem solid $blockquote-padding-color;
+  color: $blockquote-color;
+}
+.article-container pre,
+.article-container code {
+  font-family: $code-font !important;
+}
+.article-container code {
+  padding: 0.1rem 0.2rem;
+  background: $code-background;
+  color: $code-foreground;
+  word-wrap: break-word;
+  font-size: $code-font-size;
+}
+.article-container pre code {
+  padding: 0;
+  background: none;
+  color: #90a4ae;
+  text-shadow: none;
+}
+.article-container .highlight {
+  position: relative;
+  border-radius: 1px;
+}
+.article-container .highlight:after {
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  min-width: 100%;
+  height: 1.4rem;
+  background: #1d2026;
+  content: "";
+}
+.article-container .highlight pre {
+  margin: 0;
+  padding: 8px 0;
+  border: none;
+}
+.article-container .highlight .line::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container .highlight table {
+  position: relative;
+  margin: 0;
+  width: auto;
+  border: none;
+}
+.article-container .highlight table:before {
+  position: absoulte;
+  z-index: 1;
+  display: inline-block;
+  margin-top: -1.4rem;
+  padding: 0 0.7rem;
+  width: 5rem;
+  color: #90a4ae;
+  content: "Code";
+  font-weight: bold;
+  font-size: 0.8rem;
+  line-height: 1.4rem;
+}
+.article-container .highlight table:after {
+  position: absolute;
+  top: -1.4rem;
+  z-index: 0;
+  width: 100%;
+  height: 1.4rem;
+  background: #1d2026;
+  content: "";
+}
+.article-container .highlight td {
+  padding: 0;
+  border: none;
+}
+.article-container .highlight figcaption {
+  position: absolute;
+  z-index: 1;
+  margin-bottom: 1em;
+  padding: 0.2em 0 0.2em 0.7rem;
+  width: 100%;
+  height: 1.4em;
+  color: #90a4ae;
+  font-size: 1em;
+  line-height: 1em;
+}
+.article-container .highlight figcaption span {
+  float: left;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.article-container .highlight figcaption a {
+  float: right;
+  padding-right: 10px;
+  color: #90a4ae;
+}
+.article-container .highlight figcaption a:hover {
+  border-bottom-color: #90a4ae;
+}
+.article-container .highlight figcaption+table {
+  margin-top: 1em;
+}
+.article-container .highlight figcaption+table:before {
+  margin-top: -2.1rem;
+}
+.article-container .highlight figcaption+table:after {
+  top: -2.1rem;
+}
+.article-container .highlight .gutter pre {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  background-color: #282c34;
+  color: #cfd8dc;
+  text-align: right;
+}
+.article-container .highlight .code pre {
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  width: 100%;
+  background-color: #282c34;
+}
+.article-container .highlight .line {
+  height: 1rem;
+}
+.article-container .gutter {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+.article-container .gist table {
+  width: auto;
+}
+.article-container .gist table td {
+  border: none;
+}
+.article-container pre .deletion {
+  background: #fdd;
+}
+.article-container pre .addition {
+  background: #dfd;
+}
+.article-container pre .meta {
+  color: #7c4dff;
+}
+.article-container pre .comment {
+  color: rgba(144,164,174,0.565);
+}
+.article-container pre .comment::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .variable,
+.article-container pre .attribute,
+.article-container pre .regexp,
+.article-container pre .ruby .constant,
+.article-container pre .xml .tag .title,
+.article-container pre .xml .pi,
+.article-container pre .xml .doctype,
+.article-container pre .html .doctype,
+.article-container pre .css .id,
+.article-container pre .tag .name,
+.article-container pre .css .class,
+.article-container pre .css .pseudo {
+  color: #e53935;
+}
+.article-container pre .variable::selection,
+.article-container pre .attribute::selection,
+.article-container pre .regexp::selection,
+.article-container pre .ruby .constant::selection,
+.article-container pre .xml .tag .title::selection,
+.article-container pre .xml .pi::selection,
+.article-container pre .xml .doctype::selection,
+.article-container pre .html .doctype::selection,
+.article-container pre .css .id::selection,
+.article-container pre .tag .name::selection,
+.article-container pre .css .class::selection,
+.article-container pre .css .pseudo::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .tag {
+  color: #39adb5;
+}
+.article-container pre .tag::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .number,
+.article-container pre .preprocessor,
+.article-container pre .literal,
+.article-container pre .params,
+.article-container pre .constant,
+.article-container pre .command {
+  color: #f76d47;
+}
+.article-container pre .number::selection,
+.article-container pre .preprocessor::selection,
+.article-container pre .literal::selection,
+.article-container pre .params::selection,
+.article-container pre .constant::selection,
+.article-container pre .command::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .built_in {
+  color: #ffb62c;
+}
+.article-container pre .built_in::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .ruby .class .title,
+.article-container pre .css .rules .attribute,
+.article-container pre .string,
+.article-container pre .value,
+.article-container pre .inheritance,
+.article-container pre .header,
+.article-container pre .ruby .symbol,
+.article-container pre .xml .cdata,
+.article-container pre .special,
+.article-container pre .number,
+.article-container pre .formula {
+  color: #91b859;
+}
+.article-container pre .ruby .class .title::selection,
+.article-container pre .css .rules .attribute::selection,
+.article-container pre .string::selection,
+.article-container pre .value::selection,
+.article-container pre .inheritance::selection,
+.article-container pre .header::selection,
+.article-container pre .ruby .symbol::selection,
+.article-container pre .xml .cdata::selection,
+.article-container pre .special::selection,
+.article-container pre .number::selection,
+.article-container pre .formula::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .keyword,
+.article-container pre .title,
+.article-container pre .css .hexcolor {
+  color: #39adb5;
+}
+.article-container pre .keyword::selection,
+.article-container pre .title::selection,
+.article-container pre .css .hexcolor::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .function,
+.article-container pre .python .decorator,
+.article-container pre .python .title,
+.article-container pre .ruby .function .title,
+.article-container pre .ruby .title .keyword,
+.article-container pre .perl .sub,
+.article-container pre .javascript .title,
+.article-container pre .coffeescript .title {
+  color: #6182b8;
+}
+.article-container pre .function::selection,
+.article-container pre .python .decorator::selection,
+.article-container pre .python .title::selection,
+.article-container pre .ruby .function .title::selection,
+.article-container pre .ruby .title .keyword::selection,
+.article-container pre .perl .sub::selection,
+.article-container pre .javascript .title::selection,
+.article-container pre .coffeescript .title::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+.article-container pre .tag .attr,
+.article-container pre .javascript .function {
+  color: #7c4dff;
+}
+.article-container pre .tag .attr::selection,
+.article-container pre .javascript .function::selection {
+  background: rgba(128,203,196,0.251);
+  color: #90a4ae;
+}
+#header {
+  height: 64px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.header-main {
+  height: 100%;
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 64px;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eaecef;
+}
+.header-main .outer {
+  display: flex;
+  align-items: center;
+  max-width: 1580px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+.header-main .outer .logo {
+  color: #aaa;
+  font-size: 1.2em;
+  font-family: "Comic Sans MS", cursive, LiSu, sans-serif;
+  text-decoration: none;
+}
+.header-main .outer:before,
+.header-main .outer:after {
+  content: "";
+  display: table;
+}
+.header-main .outer .navbar {
+  height: 40px;
+  line-height: 40px;
+  padding: 12px 15px;
+}
+.header-main .outer .navbar a {
+  color: #757575;
+  text-decoration: none;
+  float: left;
+  display: block;
+  padding: 0 15px;
+}
+.header-main .outer .navbar a:hover {
+  color: #38b7ea;
+}
+.layout-paginator .page-nav {
+  width: 800px;
+  margin: 20px auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.layout-paginator .page-nav .page-number {
+  width: 34px;
+  height: 34px;
+  border: 1px solid #e1e2e3;
+  cursor: pointer;
+  text-align: center;
+  line-height: 34px;
+  font-size: 12px;
+  margin: 10px;
+  text-decoration: none;
+}
+.layout-paginator .page-nav .extend {
+  height: 34px;
+  padding: 0 18px;
+  border: 1px solid #e1e2e3;
+  line-height: 34px;
+  text-decoration: none;
+  text-align: center;
+}
+.post {
+  width: 800px;
+  margin: 1em auto;
+  padding: 10px 20px;
+  background: #fcfcfc;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 2px #ddd;
+}
+.post .post-title {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.post .post-title a.post-title-link {
+  color: #0097a7;
+  text-decoration: none;
+  font-size: 30px;
+}
+.post .post-title a.post-title-link:hover {
+  border-bottom: 1px solid #aaa;
+  transition: all 0.1s ease;
+  color: #f00;
+}
+.post .post-sub {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post .post-sub span {
+  padding: 0 10px 0 3px;
+}
+.post .post-content {
+  font-size: 14px;
+  line-height: 28px;
+  padding: 10px 0;
+}
+.post .post-content img {
+  width: 100%;
+}
+.post .post-content blockquote {
+  position: static;
+  font-family: Georgia, "Times New Roman", "Microsoft Yahei", serif;
+  font-size: 1.1em;
+  margin: 20px 0px 0;
+  padding: 10px;
+  color: #999;
+  background: transparent;
+  border-left: 4px solid #8eb9f5;
+}
+.post .post-content blockquote p {
+  text-indent: 2em;
+}
+.post .more {
+  text-align: center;
+  margin: 15px 0;
+}
+.post .more a {
+  background: #4996c7;
+  padding: 5px 10px;
+  border-radius: 2px;
+  font-size: 12px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+}
+.post-detail {
+  width: 1200px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+}
+.post-detail .left {
+  flex: 2;
+  width: 200px;
+  background: #fcfcfc;
+  margin-right: 20px;
+  box-sizing: border-box;
+  padding: 20px;
+}
+.post-detail .left h4 {
+  color: #0e83cd;
+  padding: 10px 0;
+  font-family: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.post-detail .left ol {
+  list-style: none;
+}
+.post-detail .left ol li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.post-detail .left ol a {
+  color: #444;
+  line-height: 28px;
+  font-size: 14px;
+  padding: 7px 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.post-detail .left ol a:hover {
+  color: #3eaf7c;
+}
+.post-detail .right {
+  display: block;
+  overflow-y: scroll;
+  height: 90vh;
+  flex: 8;
+  padding: 20px 20px;
+  background: #fcfcfc;
+}
+.post-detail .right .title {
+  color: #3eaf7c;
+  font-size: 28px;
+  margin: 20px auto;
+  text-align: center;
+}
+.post-detail .right .post-meta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.post-detail .right .post-meta i {
+  padding-right: 3px;
+}
+.post-detail .right img {
+  width: 100%;
+}
+.post-detail .right .article-container blockquote {
+  background-color: rgba(255,229,100,0.3);
+  border-color: #e7c000;
+  color: #6b5900;
+  padding: 0.2rem 1.5rem;
+  border-left-width: 0.5rem;
+  border-left-style: solid;
+  margin: 1rem 0;
+}
+.post-detail .right .article-container p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  color: #2c3e50;
+}
+.post-detail .right .article-container h1,
+.post-detail .right .article-container h2,
+.post-detail .right .article-container h3,
+.post-detail .right .article-container h4,
+.post-detail .right .article-container h5,
+.post-detail .right .article-container h6 {
+  font-size: 1.65rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #eaecef;
+}
+.archive {
+  margin: 1em auto;
+  padding: 30px 50px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 2px #ddd;
+}
+.archive .post-archive {
+  list-style: none;
+  padding: 0;
+}
+.archive .post-archive .post-item {
+  margin: 5px 0;
+}
+.archive .post-archive .post-item .post-date {
+  display: inline-block;
+  margin-right: 10px;
+  color: #bababa;
+}
+.archive .post-archive .post-item .post-title {
+  color: #368ccb;
+  text-decoration: none;
+}

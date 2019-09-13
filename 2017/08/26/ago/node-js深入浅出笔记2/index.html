@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记2 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#node异步-I-O"><span class="toc-text">node异步 I/O</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#事件循环"><span class="toc-text">事件循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#观察者"><span class="toc-text">观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求对象"><span class="toc-text">请求对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#执行回调-如图所示"><span class="toc-text">执行回调 如图所示</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#非I-O的异步API"><span class="toc-text">非I/O的异步API</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件驱动与高性能服务器"><span class="toc-text">事件驱动与高性能服务器</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记2</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-26</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="node异步-I-O"><a href="#node异步-I-O" class="headerlink" title="node异步 I/O"></a>node异步 I/O</h1><h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><blockquote>
+<p>进程启动时，node会创建一个类似于while(true)的循环，每次执行一次循环我们称为tick，每个tick过程就是查看是否有事件待处理，有就取出相关的回调函数，存在回调就执行，否则让进入下个循环</p>
+</blockquote>
+<blockquote>
+<p>如图所示</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/fileImage/day20170826.png" alt="流程图"></p>
+<h2 id="观察者"><a href="#观察者" class="headerlink" title="观察者"></a>观察者</h2><blockquote>
+<p>监听每个事件处理，需要一个或者多个观察者，有观察者确定事件是否要被处理。事件循环是一个典型的生产者/消费者模型,异步i/o，网络请求等则是事件的生产者，源源不断的提供node不同类型的事件，这些事件被传递到观察者哪里，事件循环则是从观察者哪里取出事件并且处理</p>
+</blockquote>
+<blockquote>
+<p>win 基于IOCP linux基于多线程</p>
+</blockquote>
+<h2 id="请求对象"><a href="#请求对象" class="headerlink" title="请求对象"></a>请求对象</h2><blockquote>
+<p>node中的异步i/o调用而言，回调函数不是由开发者调用，实际上是javascript发起调用到内核执行完i/o操作的过度产物中，存在一种中间产物，他叫做请求对象，所有状态都保存在这个对象中，包括送入线程池等待执行以及i/o操作完毕后的回调函数</p>
+</blockquote>
+<h2 id="执行回调-如图所示"><a href="#执行回调-如图所示" class="headerlink" title="执行回调 如图所示"></a>执行回调 如图所示</h2><p><img src="https://aymfx.github.io/img/fileImage/day2017082602.png" alt="流程图"></p>
+<blockquote>
+<p>事件循环 观察者 请求对象 I/O线程池共同构成了node异步i/o模型的基本要素</p>
+</blockquote>
+<blockquote>
+<p>小结:JavaScript是单线程，但是node本身是多线程。除了用户自身的代码无法并行执行外，其他的i/o都是可以并行的</p>
+</blockquote>
+<h2 id="非I-O的异步API"><a href="#非I-O的异步API" class="headerlink" title="非I/O的异步API"></a>非I/O的异步API</h2><blockquote>
+<p>他们是 setTimeout()  setInterval() setImmediate()  process.nextTick()</p>
+</blockquote>
+<blockquote>
+<p>setTimeout 与setInterval() 与浏览器api一致，他们不需要i/o线程池的参加,下面是图示</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/fileImage/day2017082603.png" alt="流程图"></p>
+<blockquote>
+<p>process.nextTick(callback) 类似setTimeout 但是执行效率比较高</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">process.nextTick = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(process._exiting) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(tickDepth &gt;=process.maxTickDepth)</span><br><span class="line">        maxTickWarn();</span><br><span class="line">    <span class="keyword">var</span> tock = &#123;<span class="attr">callback</span> : callback&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(process.domain) tock.domain = process.domain;</span><br><span class="line">    nextTickQueue.push(tock);</span><br><span class="line">    <span class="keyword">if</span>(nextTickQueue.length)&#123;</span><br><span class="line">        process._needTickCallback();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>setImmediate() 类似于process.nextTick() 都是将函数延迟执行</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"正常执行"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//正常执行</span></span><br><span class="line"><span class="comment">//延迟执行</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//两者的优先级</span></span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行setImmediate"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行nextTick"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"正常执行"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正常执行</span></span><br><span class="line"><span class="comment">// 延迟执行nextTick</span></span><br><span class="line"><span class="comment">// 延迟执行setImmediate</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>事件循环是有先后顺序的 process.nextTick()属于idle观察者,setImmediate()属于check观察者  idle优于观察者i/o优于观察者check</p>
+</blockquote>
+<blockquote>
+<p>process.nextTick()回调函数保存在数组中，每轮循环回到函数全部执行完，而setImmediate()保存在链表中，每轮循环中执行链表中的一个回调函数  一下就是例子,好像不对，运行结果有问题啊</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行nextTick1"</span>);</span><br><span class="line">    </span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行nextTick2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行setImmediate1"</span>);</span><br><span class="line"></span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"我也执行l "</span>);</span><br><span class="line">&#125;)</span><br><span class="line">&#125;)  </span><br><span class="line"></span><br><span class="line">setImmediate(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"延迟执行setImmediate2"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"正常执行"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 正常执行</span></span><br><span class="line"><span class="comment">// 延迟执行nextTick1</span></span><br><span class="line"><span class="comment">// 延迟执行nextTick2</span></span><br><span class="line"><span class="comment">// 延迟执行setImmediate1</span></span><br><span class="line"><span class="comment">// 延迟执行setImmediate2</span></span><br><span class="line"><span class="comment">// 我也执行l</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="事件驱动与高性能服务器"><a href="#事件驱动与高性能服务器" class="headerlink" title="事件驱动与高性能服务器"></a>事件驱动与高性能服务器</h2><blockquote>
+<p>利用node构建的服务器，基于以下实现</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/fileImage/day2017082604.png" alt="流程图"></p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

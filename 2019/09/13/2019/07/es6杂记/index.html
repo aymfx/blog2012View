@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>es6杂记 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#let-和const"><span class="toc-text">let 和const</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量的解构赋值"><span class="toc-text">变量的解构赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型的扩展"><span class="toc-text">数据类型的扩展</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Symbol"><span class="toc-text">Symbol</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set-和-Map结构"><span class="toc-text">Set 和 Map结构</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">es6杂记</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2019-09-13</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>es6杂记</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h2 id="let-和const"><a href="#let-和const" class="headerlink" title="let 和const"></a>let 和const</h2><ul>
+<li>let 和const存在块级作用域</li>
+<li>let和const不存在变量提升</li>
+<li>let和const会存在TDZ也就是临时性死区</li>
+<li>let和const不允许重复声明变量</li>
+<li>const可以声明常量，不可改变的量</li>
+<li>const在对象中不可改变的是指针，但是它的数据结构是可变的</li>
+<li>let和const声明的对象都不会挂在到顶级对象上</li>
+</ul>
+<h2 id="变量的解构赋值"><a href="#变量的解构赋值" class="headerlink" title="变量的解构赋值"></a>变量的解构赋值</h2><ul>
+<li>满足解构赋值的必须是可迭代的数据结构(iterator)</li>
+<li>结构不成功的变量的值为undefined</li>
+<li>ES6 内部使用严格相等运算符（<code>===</code>），判断一个位置是否有值。所以，只有当一个数组成员严格等于<code>undefined</code>，默认值才会生效</li>
+<li>如果默认值是一个表达式，那么这个表达式是惰性求值的，即只有在用到的时候，才会求值</li>
+<li>如果是对象的结构赋值，设置默认变量的话，真正赋值的将是默认变量，对应的变量将变成模式</li>
+<li>非赋值语句的声明语句与模式都不能使用圆括号，赋值语句的非模式能使用圆括号</li>
+</ul>
+<h2 id="数据类型的扩展"><a href="#数据类型的扩展" class="headerlink" title="数据类型的扩展"></a>数据类型的扩展</h2><ul>
+<li><p>模板函数 、标签模板、String.raw()</p>
+</li>
+<li><p>Stirng新增的方法</p>
+<ul>
+<li>String.fromCodePoint()</li>
+<li>String.startsWith()</li>
+<li>Stirng.endsWith()</li>
+<li>Stirng.repeat()</li>
+<li>String.padStart()</li>
+<li>String.padEnd()</li>
+<li>String.trimStart()</li>
+<li>String.trimEnd()</li>
+</ul>
+</li>
+<li><p>数值的扩展</p>
+<ul>
+<li><p>二进制表示 0b 八进制便是 0o</p>
+</li>
+<li><p>Number.isFinite()</p>
+</li>
+<li><p>Number.isNaN()</p>
+<p> 它们与传统的全局方法<code>isFinite()</code>和<code>isNaN()</code>的区别在于，传统方法先调用<code>Number()</code>将非数值的值转为数值，再进行判断，而这两个新方法只对数值有效，<code>Number.isFinite()</code>对于非数值一律返回<code>false</code>, <code>Number.isNaN()</code>只有对于<code>NaN</code>才返回<code>true</code>，非<code>NaN</code>一律返回<code>false</code>。</p>
+</li>
+<li><p>Number.parseInt()</p>
+</li>
+<li><p>Number.parseFloat()</p>
+</li>
+<li><p>Number.isInteger()</p>
+</li>
+<li><p>Number.EPSILON</p>
+</li>
+<li><p>Number.isSafeInteger()</p>
+</li>
+<li><p>Number.MAX_SAFE_INTEGER</p>
+</li>
+<li><p>Number.MIN_SAFE_INTEGER</p>
+</li>
+<li><p>Math.trunc()</p>
+</li>
+<li><p>Math.sign()</p>
+</li>
+</ul>
+</li>
+<li><p>函数的扩展</p>
+<ul>
+<li>可以指定默认值</li>
+<li>参数变量是默认声明的，所以不能用<code>let</code>或<code>const</code>再次声明</li>
+<li>与解构赋值默认值结合使用</li>
+<li>指定了默认值后，<code>length</code>属性将失真</li>
+<li>ES6 引入 rest 参数（形式为<code>...变量名</code>），用于获取函数的多余参数，这样就不需要使用<code>arguments</code>对象了。rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。</li>
+<li>箭头函数有几个使用注意点<ul>
+<li>（1）函数体内的<code>this</code>对象，就是定义时所在的对象，而不是使用时所在的对象。</li>
+<li>（2）不可以当作构造函数，也就是说，不可以使用<code>new</code>命令，否则会抛出一个错误。</li>
+<li>（3）不可以使用<code>arguments</code>对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。</li>
+<li>（4）不可以使用<code>yield</code>命令，因此箭头函数不能用作 Generator 函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数组的扩展</p>
+<ul>
+<li>Array.from()</li>
+<li>Array.of()</li>
+<li>Array.copyWithin()</li>
+<li>Array.find()</li>
+<li>Array.findIndex()</li>
+<li>fill()</li>
+<li>数组实例的 entries()，keys() 和 values()</li>
+<li>Array.incluedes()</li>
+<li>Array.flat()</li>
+<li>Array.flatMap()</li>
+</ul>
+</li>
+<li><p>对象的新增方法</p>
+<ul>
+<li>Object.is()</li>
+<li>Object.assign()</li>
+<li>Object.getOwnPropertyDescriptor()</li>
+<li>Object.setPrototypeOf()</li>
+<li>Object.getPrototypeOf()</li>
+<li>Object.keys()，Object.values()，Object.entries()</li>
+<li>Object.fromEntries()</li>
+</ul>
+</li>
+</ul>
+<h2 id="Symbol"><a href="#Symbol" class="headerlink" title="Symbol"></a>Symbol</h2><ul>
+<li><p>Symbol生成的类型都是独一无二的</p>
+</li>
+<li><p>Symbol是新增的数据类型</p>
+</li>
+<li><p>Symbol不能用new创建，可以传递参数 参数是它的描述</p>
+</li>
+<li><p>Symbol可以转换成布尔值和字符串，其他不能转</p>
+</li>
+<li><p>Symbol.prototype.description 描述</p>
+</li>
+<li><p>Symbol.for()</p>
+</li>
+<li><p>Symbol.keyFor()</p>
+</li>
+<li><p>Symbol.hasInstance</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">    [<span class="built_in">Symbol</span>.hasInstance](foo)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(foo)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log([<span class="number">12</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] <span class="keyword">instanceof</span> <span class="keyword">new</span> A())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Symbol.isConcatSpreadable</p>
+</li>
+<li><p>Symbol.species</p>
+</li>
+<li><p>Symbol.match</p>
+</li>
+<li><p>Symbol.replace</p>
+</li>
+<li><p>Symbol.search</p>
+</li>
+<li><p>Symbol.split</p>
+</li>
+<li><p>Symbol.iterator</p>
+</li>
+<li><p>Symbol.toPrimitive</p>
+</li>
+<li><p>Symbol.unscopables</p>
+</li>
+</ul>
+<h2 id="Set-和-Map结构"><a href="#Set-和-Map结构" class="headerlink" title="Set 和 Map结构"></a>Set 和 Map结构</h2><ul>
+<li>set的方法有 add 、size 、 has 、 delete 、clear 。</li>
+<li>set列表不能有重复的值 NaN是重复的 5和‘5’不是</li>
+<li>weakSet只能存储对象，他是一个弱引用，当外界对象不存在引用它里面的对象时可能会被清除，因此导致了他不能被遍历</li>
+<li>weakSet有三个方法 add 、delete 、has</li>
+<li>Map的作用类似于对象，但是它的key可以是任意的类型</li>
+<li>Map的方法有 : size 、 set、get、has、delete、clear</li>
+<li>wekMap只接受对象作为key，null除外</li>
+<li>WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。</li>
+<li><code>WeakMap</code>只有四个方法可用：<code>get()</code>、<code>set()</code>、<code>has()</code>、<code>delete()</code>。</li>
+<li></li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

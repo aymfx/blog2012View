@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react-Lists and Keys | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Rendering-Multiple-Components-如何重复渲染多个组件"><span class="toc-text">Rendering Multiple Components 如何重复渲染多个组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Embedding-map-in-JSX-map-的两种用法"><span class="toc-text">Embedding map() in JSX map 的两种用法</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react-Lists and Keys</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-10</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react-Lists and Keys</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="Rendering-Multiple-Components-如何重复渲染多个组件"><a href="#Rendering-Multiple-Components-如何重复渲染多个组件" class="headerlink" title="Rendering Multiple Components 如何重复渲染多个组件"></a>Rendering Multiple Components 如何重复渲染多个组件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//生成无序列表</span><br><span class="line"></span><br><span class="line">function NumberList(props) &#123;</span><br><span class="line">        const numbers = props.numbers;</span><br><span class="line">        const listItems = numbers.map((number) =&gt; &lt;li&gt;&#123;number&#125;&lt;/li&gt;)</span><br><span class="line">         return (</span><br><span class="line">             &lt;ul&gt;</span><br><span class="line">                 &#123;listItems&#125;</span><br><span class="line">             &lt;/ul&gt;</span><br><span class="line">         )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在做循环渲染的时候，控制台会报出 an array or iterator should have a unique “key” prop，我们必须添加一个 key</p>
+</blockquote>
+<blockquote>
+<p>const listItems = numbers.map((number) =&gt; &lt;li <strong>key={number.toString()</strong>}&gt;{number})</p>
+</blockquote>
+<blockquote>
+<p>Keys help React identify which items have changed, are added, or are removed</p>
+</blockquote>
+<blockquote>
+<p>不推荐使用一下方式，因为列表一旦重新，它的效率非常慢</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const todoItems = todos.map((todo, index) =&gt;</span><br><span class="line">  // Only do this if items have no stable IDs</span><br><span class="line">  &lt;li key=&#123;index&#125;&gt;</span><br><span class="line">    &#123;todo.text&#125;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当 li 为根元素时，我们只能把 key 加到组件上</p>
+</blockquote>
+<blockquote>
+<p>Example: Incorrect Key Usage</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function ListItem(props) &#123;</span><br><span class="line">  const value = props.value;</span><br><span class="line">  return (</span><br><span class="line">    // Wrong! There is no need to specify the key here:</span><br><span class="line">    &lt;li key=&#123;value.toString()&#125;&gt;</span><br><span class="line">      &#123;value&#125;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function NumberList(props) &#123;</span><br><span class="line">  const numbers = props.numbers;</span><br><span class="line">  const listItems = numbers.map((number) =&gt;</span><br><span class="line">    // Wrong! The key should have been specified here:</span><br><span class="line">    &lt;ListItem value=&#123;number&#125; /&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;listItems&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const numbers = [1, 2, 3, 4, 5];</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;NumberList numbers=&#123;numbers&#125; /&gt;,</span><br><span class="line">  document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Example: Correct Key Usage</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">function ListItem(props) &#123;</span><br><span class="line">  // Correct! There is no need to specify the key here:</span><br><span class="line">  return &lt;li&gt;&#123;props.value&#125;&lt;/li&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function NumberList(props) &#123;</span><br><span class="line">  const numbers = props.numbers;</span><br><span class="line">  const listItems = numbers.map((number) =&gt;</span><br><span class="line">    // Correct! Key should be specified inside the array.</span><br><span class="line">    &lt;ListItem key=&#123;number.toString()&#125;</span><br><span class="line">              value=&#123;number&#125; /&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;listItems&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const numbers = [1, 2, 3, 4, 5];</span><br><span class="line">ReactDOM.render(</span><br><span class="line">  &lt;NumberList numbers=&#123;numbers&#125; /&gt;,</span><br><span class="line">  document.getElementById(&apos;root&apos;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于 key 值，只有在不同的数组上才能重复使用</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//重复使用Key</span><br><span class="line">class Blog extends Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props)</span><br><span class="line">    this.sidebar =(&lt;ul&gt;&#123;props.posts.map((post) =&gt; &lt;li key=&#123;post.id&#125;&gt;&#123;post.title&#125;&lt;/li&gt;)&#125;&lt;/ul&gt;);</span><br><span class="line">    this.content = props.posts.map((post) =&gt; &lt;div key=&#123;post.id&#125;&gt;&lt;h3&gt;&#123;post.title&#125;&lt;/h3&gt;;&lt;p&gt;&#123;post.content&#125;&lt;/p&gt; &lt;/div&gt;);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render ()&#123;</span><br><span class="line">         return (&lt;div&gt;</span><br><span class="line">             &#123;this.sidebar&#125;</span><br><span class="line">             &lt;hr/&gt;</span><br><span class="line">             &#123;this.content&#125;</span><br><span class="line">         &lt;/div&gt;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const posts = [</span><br><span class="line">    &#123;id: 1, title: &apos;Hello World&apos;, content: &apos;Welcome to learning React!&apos;&#125;,</span><br><span class="line">    &#123;id: 2, title: &apos;Installation&apos;, content: &apos;You can install React from npm.&apos;&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<h1 id="Embedding-map-in-JSX-map-的两种用法"><a href="#Embedding-map-in-JSX-map-的两种用法" class="headerlink" title="Embedding map() in JSX map 的两种用法"></a>Embedding map() in JSX map 的两种用法</h1><blockquote>
+<p>第一种</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function NumberList(props) &#123;</span><br><span class="line">  const numbers = props.numbers;</span><br><span class="line">  const listItems = numbers.map((number) =&gt;</span><br><span class="line">    &lt;ListItem key=&#123;number.toString()&#125;</span><br><span class="line">              value=&#123;number&#125; /&gt;</span><br><span class="line">  );</span><br><span class="line">  return (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;listItems&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二种</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function NumberList(props) &#123;</span><br><span class="line">  const numbers = props.numbers;</span><br><span class="line">  return (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;numbers.map((number) =&gt;</span><br><span class="line">        &lt;ListItem key=&#123;number.toString()&#125;</span><br><span class="line">                  value=&#123;number&#125; /&gt;</span><br><span class="line">      )&#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

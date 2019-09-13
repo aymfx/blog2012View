@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>抽象 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义函数"><span class="toc-text">自定义函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#如何定义一个函数"><span class="toc-text">如何定义一个函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#给函数编写文档"><span class="toc-text">给函数编写文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的返回值"><span class="toc-text">函数的返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数魔法"><span class="toc-text">参数魔法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数"><span class="toc-text">参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域"><span class="toc-text">作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#递归"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数式编程"><span class="toc-text">函数式编程</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">抽象</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2019-01-04</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>这是学习py的记录笔记 没啥参考意义</p>
+</blockquote>
+<a id="more"></a>   
+
+<h2 id="自定义函数"><a href="#自定义函数" class="headerlink" title="自定义函数"></a>自定义函数</h2><blockquote>
+<p>函数执行特定的操作并返回一个值1，你可以调用它(调用时可能需要提供一些参数——放在圆括号中的内容)</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断对象是否可用可以调用内置函数callable</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> math</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>x = <span class="number">2</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>y = math.sqrt</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(x)</span><br><span class="line"><span class="literal">False</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>callable(y)</span><br><span class="line"><span class="literal">True</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="如何定义一个函数"><a href="#如何定义一个函数" class="headerlink" title="如何定义一个函数"></a>如何定义一个函数</h2><blockquote>
+<p>使用def(表示定义函数)语句</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(name)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'hello'</span> + name + <span class="string">'!'</span></span><br><span class="line"></span><br><span class="line">print(hello(<span class="string">'lau'</span>))  <span class="comment"># hellolau!</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 斐波那契函数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fibs</span><span class="params">(num)</span>:</span></span><br><span class="line">    result = [<span class="number">0</span>,<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(num<span class="number">-2</span>):</span><br><span class="line">        result.append(result[<span class="number">-2</span>]+result[<span class="number">-1</span>])</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(fibs(3))  # [0, 1, 1]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="给函数编写文档"><a href="#给函数编写文档" class="headerlink" title="给函数编写文档"></a>给函数编写文档</h2><blockquote>
+<p>放在函数开头的字符串称为文档字符串(docstring)，将作为函数的一部分存储起来</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment"># 文档字符串</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">square</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="string">'这是用来算正方型面积的'</span></span><br><span class="line">    <span class="keyword">return</span> x*x</span><br><span class="line"><span class="comment"># print(square.__doc__)  # 这是用来算正方型面积的</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数的返回值"><a href="#函数的返回值" class="headerlink" title="函数的返回值"></a>函数的返回值</h2><ul>
+<li>return 后面的语句将不会被之行</li>
+<li>return 可以返回一个值</li>
+<li>return后面什么都没将返回None</li>
+</ul>
+<h2 id="参数魔法"><a href="#参数魔法" class="headerlink" title="参数魔法"></a>参数魔法</h2><ul>
+<li>函数后面的变量称为形参，调用函数的值称为实参</li>
+<li>字符串元组是不可变的</li>
+<li>列表是可变的</li>
+</ul>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><ul>
+<li>可以指定参数的名称传值  add( x= 1,y =2)</li>
+<li>也可以指定默认值 def add( x= 1,y =2) </li>
+<li>收集参数  def add(*params)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 收集参数</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_params</span><span class="params">(*params)</span>:</span></span><br><span class="line">    print(params)</span><br><span class="line"></span><br><span class="line">print_params(<span class="string">'sda'</span>,<span class="string">'lau'</span>)<span class="comment"># ('sda', 'lau')</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#默认值</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_params</span><span class="params">(x,*params,z=<span class="number">7</span>)</span>:</span></span><br><span class="line">    print(params)</span><br><span class="line">print_params(<span class="string">'sda'</span>, <span class="string">'lau'</span>, <span class="string">'fix'</span>, z=<span class="number">7</span>) <span class="comment">#('lau', 'fix')</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 收集关键字参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_params</span><span class="params">(**params)</span>:</span></span><br><span class="line">    print(params)</span><br><span class="line"></span><br><span class="line">print_params(x=<span class="number">1</span>,y=<span class="number">2</span>) <span class="comment">#&#123;'x': 1, 'y': 2&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分配参数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_params</span><span class="params">(*params)</span>:</span></span><br><span class="line">    print(params)</span><br><span class="line">count = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">4</span>)</span><br><span class="line">print_params(*count)<span class="comment">#(1,2,4)</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_params</span><span class="params">(**params)</span>:</span></span><br><span class="line">    print(params)</span><br><span class="line">count = &#123;</span><br><span class="line">    <span class="string">"x"</span>:<span class="number">2</span>,</span><br><span class="line">    <span class="string">"y"</span>:<span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line">print_params(**count) <span class="comment">#&#123;'x': 2, 'y': 3&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">x = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">scope = vars()</span><br><span class="line"></span><br><span class="line">print(scope,scope[<span class="string">'x'</span>])</span><br><span class="line"><span class="comment">#&#123;'__name__': '__main__', '__doc__': None, '__package__': None, '__loader__': &lt;_frozen_importlib_external.SourceFileLoader object at 0x1059dc208&gt;, '__spec__': None, '__annotations__': &#123;&#125;, '__builtins__': &lt;module 'builtins' (built-in)&gt;, '__file__': 'fun.py', '__cached__': None, 'hello': &lt;function hello at 0x105904268&gt;, 'fibs': &lt;function fibs at 0x105a24158&gt;, 'square': &lt;function square at 0x105a241e0&gt;, 'x': 1, 'scope': &#123;...&#125;&#125; 1</span></span><br><span class="line">scope[<span class="string">'x'</span>]+=<span class="number">1</span></span><br><span class="line"></span><br><span class="line">print(x) <span class="comment"># 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 作用域分全局变量 以及局部变量</span></span><br><span class="line"><span class="comment"># 当局部变量和全局变量相同时 全局变量将被遮住，如果需要请用函数global访问</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">combine</span><span class="params">(parameter)</span>:</span></span><br><span class="line">    print(parameter+globals()[<span class="string">'parameter'</span>])</span><br><span class="line"></span><br><span class="line">parameter = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">combine(<span class="number">2</span>) <span class="comment">#6</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 作用域嵌套 可以产生闭包</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">closure</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(y)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> x+y</span><br><span class="line">    <span class="keyword">return</span> add</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">newAdd = closure(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">print(newAdd(<span class="number">6</span>)) <span class="comment">#9</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><ul>
+<li>基线条件(针对最小的问题):满足这种条件时函数将直接返回一个值。</li>
+<li>递归条件:包含一个或多个调用，这些调用旨在解决问题的一部分。</li>
+</ul>
+<h2 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>seq = [<span class="string">"foo"</span>, <span class="string">"x41"</span>, <span class="string">"?!"</span>, <span class="string">"***"</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x.isalnum()</span><br><span class="line">...</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>list(filter(func,seq))</span><br><span class="line">[<span class="string">'foo'</span>, <span class="string">'x41'</span>]</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>[x <span class="keyword">for</span> x <span class="keyword">in</span> seq <span class="keyword">if</span> x.isalnum()]</span><br><span class="line">[<span class="string">'foo'</span>, <span class="string">'x41'</span>]</span><br><span class="line"><span class="comment">#Python提供了一种名为lambda表达式的功能，让你能够创建内嵌的简单函数 (主要供map、filter和reduce使用)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>filter(<span class="keyword">lambda</span> x: x.isalnum(), seq)</span><br><span class="line">&lt;filter object at <span class="number">0x10ed5b320</span>&gt;</span><br><span class="line"><span class="comment"># 上面的写法不对 ,需要list再转一遍</span></span><br><span class="line">numbers = [<span class="number">72</span>, <span class="number">101</span>, <span class="number">108</span>, <span class="number">108</span>, <span class="number">111</span>, <span class="number">44</span>, <span class="number">32</span>, <span class="number">119</span>, <span class="number">111</span>, <span class="number">114</span>, <span class="number">108</span>, <span class="number">100</span>, <span class="number">33</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># filter(lambda x:x.isalnum() ,numbers)</span></span><br><span class="line"></span><br><span class="line">count = filter(<span class="keyword">lambda</span> x: x&gt;<span class="number">110</span>, numbers)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(list(count))  <span class="comment"># [111, 119, 111, 114]</span></span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

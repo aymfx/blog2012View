@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js开发指南笔记1 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创建一个服务"><span class="toc-text">创建一个服务</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建一个读取文件内容的异步线程函数"><span class="toc-text">创建一个读取文件内容的异步线程函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#创建一个读取文件内容的同步线程函数"><span class="toc-text">创建一个读取文件内容的同步线程函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node中的事件"><span class="toc-text">node中的事件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入模块概念"><span class="toc-text">引入模块概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#引入包的概念"><span class="toc-text">引入包的概念</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#包管理器-npm"><span class="toc-text">包管理器 npm</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试"><span class="toc-text">调试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#远程调试"><span class="toc-text">远程调试</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js开发指南笔记1</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-09</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js开发指南笔记1</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="创建一个服务"><a href="#创建一个服务" class="headerlink" title="创建一个服务"></a>创建一个服务</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>,&#123;<span class="string">'Content-Type'</span>:<span class="string">'text/html;charset=utf-8'</span>&#125;);</span><br><span class="line">    res.write(<span class="string">'在学习'</span>);</span><br><span class="line">    res.end(<span class="string">"node"</span>);</span><br><span class="line"></span><br><span class="line">&#125;).listen(<span class="number">3000</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>利用http创建一个监听的服务器 localhost:3000</p>
+</blockquote>
+<h1 id="创建一个读取文件内容的异步线程函数"><a href="#创建一个读取文件内容的异步线程函数" class="headerlink" title="创建一个读取文件内容的异步线程函数"></a>创建一个读取文件内容的异步线程函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">fs.readFile(<span class="string">'file.txt'</span>, <span class="string">'utf-8'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">err, data</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        <span class="built_in">console</span>.error(err);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(data);</span><br><span class="line">        &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'end.'</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>执行结果 end先出来 然后是文件内容</p>
+</blockquote>
+<blockquote>
+<p>readFile()的三个参数,第一个是文件名（路径），第二个是编码方式，第三个是一个回调函数</p>
+</blockquote>
+<h1 id="创建一个读取文件内容的同步线程函数"><a href="#创建一个读取文件内容的同步线程函数" class="headerlink" title="创建一个读取文件内容的同步线程函数"></a>创建一个读取文件内容的同步线程函数</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> data = fs.readFileSync(<span class="string">'file.txt'</span>, <span class="string">'utf-8'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(data);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'end.'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//结果</span></span><br><span class="line"></span><br><span class="line">Contents <span class="keyword">of</span> the file.</span><br><span class="line">end.</span><br></pre></td></tr></table></figure>
+
+<h1 id="node中的事件"><a href="#node中的事件" class="headerlink" title="node中的事件"></a>node中的事件</h1><blockquote>
+<p>Node.js 所有的异步 I/O 操作在完成时都会发送一个事件到事件队列</p>
+</blockquote>
+<blockquote>
+<p>事件由 EventEmitter  对象提供,fs.readFile()以及fs.readFileSync()都是由它实现</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> EventEmitter = <span class="built_in">require</span>(<span class="string">'events'</span>).EventEmitter;</span><br><span class="line"><span class="keyword">var</span> event = <span class="keyword">new</span> EventEmitter();</span><br><span class="line">event.on(<span class="string">'some_event'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'我被执行了'</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    event.emit(<span class="string">'some_event'</span>);</span><br><span class="line">&#125;,<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="引入模块概念"><a href="#引入模块概念" class="headerlink" title="引入模块概念"></a>引入模块概念</h1><blockquote>
+<p> exports 是模块公开的接口， require 用于从外部获取一个模块的接口</p>
+</blockquote>
+<blockquote>
+<p>第一种引入方式</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//module1.js</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Maths</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.add=<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.minus=<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a-b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">exports.Maths = Maths;</span><br><span class="line"></span><br><span class="line"><span class="comment">//demo.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Maths = <span class="built_in">require</span>(<span class="string">'./module1'</span>).Maths;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xx = <span class="keyword">new</span> Maths();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(xx.add(<span class="number">1</span>,<span class="number">6</span>));  <span class="comment">//7</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二种方式</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//module1.js</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Maths</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.add=<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a+b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.minus=<span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(a-b);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//demo1.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Maths = <span class="built_in">require</span>(<span class="string">'./module1'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> math = <span class="keyword">new</span> Maths();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(math.add(<span class="number">1</span>,<span class="number">8</span>)); <span class="comment">//9</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = Maths;</span><br></pre></td></tr></table></figure>
+
+<h1 id="引入包的概念"><a href="#引入包的概念" class="headerlink" title="引入包的概念"></a>引入包的概念</h1><blockquote>
+<p>符合Commonjs规范的包应该具备以下条件</p>
+</blockquote>
+<ul>
+<li>package.json必须在包的顶层目录下</li>
+<li>二进制文件必须在lib目录下</li>
+<li>文档应该在doc目录下</li>
+<li>单元测试在test目录下</li>
+</ul>
+<blockquote>
+<p>一个简单的包实例</p>
+</blockquote>
+<blockquote>
+<p>建一个目录叫somepackage，里面建一个json文件和一个目录文件lib，目录文件里面写一个模块hello.js</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// package.json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"main"</span>:<span class="string">"./lib/hello.js"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//lib/hello.js</span></span><br><span class="line">    exports.hello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'hello,ly'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>调用这个模块</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//与somepackage同级 getHello.js</span></span><br><span class="line"><span class="keyword">var</span> somePackage = <span class="built_in">require</span>(<span class="string">'./somePackage'</span>);</span><br><span class="line">somePackage.hello();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>运行 node getHello.js 输出 hello，ly</p>
+</blockquote>
+<blockquote>
+<p>我们在调用某个包时会先检查包中的package.json,将main字段作为入口模块，如果不存在则会找index.js或者index.node</p>
+</blockquote>
+<blockquote>
+<p>package.json作为描述包的文件 有几个必须存在的字段</p>
+</blockquote>
+<ul>
+<li>name:包的名称，必须是唯一的，由小写英文字母、数字和下划线组成，不能包含<br>空格</li>
+<li>description:包的简要说明</li>
+<li>version ：符合语义化版本识别规范的版本字符串</li>
+<li>keywords ：关键字数组，通常用于搜索</li>
+<li>maintainers ：维护者数组，每个元素要包含 name 、 email （可选）、 web （可选）字段</li>
+<li>contributors ：贡献者数组，格式与 maintainers 相同。包的作者应该是贡献者<br>数组的第一个元素</li>
+<li>bugs ：提交bug的地址，可以是网址或者电子邮件地址</li>
+<li>licenses 许可证数组，每个元素要包含 type （许可证的名称）和  url （链接到<br>许可证文本的地址）字段</li>
+<li>repositories ：仓库托管地址数组，每个元素要包含 type  （仓库的类型，如  git ）、url （仓库的地址）和  path （相对于仓库的路径，可选）字段</li>
+<li>dependencies ：包的依赖，一个关联数组，由包名称和版本号组成</li>
+</ul>
+<blockquote>
+<p>书中给出的实例</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"><span class="string">"name"</span>: <span class="string">"mypackage"</span>,</span><br><span class="line"><span class="string">"description"</span>: <span class="string">"Sample package for CommonJS. This package demonstrates the required</span></span><br><span class="line"><span class="string">elements of a CommonJS package."</span>,</span><br><span class="line"><span class="string">"version"</span>: <span class="string">"0.7.0"</span>,</span><br><span class="line"><span class="string">"keywords"</span>: [</span><br><span class="line"><span class="string">"package"</span>,</span><br><span class="line"><span class="string">"example"</span></span><br><span class="line">],</span><br><span class="line"><span class="string">"maintainers"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"name"</span>: <span class="string">"Bill Smith"</span>,</span><br><span class="line"><span class="string">"email"</span>: <span class="string">"bills@example.com"</span>,</span><br><span class="line">&#125;</span><br><span class="line">],</span><br><span class="line"><span class="string">"contributors"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"name"</span>: <span class="string">"BYVoid"</span>,</span><br><span class="line"><span class="string">"web"</span>: <span class="string">"http://www.byvoid.com/"</span></span><br><span class="line">&#125;</span><br><span class="line">],</span><br><span class="line"><span class="string">"bugs"</span>: &#123;</span><br><span class="line"><span class="string">"mail"</span>: <span class="string">"dev@example.com"</span>,</span><br><span class="line"><span class="string">"web"</span>: <span class="string">"http://www.example.com/bugs"</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="string">"licenses"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"type"</span>: <span class="string">"GPLv2"</span>,</span><br><span class="line"><span class="string">"url"</span>: <span class="string">"http://www.example.org/licenses/gpl.html"</span></span><br><span class="line">&#125;</span><br><span class="line">],</span><br><span class="line"><span class="string">"repositories"</span>: [</span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"type"</span>: <span class="string">"git"</span>,</span><br><span class="line"><span class="string">"url"</span>: <span class="string">"http://github.com/BYVoid/mypackage.git"</span></span><br><span class="line">&#125;</span><br><span class="line">],</span><br><span class="line"><span class="string">"dependencies"</span>: &#123;</span><br><span class="line"><span class="string">"webkit"</span>: <span class="string">"1.2"</span>,</span><br><span class="line"><span class="string">"ssl"</span>: &#123;</span><br><span class="line"><span class="string">"gnutls"</span>: [<span class="string">"1.0"</span>, <span class="string">"2.0"</span>],</span><br><span class="line"><span class="string">"openssl"</span>: <span class="string">"0.9.8"</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="包管理器-npm"><a href="#包管理器-npm" class="headerlink" title="包管理器 npm"></a>包管理器 npm</h1><blockquote>
+<p>安装包 npm i 包名 </p>
+</blockquote>
+<blockquote>
+<p>对于全局安装的包(npm [install/i] -g [package_name]),它不会装在本地的node_modules下面,他会安装在系统目录下的/usr/local/lib/node_modules/ 同时package.json 的bin字段包含的文件会被链接到 /usr/local/bin/ 于是可以在命令行中直接运行了</p>
+</blockquote>
+<blockquote>
+<p>创建全局链接 - 将全局包当本地包使用</p>
+</blockquote>
+<ul>
+<li>npm link express<br>./node_modules/express -&gt; /usr/local/lib/node_modules/express</li>
+<li>win系统不支持</li>
+</ul>
+<blockquote>
+<p>包的发布</p>
+</blockquote>
+<ul>
+<li>npm init 初始化</li>
+<li>npm adduser 输入用户名、密码、邮箱 </li>
+<li>npm whoami  测验是<br>否已经取得了账号</li>
+<li>npm publish 发布</li>
+<li>修改版本号 version 跟新</li>
+<li>npm unpublish 取消发布 </li>
+</ul>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><blockquote>
+<p>node debug 文件</p>
+</blockquote>
+<ul>
+<li>run      执行脚本，在第一行暂停</li>
+<li>restart  重新执行脚本</li>
+<li>cont, c  继续执行，直到遇到下一个断点</li>
+<li>next, n  单步执行</li>
+<li>step, s  单步执行并进入函数</li>
+<li>out, o   从函数中步出</li>
+<li>setBreakpoint(), sb()        在当前行设置断点</li>
+<li>setBreakpoint(‘f()’), sb(…)    在函数f的第一行设置断点</li>
+<li>setBreakpoint(‘script.js’, 20), sb(…)      在 script.js 的第20行设置断点</li>
+<li>clearBreakpoint, cb(…)     清除所有断点</li>
+<li>backtrace, bt    显示当前的调用栈</li>
+<li>list(5)      显示当前执行到的前后5行代码</li>
+<li>watch(expr)      把表达式 expr 加入监视列表</li>
+<li>unwatch(expr)    把表达式 expr 从监视列表移除</li>
+<li>watchers     显示监视列表中所有的表达式和值</li>
+<li>repl         在当前上下文打开即时求值环境</li>
+<li>kill         终止当前执行的脚本</li>
+<li>scripts      显示当前已加载的所有脚本</li>
+<li>version      显示 V8 的版本</li>
+</ul>
+<h1 id="远程调试"><a href="#远程调试" class="headerlink" title="远程调试"></a>远程调试</h1><blockquote>
+<p>暂时不考虑</p>
+</blockquote>
+<blockquote>
+<p>命令行</p>
+<ul>
+<li>node –debug [= port ] script.js</li>
+<li>node –debug-brk [= port ] script.js</li>
+</ul>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

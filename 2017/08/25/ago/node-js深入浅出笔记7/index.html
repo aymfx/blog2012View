@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记1 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#commonjs的模块定义"><span class="toc-text">commonjs的模块定义</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#模块引用"><span class="toc-text">模块引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模块的定义"><span class="toc-text">模块的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模块标识"><span class="toc-text">模块标识</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#node-的模块实现"><span class="toc-text">node 的模块实现</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#核心模块与用户模块的区别以及加载速度"><span class="toc-text">核心模块与用户模块的区别以及加载速度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#优先加载缓存"><span class="toc-text">优先加载缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件定位"><span class="toc-text">文件定位</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#模块的编译"><span class="toc-text">模块的编译</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#举个-json的加载的例子"><span class="toc-text">举个.json的加载的例子</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Javascript模块的编译"><span class="toc-text">Javascript模块的编译</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编译核心模块"><span class="toc-text">编译核心模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#c-c-核心模块的编译"><span class="toc-text">c/c++核心模块的编译</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#包与npm"><span class="toc-text">包与npm</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#包结构（符合commonjs规范）"><span class="toc-text">包结构（符合commonjs规范）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#包描述文件（package-josn）与npm"><span class="toc-text">包描述文件（package.josn）与npm</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#npm常用功能"><span class="toc-text">npm常用功能</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记1</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-25</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="commonjs的模块定义"><a href="#commonjs的模块定义" class="headerlink" title="commonjs的模块定义"></a>commonjs的模块定义</h1><blockquote>
+<p>模块引用 ，模块定义 模块标识</p>
+</blockquote>
+<h2 id="模块引用"><a href="#模块引用" class="headerlink" title="模块引用"></a>模块引用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var math = require(<span class="string">'math'</span>); //require用于引用一个api模块，括号里面的称为模块标识</span><br></pre></td></tr></table></figure>
+
+<h2 id="模块的定义"><a href="#模块的定义" class="headerlink" title="模块的定义"></a>模块的定义</h2><blockquote>
+<p>在node中，一个文件就是一个模块，将方法挂在到exports对象上作为属性可以导出</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">exports.add = <span class="function"><span class="keyword">function</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//export 是唯一导出方法的方式</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="模块标识"><a href="#模块标识" class="headerlink" title="模块标识"></a>模块标识</h2><blockquote>
+<p>指的就是require()中的参数</p>
+</blockquote>
+<ul>
+<li>核心模块 http fs path等</li>
+<li>.或者..开始的相对路劲的文件模块</li>
+<li>以/开始的绝对路劲的模块</li>
+<li>非路径形式的模块文件，自定模块</li>
+</ul>
+<h1 id="node-的模块实现"><a href="#node-的模块实现" class="headerlink" title="node 的模块实现"></a>node 的模块实现</h1><blockquote>
+<p>引入模块需要经历三个步奏 路劲定位 文件定位 编译执行</p>
+</blockquote>
+<h2 id="核心模块与用户模块的区别以及加载速度"><a href="#核心模块与用户模块的区别以及加载速度" class="headerlink" title="核心模块与用户模块的区别以及加载速度"></a>核心模块与用户模块的区别以及加载速度</h2><ul>
+<li>核心模块，在node启动时已经被编译好了，核心部分都写在内存，只需做路劲分析就好，加载速度最快</li>
+<li>文件模块，则是运行时动态加载，以上路径分析，文件定位，编译都要走，所以最慢呀</li>
+</ul>
+<h2 id="优先加载缓存"><a href="#优先加载缓存" class="headerlink" title="优先加载缓存"></a>优先加载缓存</h2><blockquote>
+<p>核心模块，和用户模块都会被缓存，优先去取缓存的东西，顺序–&gt;   缓存核心模块&lt;-&lt;-缓存用户模块&lt;-核心模块&lt;-用户模块</p>
+</blockquote>
+<h2 id="文件定位"><a href="#文件定位" class="headerlink" title="文件定位"></a>文件定位</h2><ul>
+<li>扩展名分析 : 查找顺序 .js &gt; .node &gt; .json</li>
+<li>目录分析和包 : 首先会检查包下面的package.json ,通过json.parse() 取出main属性指定文件名进行定位，如果main错误或不存在，则默认index文件名查找，还没找到就抛出异常</li>
+</ul>
+<h1 id="模块的编译"><a href="#模块的编译" class="headerlink" title="模块的编译"></a>模块的编译</h1><blockquote>
+<p>module对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">id,parent</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.id = id ;</span><br><span class="line">    <span class="keyword">this</span>.exports =&#123;&#125;;</span><br><span class="line">    <span class="keyword">this</span>.parent = parent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(parent &amp;&amp; parent.children) &#123;</span><br><span class="line">        parent.children.push(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.filename = <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">this</span>.loaded  = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">this</span>.children = [];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>载入以及编译</p>
+</blockquote>
+<ul>
+<li>.js 用fs模块同步读取文件后进行编译</li>
+<li>.node 这是c/c++编写的扩展文件，通过dlopen()方式进行加载最后编译生成的文件</li>
+<li>.json 用fs模块同步读取文件后，用JSON.parse()解析返回结果</li>
+<li>其余扩展名，都被当做.js文件载入</li>
+</ul>
+<blockquote>
+<p>每个编译成功的模块，路劲作为索引都会缓存在Module.<em>cache对象上</em></p>
+</blockquote>
+<h2 id="举个-json的加载的例子"><a href="#举个-json的加载的例子" class="headerlink" title="举个.json的加载的例子"></a>举个.json的加载的例子</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Module._extensoins[.json] = <span class="function"><span class="keyword">function</span>(<span class="params">module,filename</span>)</span>&#123;</span><br><span class="line">    va content = NativeModule.require(<span class="string">'fs'</span>).readFileSync(filename,<span class="string">'utf-8'</span>);\</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="built_in">module</span>.exports = <span class="built_in">JSON</span>,parse(stripBOM(content));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">        err.message = filename + <span class="string">":"</span> +err.message;</span><br><span class="line">        <span class="keyword">throw</span> err;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Module._extensions 会被赋值给require()的extensions属性</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Javascript模块的编译"><a href="#Javascript模块的编译" class="headerlink" title="Javascript模块的编译"></a>Javascript模块的编译</h1><blockquote>
+<p>由于模块文件实际在编译过程会被node包装，所以我们才可以调用几个常用的方法，包装后通过vm原生模块runInThisContext()方法执行（类似eval,有明确上下文，不污染全局），返回function对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//包装后</span></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">exports,require,module,_filename,_dirname</span>)</span>&#123;</span><br><span class="line">     <span class="comment">//模块内容</span></span><br><span class="line">        </span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="编译核心模块"><a href="#编译核心模块" class="headerlink" title="编译核心模块"></a>编译核心模块</h1><blockquote>
+<p>源文件通过process.binding(‘natives’)取出，编译成功的模块缓存到NativeModule._cache对象上，文件模块则缓存Module.cache对象上</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">NativeModule</span>(<span class="params">id</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.filename = id + <span class="string">'.js'</span>;</span><br><span class="line">    <span class="keyword">this</span>.id = id;</span><br><span class="line">    <span class="keyword">this</span>.exports = &#123;&#125;</span><br><span class="line">    <span class="keyword">this</span>.loaded = <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line">NativeModule._source = process.binding(<span class="string">'natives'</span>);</span><br><span class="line">NativeModule._cache = &#123;&#125;;</span><br></pre></td></tr></table></figure>
+
+<h1 id="c-c-核心模块的编译"><a href="#c-c-核心模块的编译" class="headerlink" title="c/c++核心模块的编译"></a>c/c++核心模块的编译</h1><blockquote>
+<p>由纯c/c++编写的部分统一称为内建模块，通常不被用户直接调用</p>
+</blockquote>
+<blockquote>
+<p>内建模块的导出 (依赖关系)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">文件模块 &lt;--- 核心模块(javascript) &lt;---内建模块(c/c++)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>加载内建模块时，先创建exports空对象，然后调用get_builtin_module()方法取出内建模块对象，通过执行register_func()填充exports对象，最后将exports对象按模块名缓存，并返回给调用方完成导出</p>
+</blockquote>
+<h1 id="包与npm"><a href="#包与npm" class="headerlink" title="包与npm"></a>包与npm</h1><blockquote>
+<p>commonjs规范:前者用于组织包中的各种的文件，后者则用于描述包的相关信息，以供外部读取分析</p>
+</blockquote>
+<h2 id="包结构（符合commonjs规范）"><a href="#包结构（符合commonjs规范）" class="headerlink" title="包结构（符合commonjs规范）"></a>包结构（符合commonjs规范）</h2><ul>
+<li>package.json:包描述文件</li>
+<li>bin:存放二进制文件的目录</li>
+<li>lib:用于存放JavaScript代码的目录</li>
+<li>doc:用于存放文档的目录</li>
+<li>test:用于存放单元测试的代码</li>
+</ul>
+<h2 id="包描述文件（package-josn）与npm"><a href="#包描述文件（package-josn）与npm" class="headerlink" title="包描述文件（package.josn）与npm"></a>包描述文件（package.josn）与npm</h2><ul>
+<li>参考之前的文章</li>
+</ul>
+<h2 id="npm常用功能"><a href="#npm常用功能" class="headerlink" title="npm常用功能"></a>npm常用功能</h2><ul>
+<li>查看帮助 npm -v</li>
+<li>安装依赖包 npm i package</li>
+<li></li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

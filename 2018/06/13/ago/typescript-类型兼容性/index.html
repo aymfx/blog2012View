@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>typescript-类型兼容性 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#关于可靠性的注意事项"><span class="toc-text">关于可靠性的注意事项</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#开始"><span class="toc-text">开始</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#比较两个函数"><span class="toc-text">比较两个函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数参数双向协变"><span class="toc-text">函数参数双向协变</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可选参数及剩余参数"><span class="toc-text">可选参数及剩余参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数重载"><span class="toc-text">函数重载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#枚举"><span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类"><span class="toc-text">类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#类的私有成员"><span class="toc-text">类的私有成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#泛型"><span class="toc-text">泛型</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">typescript-类型兼容性</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-06-13</span>
+        </div>
+        <div class="article-container">
+          <p><img src="https://upload-images.jianshu.io/upload_images/10843623-d1427ac46b2dd12f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="typescript"></p>
+<blockquote>
+<p>TypeScript里的类型兼容性是基于结构子类型的,也就是说结构相同就好</p>
+</blockquote>
+<a id="more"></a>   
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Named &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Person &#123;</span><br><span class="line">  name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> p: Named;</span><br><span class="line"><span class="comment">// OK, because of structural typing</span></span><br><span class="line">p = <span class="keyword">new</span> Person();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Named和person是两个不同的东西，但是结构类似，于是不报错，因为JavaScript里广泛地使用匿名对象，例如函数表达式和对象字面量，所以使用结构类型系统来描述这些类型比使用名义类型系统更好。</p>
+</blockquote>
+<h4 id="关于可靠性的注意事项"><a href="#关于可靠性的注意事项" class="headerlink" title="关于可靠性的注意事项"></a>关于可靠性的注意事项</h4><blockquote>
+<p>TypeScript的类型系统允许某些在编译阶段无法确认其安全性的操作。当一个类型系统具此属性时，被当做是“不可靠”的。TypeScript允许这种不可靠行为的发生是经过仔细考虑的</p>
+</blockquote>
+<h4 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h4><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Named &#123;</span><br><span class="line">    name: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> x: Named;</span><br><span class="line"><span class="comment">// y's inferred type is &#123; name: string; location: string; &#125;</span></span><br><span class="line"><span class="keyword">let</span> y = &#123; name: <span class="string">'Alice'</span>, location: <span class="string">'Seattle'</span> &#125;;</span><br><span class="line">x = y;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">greet</span>(<span class="params">n: Named</span>) </span>&#123;</span><br><span class="line">    alert(<span class="string">'Hello, '</span> + n.name);</span><br><span class="line">&#125;</span><br><span class="line">greet(y); <span class="comment">// OK</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这里要检查y是否能赋值给x，编译器检查x中的每个属性，看是否能在y中也找到对应属性。 在这个例子中， y必须包含名字是name的string类型成员。y满足条件，因此赋值正确</p>
+</blockquote>
+<h4 id="比较两个函数"><a href="#比较两个函数" class="headerlink" title="比较两个函数"></a>比较两个函数</h4><blockquote>
+<p>原始类型和对象比较起来容易理解，但是对象怎么比较？</p>
+</blockquote>
+<ul>
+<li>通过比较参数来判断,x可以赋值给y是因为在js中参数可以忽略</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="function">(<span class="params">a: <span class="built_in">number</span></span>) =&gt;</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">let</span> y = <span class="function">(<span class="params">b: <span class="built_in">number</span>, s: <span class="built_in">string</span></span>) =&gt;</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">y = x; <span class="comment">// OK</span></span><br><span class="line">x = y; <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过返回值来判断，类型系统强制源函数的返回值类型必须是目标函数返回值类型的子类型。</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;name: <span class="string">'Alice'</span>&#125;);</span><br><span class="line"><span class="keyword">let</span> y = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;name: <span class="string">'Alice'</span>, location: <span class="string">'Seattle'</span>&#125;);</span><br><span class="line"></span><br><span class="line">x = y; <span class="comment">// OK</span></span><br><span class="line">y = x; <span class="comment">// Error because x() lacks a location property</span></span><br></pre></td></tr></table></figure>
+
+<!-- more -->
+
+<h4 id="函数参数双向协变"><a href="#函数参数双向协变" class="headerlink" title="函数参数双向协变"></a>函数参数双向协变</h4><blockquote>
+<p>当比较函数参数类型时，只有当源函数参数能够赋值给目标函数或者反过来时才能赋值成功。 这是不稳定的，因为调用者可能传入了一个具有更精确类型信息的函数，但是调用这个传入的函数的时候却使用了不是那么精确的类型信息。 实际上，这极少会发生错误，并且能够实现很多JavaScript里的常见模式。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">enum</span> EventType &#123; Mouse, Keyboard &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Event &#123; timestamp: <span class="built_in">number</span>; &#125;</span><br><span class="line"><span class="keyword">interface</span> MouseEvent <span class="keyword">extends</span> Event &#123; x: <span class="built_in">number</span>; y: <span class="built_in">number</span> &#125;</span><br><span class="line"><span class="keyword">interface</span> KeyEvent <span class="keyword">extends</span> Event &#123; keyCode: <span class="built_in">number</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">listenEvent</span>(<span class="params">eventType: EventType, handler: (n: Event) =&gt; <span class="built_in">void</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Unsound, but useful and common</span></span><br><span class="line">listenEvent(EventType.Mouse, <span class="function">(<span class="params">e: MouseEvent</span>) =&gt;</span> <span class="built_in">console</span>.log(e.x + <span class="string">','</span> + e.y));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Undesirable alternatives in presence of soundness</span></span><br><span class="line">listenEvent(EventType.Mouse, <span class="function">(<span class="params">e: Event</span>) =&gt;</span> <span class="built_in">console</span>.log((&lt;MouseEvent&gt;e).x + <span class="string">','</span> + (&lt;MouseEvent&gt;e).y));</span><br><span class="line">listenEvent(EventType.Mouse, &lt;<span class="function">(<span class="params">e: Event</span>) =&gt;</span> <span class="built_in">void</span>&gt;<span class="function">(<span class="params">(<span class="params">e: MouseEvent</span>) =&gt; <span class="built_in">console</span>.log(<span class="params">e.x + ',' + e.y</span>)</span>));</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">// <span class="params">Still</span> <span class="params">disallowed</span> (<span class="params">clear error</span>). <span class="params">Type</span> <span class="params">safety</span> <span class="params">enforced</span> <span class="params">for</span> <span class="params">wholly</span> <span class="params">incompatible</span> <span class="params">types</span></span></span><br><span class="line"><span class="function"><span class="params">listenEvent</span>(<span class="params">EventType.Mouse, (<span class="params">e: <span class="built_in">number</span></span>) =&gt; <span class="built_in">console</span>.log(<span class="params">e</span>)</span>);</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="可选参数及剩余参数"><a href="#可选参数及剩余参数" class="headerlink" title="可选参数及剩余参数"></a>可选参数及剩余参数</h4><blockquote>
+<p>比较函数兼容性的时候，可选参数与必须参数是可互换的。 源类型上有额外的可选参数不是错误，目标类型的可选参数在源类型里没有对应的参数也不是错误</p>
+</blockquote>
+<blockquote>
+<p>当一个函数有剩余参数时，它被当做无限个可选参数。</p>
+</blockquote>
+<blockquote>
+<p>这对于类型系统来说是不稳定的，但从运行时的角度来看，可选参数一般来说是不强制的，因为对于大多数函数来说相当于传递了一些undefinded。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">invokeLater</span>(<span class="params">args: <span class="built_in">any</span>[], callback: (...args: <span class="built_in">any</span>[]) =&gt; <span class="built_in">void</span></span>) </span>&#123;</span><br><span class="line">    <span class="comment">/* ... Invoke callback with 'args' ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Unsound - invokeLater "might" provide any number of arguments</span></span><br><span class="line">invokeLater([<span class="number">1</span>, <span class="number">2</span>], <span class="function">(<span class="params">x, y</span>) =&gt;</span> <span class="built_in">console</span>.log(x + <span class="string">', '</span> + y));</span><br><span class="line"></span><br><span class="line"><span class="comment">// Confusing (x and y are actually required) and undiscoverable</span></span><br><span class="line">invokeLater([<span class="number">1</span>, <span class="number">2</span>], <span class="function">(<span class="params">x?, y?</span>) =&gt;</span> <span class="built_in">console</span>.log(x + <span class="string">', '</span> + y));</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数重载"><a href="#函数重载" class="headerlink" title="函数重载"></a>函数重载</h4><blockquote>
+<p>对于有重载的函数，源函数的每个重载都要在目标函数上找到对应的函数签名。 这确保了目标函数可以在所有源函数可调用的地方调用。</p>
+</blockquote>
+<h4 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h4><blockquote>
+<p>枚举类型与数字类型兼容，并且数字类型与枚举类型兼容。不同枚举类型之间是不兼容的。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">enum</span> Status &#123; Ready, Waiting &#125;;</span><br><span class="line"><span class="keyword">enum</span> Color &#123; Red, Blue, Green &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> status1 = Status.Ready;</span><br><span class="line">status = Color.Green;  <span class="comment">//error</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><blockquote>
+<p>类与对象字面量和接口差不多，但有一点不同：类有静态部分和实例部分的类型。 比较两个类类型的对象时，只有实例的成员会被比较。 静态成员和构造函数不在比较的范围内。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">    feet: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span>, numFeet: <span class="built_in">number</span></span>) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Size &#123;</span><br><span class="line">    feet: <span class="built_in">number</span>;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">numFeet: <span class="built_in">number</span></span>) &#123; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> a: Animal;</span><br><span class="line"><span class="keyword">let</span> s: Size;</span><br><span class="line"></span><br><span class="line">a = s;  <span class="comment">//OK</span></span><br><span class="line">s = a;  <span class="comment">//OK</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="类的私有成员"><a href="#类的私有成员" class="headerlink" title="类的私有成员"></a>类的私有成员</h4><blockquote>
+<p>私有成员会影响兼容性判断。 当类的实例用来检查兼容时，如果目标类型包含一个私有成员，那么源类型必须包含来自同一个类的这个私有成员。 这允许子类赋值给父类，但是不能赋值给其它有同样类型的类。</p>
+</blockquote>
+<h4 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h4><blockquote>
+<p>因为TypeScript是结构性的类型系统，类型参数只影响使用其做为类型一部分的结果类型。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> Empty&lt;T&gt; &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> x: Empty&lt;<span class="built_in">number</span>&gt;;</span><br><span class="line"><span class="keyword">let</span> y: Empty&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line"></span><br><span class="line">x = y;  <span class="comment">// okay, y matches structure of x</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当存在内容时，两者又不一样。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> NotEmpty&lt;T&gt; &#123;</span><br><span class="line">    data: T;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> x: NotEmpty&lt;<span class="built_in">number</span>&gt;;</span><br><span class="line"><span class="keyword">let</span> y: NotEmpty&lt;<span class="built_in">string</span>&gt;;</span><br><span class="line"></span><br><span class="line">x = y;  <span class="comment">// error, x and y are not compatible</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于没指定泛型类型的泛型参数时，会把所有泛型参数当成any比较。 然后用结果类型进行比较</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> identity = <span class="function"><span class="keyword">function</span>&lt;<span class="title">T</span>&gt;(<span class="params">x: T</span>): <span class="title">T</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> reverse = <span class="function"><span class="keyword">function</span>&lt;<span class="title">U</span>&gt;(<span class="params">y: U</span>): <span class="title">U</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">identity = reverse;  <span class="comment">// Okay because (x: any)=&gt;any matches (y: any)=&gt;any</span></span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

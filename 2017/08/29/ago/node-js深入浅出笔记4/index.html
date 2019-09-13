@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记4 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#异步编程-async"><span class="toc-text">异步编程 async</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#异步的串行执行，通过series-实现"><span class="toc-text">异步的串行执行，通过series ()实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步的并行执行parallel"><span class="toc-text">异步的并行执行parallel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异步调用的依赖处理waterfall"><span class="toc-text">异步调用的依赖处理waterfall</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记4</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-29</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="异步编程-async"><a href="#异步编程-async" class="headerlink" title="异步编程 async"></a>异步编程 async</h1><h2 id="异步的串行执行，通过series-实现"><a href="#异步的串行执行，通过series-实现" class="headerlink" title="异步的串行执行，通过series ()实现"></a>异步的串行执行，通过series ()实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">async</span> = <span class="built_in">require</span>(<span class="string">'async'</span>);</span><br><span class="line"><span class="keyword">async</span>.series([</span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,callback)</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,callback)</span><br><span class="line">&#125;,</span><br><span class="line">],<span class="function"><span class="keyword">function</span>(<span class="params">err,results</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(results,<span class="string">'哈哈'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>等价于</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="keyword">return</span> callback(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            <span class="keyword">return</span> callback(err);</span><br><span class="line">        &#125;</span><br><span class="line">        callback(<span class="literal">null</span>,[content,data])</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>每个callback()执行的结果都将保存起来，然后执行下一个调用，直到结束所有调用，最终执行的回调函数将把前几次异步调用的结果以数组的形式传入，异常处理规则是，一旦出现异常，结束所有调用，并将异常传递给最终回调的第一个参数(啥意思？？)，好像是那个啥，回到调用成功的阶段。</p>
+</blockquote>
+<h2 id="异步的并行执行parallel"><a href="#异步的并行执行parallel" class="headerlink" title="异步的并行执行parallel"></a>异步的并行执行parallel</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">async</span> = <span class="built_in">require</span>(<span class="string">'async'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span>.parallel([</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">            fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>) </span>&#123;</span><br><span class="line">            fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,callback);</span><br><span class="line">        &#125;</span><br><span class="line">    ],<span class="function"><span class="keyword">function</span>(<span class="params">err,results</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(results);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>等价于</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> counter = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> results =[];</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> done = <span class="function"><span class="keyword">function</span>(<span class="params">index,value</span>) </span>&#123;</span><br><span class="line">    results[index] = value;</span><br><span class="line">    counter--;</span><br><span class="line">    <span class="keyword">if</span>(counter ===<span class="number">0</span>) &#123;</span><br><span class="line">        callback(<span class="literal">null</span>,results);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//只传递一个异常</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> hasErr = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fail = <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!hasErr)&#123;</span><br><span class="line">        hasErr = <span class="literal">true</span>;</span><br><span class="line">        callback(err);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        retunr fail(err)</span><br><span class="line">    &#125;</span><br><span class="line">    done(<span class="number">0</span>,content)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        retunr fail(err)</span><br><span class="line">    &#125;</span><br><span class="line">    done(<span class="number">1</span>,content)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>也类似于</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventProxy = <span class="built_in">require</span>(<span class="string">'eventproxy'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxy = <span class="keyword">new</span> EventProxy();</span><br><span class="line"></span><br><span class="line">proxy.all(<span class="string">'content'</span>,<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">content,data</span>)</span>&#123;</span><br><span class="line">    callback(<span class="literal">null</span>,[content,data]);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">proxy.fail(callback);</span><br><span class="line">fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,proxy.done(<span class="string">'content'</span>));</span><br><span class="line">fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,proxy.done(<span class="string">'data'</span>));</span><br></pre></td></tr></table></figure>
+
+<h2 id="异步调用的依赖处理waterfall"><a href="#异步调用的依赖处理waterfall" class="headerlink" title="异步调用的依赖处理waterfall"></a>异步调用的依赖处理waterfall</h2><blockquote>
+<p>当前一个结果是后一个结果的输入时，可以用waterfall</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">async</span> = <span class="built_in">require</span>(<span class="string">'async'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span>.waterfall([</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">        callback(err,content)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">arg1,callback</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//arg1 =&gt; file2.txt</span></span><br><span class="line">    fs.readFile(arg1,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">        callback(err,content)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">arg1,callback</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//arg1 =&gt; file3.txt</span></span><br><span class="line">    fs.readFile(arg1,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">        callback(err,content);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">],<span class="function"><span class="keyword">function</span>(<span class="params">err,results</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(results);</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>也等价于</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data1</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="keyword">return</span> callback(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data2</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">        <span class="keyword">return</span> callback(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fs.readFile(<span class="string">'file3.txt'</span>,<span class="string">'utf-8'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,data3</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(err)&#123;</span><br><span class="line">            <span class="keyword">return</span> callback(err);</span><br><span class="line">        &#125;</span><br><span class="line">        callback(<span class="literal">null</span>,data3)</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

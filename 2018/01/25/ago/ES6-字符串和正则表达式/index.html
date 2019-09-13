@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>ES6-字符串和正则表达式 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引子"><span class="toc-text">引子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#utf-16码位-基本多文种平面-到辅助平面字符的扩展"><span class="toc-text">utf-16码位(基本多文种平面)到辅助平面字符的扩展</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#codePointAt-只接受编码单元的位置而非字符位置作为参数-返回给定位置对应的码位"><span class="toc-text">codePointAt()  只接受编码单元的位置而非字符位置作为参数,返回给定位置对应的码位</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String-fromCodePoint-通过码位获得对应字符"><span class="toc-text">String.fromCodePoint()通过码位获得对应字符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#normalize"><span class="toc-text">normalize()</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式u修饰符"><span class="toc-text">正则表达式u修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#计算码位的数量"><span class="toc-text">计算码位的数量</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串中子串的识别"><span class="toc-text">字符串中子串的识别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#includes-x-y-检测指定字符串返回boolean值，第二参数是开始位置-0开始数"><span class="toc-text">includes(x,y)检测指定字符串返回boolean值，第二参数是开始位置(0开始数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#startsWith-x-y-和-endsWith-x-y-检测字符串开头和结尾的是否与子串相匹配-第二参数是开始位置-0开始数"><span class="toc-text">startsWith(x,y) 和 endsWith(x,y) 检测字符串开头和结尾的是否与子串相匹配,第二参数是开始位置(0开始数)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#repeat-接受一个number-即将字符重复的次数"><span class="toc-text">repeat() 接受一个number,即将字符重复的次数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#正则的语法变更-（蛮头疼的-正则还是晕乎乎的）"><span class="toc-text">正则的语法变更 （蛮头疼的,正则还是晕乎乎的）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式y修饰符"><span class="toc-text">正则表达式y修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#正则表达式的复制"><span class="toc-text">正则表达式的复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#flags属性"><span class="toc-text">flags属性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模板字面量"><span class="toc-text">模板字面量</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#反引号（-）"><span class="toc-text">反引号（``）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#字符串占位符-javascript表达式"><span class="toc-text">字符串占位符   ${javascript表达式}</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#标签模板"><span class="toc-text">标签模板</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#在模板字面量中使用原始值"><span class="toc-text">在模板字面量中使用原始值</span></a></li></ol></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">ES6-字符串和正则表达式</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-01-25</span>
+        </div>
+        <div class="article-container">
+          <p><img src="http://upload-images.jianshu.io/upload_images/10843623-c41e6ce3da1d0523.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="timg.jpg"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>入行这么久了，前端学习的成本感觉越来越高了，不会的东西一茬接一茬，在学校太忽视它，学的半吊子，现在要努力赶上才行，杭州的天气变冷了，我也想回家了，坚持，哎嘿，再上半个月班就要放假了开心。（这是从我自己博客移植过来的）</p>
+</blockquote>
+<blockquote>
+<p>我的博客地址 ：<a href="http://www.aymfx.cn/，欢迎访问" target="_blank" rel="noopener">http://www.aymfx.cn/，欢迎访问</a></p>
+</blockquote>
+ <a id="more"></a>   
+
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><blockquote>
+<p>这张理解起来比较费劲，慢慢看，慢慢练,天气比较冷啊，手敲这些好费劲</p>
+</blockquote>
+<h3 id="utf-16码位-基本多文种平面-到辅助平面字符的扩展"><a href="#utf-16码位-基本多文种平面-到辅助平面字符的扩展" class="headerlink" title="utf-16码位(基本多文种平面)到辅助平面字符的扩展"></a>utf-16码位(基本多文种平面)到辅助平面字符的扩展</h3><blockquote>
+<p>在ES6之前， JS 的字符串以 16 位字符编码(UTF-16)为基础。每个 16 位序列(相当于2个字节)是一个编码单元(code unit)，可简称为码元，用于表示一个字符。字符串所有的属性与方法(如length属性与charAt() 方法等)都是基于16位序列</p>
+</blockquote>
+<blockquote>
+<p>最常用的Unicode字符使用16位序列编码字符，属于“基本多语种平面”(Basic Multilingual Plane BMP)，也称为“零断面”(plan 0)， 是Unicode中的一个编码区段，编码介于\u0000~\uFFFF之间。超过这个范围的码位则要归属于某个辅助平面或称为扩展平面(supplementary plane)，其中的码位仅用16位就无法表示了        为此，UTF-16引入了代理对(surrogate pairs)，规定用两个16位编码来表示一个码位。这意味着，字符串里的字符有两种：一种由一个码元（共 16 位）来表示BMP字符，另一种用两个码元（共 32 位）来表示辅助平面字符</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">let text = &apos;?&apos;</span><br><span class="line"></span><br><span class="line">console.log(text.length); //2</span><br><span class="line">console.log(/^.$/.test(text)); //false</span><br><span class="line">console.log(text.charAt(0)); //�</span><br><span class="line">console.log(text.charAt(1)); //�</span><br><span class="line">console.log(text.charCodeAt(0)); //55362</span><br><span class="line">console.log(text.charCodeAt(1)); //57271</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个字?（jí）其实就是一个两个16位字符组成的字,基于16位字符串的属性与方法便失效了</p>
+</blockquote>
+<h4 id="codePointAt-只接受编码单元的位置而非字符位置作为参数-返回给定位置对应的码位"><a href="#codePointAt-只接受编码单元的位置而非字符位置作为参数-返回给定位置对应的码位" class="headerlink" title="codePointAt()  只接受编码单元的位置而非字符位置作为参数,返回给定位置对应的码位"></a>codePointAt()  只接受编码单元的位置而非字符位置作为参数,返回给定位置对应的码位</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let text = &apos;a?&apos;</span><br><span class="line"></span><br><span class="line">console.log(text.charCodeAt(0)); //55362</span><br><span class="line">console.log(text.charCodeAt(1)); //57271</span><br><span class="line">console.log(text.charCodeAt(2)); //57271</span><br><span class="line"></span><br><span class="line">console.log(text.codePointAt(0)); //134071</span><br><span class="line">console.log(text.codePointAt(1)); //57271</span><br><span class="line">console.log(text.codePointAt(2)); //57271</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过这个方法我们可以检测字符是不是32位的</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function is32Bit(char)&#123;</span><br><span class="line">    return char.codePointAt(0) &gt; 0xffff;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(is32Bit(&apos;?&apos;)); //ture</span><br><span class="line">console.log(is32Bit(&apos;a&apos;));  //false</span><br></pre></td></tr></table></figure>
+
+<h4 id="String-fromCodePoint-通过码位获得对应字符"><a href="#String-fromCodePoint-通过码位获得对应字符" class="headerlink" title="String.fromCodePoint()通过码位获得对应字符"></a>String.fromCodePoint()通过码位获得对应字符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.log(String.fromCodePoint(134071)); //?</span><br></pre></td></tr></table></figure>
+
+<h4 id="normalize"><a href="#normalize" class="headerlink" title="normalize()"></a>normalize()</h4><blockquote>
+<p>许多欧洲语言有语调符号和重音符号。为了表示它们，Unicode提供了两种方法。一种是直接提供带重音符号的字符，比如Ǒ（\u01D1）。另一种是提供合成符号（combining character），即原字符与重音符号的合成，两个字符合成一个字符，比如O（\u004F）和ˇ（\u030C）合成Ǒ（\u004F\u030C）。<br>这两种表示方法，在视觉和语义上都等价，但是JavaScript不能识别。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&apos;\u01D1&apos;===&apos;\u004F\u030C&apos; //false</span><br><span class="line"></span><br><span class="line">&apos;\u01D1&apos;.length // 1</span><br><span class="line">&apos;\u004F\u030C&apos;.length // 2</span><br><span class="line">&apos;\u01D1&apos;.normalize() === &apos;\u004F\u030C&apos;.normalize() // true</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>NFC，默认参数，表示“标准等价合成”（Normalization Form Canonical Composition），返回多个简单字符的合成字符。所谓“标准等价”指的是视觉和语义上的等价。</li>
+<li>NFD，表示“标准等价分解”（Normalization Form Canonical Decomposition），即在标准等价的前提下，返回合成字符分解的多个简单字符。</li>
+<li>NFKC，表示“兼容等价合成”（Normalization Form Compatibility Composition），返回合成字符。所谓“兼容等价”指的是语义上存在等价，但视觉上不等价，比如“囍”和“喜喜”。（这只是用来举例，normalize方法不能识别中文。）</li>
+<li>NFKD，表示“兼容等价分解”（Normalization Form Compatibility Decomposition），即在兼容等价的前提下，返回合成字符分解的多个简单字符</li>
+</ul>
+<h4 id="正则表达式u修饰符"><a href="#正则表达式u修饰符" class="headerlink" title="正则表达式u修饰符"></a>正则表达式u修饰符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let text = &apos;?&apos;</span><br><span class="line">console.log(/^.$/.test(text)); //false</span><br><span class="line">console.log(/^.$/u.test(text)); //true</span><br></pre></td></tr></table></figure>
+
+<h4 id="计算码位的数量"><a href="#计算码位的数量" class="headerlink" title="计算码位的数量"></a>计算码位的数量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function codePointLength(text)&#123;</span><br><span class="line">    let result = text.match(/[\s\S]/gu);</span><br><span class="line">    return result ? result.length : 0;</span><br><span class="line">&#125;</span><br><span class="line">console.log(codePointLength(&quot;123a&quot;)); //4</span><br><span class="line">console.log(codePointLength(&quot;?a&quot;)); //2</span><br><span class="line">console.log(codePointLength(&quot;?哦&quot;)); //2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//emmmmm。运行效率蛮低，听说有更简单的，后面演示</span><br></pre></td></tr></table></figure>
+
+<h3 id="字符串中子串的识别"><a href="#字符串中子串的识别" class="headerlink" title="字符串中子串的识别"></a>字符串中子串的识别</h3><h4 id="includes-x-y-检测指定字符串返回boolean值，第二参数是开始位置-0开始数"><a href="#includes-x-y-检测指定字符串返回boolean值，第二参数是开始位置-0开始数" class="headerlink" title="includes(x,y)检测指定字符串返回boolean值，第二参数是开始位置(0开始数)"></a>includes(x,y)检测指定字符串返回boolean值，第二参数是开始位置(0开始数)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let text = &quot;adsdasdasgsgwefsfs&quot;;</span><br><span class="line">let subtext = &apos;asd&apos;;</span><br><span class="line">console.log(text.includes(subtext,4)) //true</span><br><span class="line">console.log(text.includes(subtext)) //true</span><br><span class="line">console.log(text.includes(&apos;sdadasda&apos;)) //false</span><br></pre></td></tr></table></figure>
+
+<h4 id="startsWith-x-y-和-endsWith-x-y-检测字符串开头和结尾的是否与子串相匹配-第二参数是开始位置-0开始数"><a href="#startsWith-x-y-和-endsWith-x-y-检测字符串开头和结尾的是否与子串相匹配-第二参数是开始位置-0开始数" class="headerlink" title="startsWith(x,y) 和 endsWith(x,y) 检测字符串开头和结尾的是否与子串相匹配,第二参数是开始位置(0开始数)"></a>startsWith(x,y) 和 endsWith(x,y) 检测字符串开头和结尾的是否与子串相匹配,第二参数是开始位置(0开始数)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">let text = &quot;adsdasdasgsgwefsfs&quot;;</span><br><span class="line">let subtext1 = &apos;ads&apos;;</span><br><span class="line">let subtext2 = &apos;sfs&apos;;</span><br><span class="line"></span><br><span class="line">console.log(text.startsWith(&apos;asd&apos;,4)) //true</span><br><span class="line">console.log(text.startsWith(subtext1)) //true</span><br><span class="line">console.log(text.startsWith(&apos;sdadasda&apos;)) //false</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(text.endsWith(&apos;gsgwefsfs&apos;,18)) //true 以最后一个字母的位置为准</span><br><span class="line">console.log(text.endsWith(subtext2)) //true</span><br><span class="line">console.log(text.endsWith(&apos;sdadasda&apos;)) //false</span><br></pre></td></tr></table></figure>
+
+<h4 id="repeat-接受一个number-即将字符重复的次数"><a href="#repeat-接受一个number-即将字符重复的次数" class="headerlink" title="repeat() 接受一个number,即将字符重复的次数"></a>repeat() 接受一个number,即将字符重复的次数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;x&apos;.repeat(6)); // xxxxxx</span><br><span class="line">console.log(&apos;ly&apos;.repeat(3));  //lylyly</span><br><span class="line">console.log(&apos;爱&apos;.repeat(2));  //爱爱</span><br></pre></td></tr></table></figure>
+
+<h3 id="正则的语法变更-（蛮头疼的-正则还是晕乎乎的）"><a href="#正则的语法变更-（蛮头疼的-正则还是晕乎乎的）" class="headerlink" title="正则的语法变更 （蛮头疼的,正则还是晕乎乎的）"></a>正则的语法变更 （蛮头疼的,正则还是晕乎乎的）</h3><h4 id="正则表达式y修饰符"><a href="#正则表达式y修饰符" class="headerlink" title="正则表达式y修饰符"></a>正则表达式y修饰符</h4><blockquote>
+<p>除了u 修饰符，ES6还为正则表达式添加了 y 修饰符，叫做“粘连”修饰符。y 修饰符的作用与 g 修饰符类似，也是全局匹配，后一次匹配都从上一次匹配成功的下一个位置开始。不同之处在于，g 修饰符只要剩余位置中存在匹配就可，而 y 修饰符确保匹配必须从剩余的第一个位置开始，这也就是“粘连”的含义，当为匹配到时，将会返回空，lastIndex将会置为0</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">var s = &apos;aaa_aa_a&apos;;  </span><br><span class="line">var r1 = /a+/g;  </span><br><span class="line">var r2 = /a+/y;  </span><br><span class="line">  </span><br><span class="line">console.log(r1.exec(s)) //[&quot;aaa&quot;, index: 0, input: &quot;aaa_aa_a&quot;] console.log(r2.exec(s)) //[&quot;aaa&quot;, index: 0, input: &quot;aaa_aa_a&quot;]</span><br><span class="line">console.log(r1.lastIndex) //3</span><br><span class="line">console.log(r2.lastIndex) //3</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(r1.exec(s)) //[&quot;aa&quot;, index: 4, input: &quot;aaa_aa_a&quot;]</span><br><span class="line">console.log(r2.exec(s)) //null  </span><br><span class="line">console.log(r1.lastIndex) //6</span><br><span class="line">console.log(r2.lastIndex) //0</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(r1.exec(s)) //[&quot;a&quot;, index: 7, input: &quot;aaa_aa_a&quot;]</span><br><span class="line">console.log(r2.exec(s)) //[&quot;aaa&quot;, index: 0, input: &quot;aaa_aa_a&quot;] console.log(r1.lastIndex) //8</span><br><span class="line">console.log(r2.lastIndex) //3</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>检测y修饰符是否存在</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let pattern = /hello\d/y;</span><br><span class="line"></span><br><span class="line">console.log(pattern.sticky) //true  谷歌浏览器下</span><br></pre></td></tr></table></figure>
+
+<h4 id="正则表达式的复制"><a href="#正则表达式的复制" class="headerlink" title="正则表达式的复制"></a>正则表达式的复制</h4><blockquote>
+<p>es5 如下复制</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var re1 = /ab/i</span><br><span class="line">    re2 = new RegExp(re1);</span><br><span class="line">    console.log(re1.construct === re2.construct) //true</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>es6新增了可以添加传修饰符</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var re1 = /ab/i</span><br><span class="line">    re2 = new RegExp(re1,&apos;g&apos;);</span><br><span class="line">    console.log(re1.toString()) ///ab/i</span><br><span class="line">    console.log(re2.toString()) ///ab/g</span><br></pre></td></tr></table></figure>
+
+<h4 id="flags属性"><a href="#flags属性" class="headerlink" title="flags属性"></a>flags属性</h4><blockquote>
+<p>source获取正则表达式文本 flags获取其修饰符</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let re = /ab/gi;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(re.source); //ab</span><br><span class="line">console.log(re.flags);  //gi</span><br></pre></td></tr></table></figure>
+
+<h3 id="模板字面量"><a href="#模板字面量" class="headerlink" title="模板字面量"></a>模板字面量</h3><blockquote>
+<p>JS 的字符串相对其他语言来说功能总是有限的，事实上，ES5中一直缺乏许多特性，如多行字符串、字符串格式化、HTML转义等。ES6通过模板字面量的方式进行了填补，模板字面量试着跳出JS已有的字符串体系，通过一些全新的方法来解决类似的问题</p>
+</blockquote>
+<h4 id="反引号（-）"><a href="#反引号（-）" class="headerlink" title="反引号（``）"></a>反引号（``）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">const name = &apos;ly&apos;;</span><br><span class="line">let message = `$&#123;name&#125;,is a man`  //ly,is a man</span><br><span class="line">console.log(message);</span><br><span class="line"></span><br><span class="line">//$&#123;&#125; 可以写变量  名叫字符串占位符</span><br><span class="line"></span><br><span class="line">console.log(`\`hh\``); //`hh`</span><br><span class="line"></span><br><span class="line">//es5 实现多行文本</span><br><span class="line">var message = &quot; ly  \n \</span><br><span class="line">   love you&quot;</span><br><span class="line">console.log(message);</span><br><span class="line"></span><br><span class="line">//es6</span><br><span class="line"></span><br><span class="line">var message = ` ly</span><br><span class="line">   love you`</span><br><span class="line">console.log(message); // ly</span><br><span class="line">                      // love you</span><br></pre></td></tr></table></figure>
+
+<h4 id="字符串占位符-javascript表达式"><a href="#字符串占位符-javascript表达式" class="headerlink" title="字符串占位符   ${javascript表达式}"></a>字符串占位符   ${javascript表达式}</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let count = 15,</span><br><span class="line">    price = .5,</span><br><span class="line">    message = `$&#123;count&#125; items cost $$&#123;(count*price).toFixed(1)&#125;`;</span><br><span class="line">    console.log(message); //15 items cost $7.5</span><br></pre></td></tr></table></figure>
+
+<h4 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h4><blockquote>
+<p>标签模板其实不是模板，而是函数调用的一种特殊形式。“标签”指的是函数，紧跟在后面的模板字符串就是它的参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a = 5;</span><br><span class="line">var b = 10;</span><br><span class="line">tag `Hello $&#123;a+b&#125; world $&#123;a*b&#125;`;</span><br><span class="line">//这个标识名tag,它是一个函数。整个表达式的返回值，就是tag函数处理模板字符串之后的返回值。函数tag会依次接收到多个参数。</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tag函数的第一个参数是一个数组，该数组的成员时模板字符串中那些没有变量替换的部分，也就是说，变量替换只发生在数组的第一个成员和第二个成员之间，以此类推。tag函数的其他参数都是模板字符串各个变量被替换后的值，由于本例中，模板字符串含有两个变量，因此tag会接收到value1和value2两个参数。<br>tag函数所有参数的实际值如下：<br>——第一个参数：[‘Hello ‘,’ world ‘,’’]<br>——第二个参数：15<br>——第三个参数：50<br>也就是说tag函数实际上是以下面的形式调用的<br>tag([‘Hello ‘,’ world ‘,’’],15,50);<br>我们可以按照需要编写tag 函数的代码。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var count = 5;</span><br><span class="line">var price = 10;</span><br><span class="line"></span><br><span class="line">function tag(s,v1,v2,v3)&#123;</span><br><span class="line">    console.log(s[0]);</span><br><span class="line">    console.log(s[1]);</span><br><span class="line">    console.log(s[2]);</span><br><span class="line">    console.log(s);</span><br><span class="line">    console.log(v1);</span><br><span class="line">    console.log(v2);</span><br><span class="line">    return &apos;ok&apos;</span><br><span class="line">&#125;</span><br><span class="line">tag`q$&#123;count&#125; items cost $$&#123;(count*price).toFixed(1)&#125;.`;</span><br><span class="line"></span><br><span class="line">//VM173:5 </span><br><span class="line">//VM173:6  items cost $</span><br><span class="line">//VM173:7  .</span><br><span class="line">//VM173:8 5</span><br><span class="line">//VM173:9 50.0</span><br><span class="line">//ok</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>标签函数的常用形式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function tag(literals,...substitutions)&#123;</span><br><span class="line">    //literals 值得是被$&#123;&#125;隔开的字符</span><br><span class="line">    //substitutions，有几个$&#123;&#125;就有几个这个</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>利用 literals.length-1 === substitutions.length,拼接字符串</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function passthru(literals,...values)&#123;</span><br><span class="line">    var output =&quot;&quot;;</span><br><span class="line">    for(var index = 0;index&lt;values.length;index++)&#123;</span><br><span class="line">        output = literals[index]+values[index];</span><br><span class="line">    &#125;</span><br><span class="line">    output+=literals[index];</span><br><span class="line">    return output;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let count = 15,</span><br><span class="line">    price = .5,</span><br><span class="line">    message = passthru`$&#123;count&#125; items cost $$&#123;(count*price).toFixed(1)&#125;`;</span><br><span class="line">    console.log(message); //15 items cost $7.5</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>what?这样做的意义是啥？</p>
+</blockquote>
+<blockquote>
+<p>emmm,过滤html字符串,还有一些转义字符的过滤</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function SaferHTML(templateData)&#123;</span><br><span class="line">    var s = templateData[0];</span><br><span class="line">    var i;</span><br><span class="line">    for(i = 1;i&lt;arguments.length;i++)&#123;</span><br><span class="line">        var arg = String(arguments[i]);</span><br><span class="line"></span><br><span class="line">        //sender里面可能有特殊字符，进行转义</span><br><span class="line">        s += arg.replace(/&amp;/g,&quot;&amp;amp;&quot;)</span><br><span class="line">                .replace(/&lt;/g,&quot;&amp;lt;&quot;)</span><br><span class="line">                .replace(/&gt;/g,&quot;&amp;gt;&quot;);</span><br><span class="line">        s += templateData[i];</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(i);//2，表示这个循环只执行了一次，因为templateData[0]=&quot;&lt;p&gt;&quot;,arguments这个数组只有$&#123;sender&#125;这个元素，后面一长串字符都是templateData[2];</span><br><span class="line">    return s;</span><br><span class="line">&#125;</span><br><span class="line">var sender = &apos;&lt;script&gt;alert(&quot;abc&quot;)&lt;/script&gt;&apos;;</span><br><span class="line">var message = SaferHTML`&lt;p&gt;$&#123;sender&#125; has sent you a message.&lt;/p&gt;`;</span><br><span class="line">console.log(message);</span><br></pre></td></tr></table></figure>
+
+<h4 id="在模板字面量中使用原始值"><a href="#在模板字面量中使用原始值" class="headerlink" title="在模板字面量中使用原始值"></a>在模板字面量中使用原始值</h4><blockquote>
+<p>使用内建对象String.raw访问</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">let ms1 = `ly\n love you`</span><br><span class="line">let ms2 = String.raw`ly\n love you`</span><br><span class="line"></span><br><span class="line">console.log(ms1); //ly</span><br><span class="line">                  //love you</span><br><span class="line"></span><br><span class="line">console.log(ms2); // ly\n love you</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>linux下安装mysql | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设置全局的mysql"><span class="toc-text">设置全局的mysql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#修改初始化密码"><span class="toc-text">修改初始化密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">linux下安装mysql</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-01-16</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node有对mysql操作的插件，可以先装起来用，下节我会装好mongose，这是非关系型数据库，很适合node</p>
+</blockquote>
+ <a id="more"></a> 
+
+
+<ol>
+<li>下载最新版</li>
+</ol>
+<blockquote>
+<p>wget <a href="https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz" target="_blank" rel="noopener">https://cdn.mysql.com//Downloads/MySQL-5.7/mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz</a></p>
+</blockquote>
+<ol start="2">
+<li>解压进入文件夹</li>
+</ol>
+<blockquote>
+<p>tar -zxvf mysql-5.7.21-linux-glibc2.12-x86_64.tar.gz</p>
+</blockquote>
+<blockquote>
+<p>cd mysql-5.7.21-linux-glibc2.12-x86_64</p>
+</blockquote>
+<ol start="3">
+<li><p>添加用户组和用户</p>
+<ul>
+<li>添加用户组</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>groupadd mysql</p>
+</blockquote>
+<ul>
+<li>添加用户mysql 到用户组mysql</li>
+</ul>
+<blockquote>
+<p>useradd -g mysql mysql</p>
+</blockquote>
+<ol start="4">
+<li>创建放数据的文件库</li>
+</ol>
+<blockquote>
+<p>mkdir -p ./data/mysql</p>
+</blockquote>
+<p>5.初始化mysql</p>
+<blockquote>
+<p>./bin/mysqld –user=root –basedir=./data –datadir=./data/mysql –initialize  (检查好路劲对不对，基本常识哈)</p>
+</blockquote>
+<ul>
+<li>报错了,出现如下情况</li>
+</ul>
+<p><img src="https://aymfx.github.io/img/a201801/c1.png" alt="美女"></p>
+<blockquote>
+<p>Centos系统执行:yum -y install numactl</p>
+</blockquote>
+<blockquote>
+<p>ubuntu: sudo apt-get install numactl</p>
+</blockquote>
+<p>6.初始化成功并且初始密码出来了</p>
+<p><img src="https://aymfx.github.io/img/a201801/c2.png" alt="美女"></p>
+<p>7.建立配置文件</p>
+<blockquote>
+<p>cd support-files</p>
+</blockquote>
+<blockquote>
+<p>vim mysql.server</p>
+</blockquote>
+<blockquote>
+<p>修改成如下</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a201801/c3.png" alt="美女"></p>
+<p>8.拷贝到系统目录</p>
+<blockquote>
+<p>cp mysql.server /etc/init.d/mysqld</p>
+</blockquote>
+<blockquote>
+<p>chkconfig –add mysqld</p>
+</blockquote>
+<blockquote>
+<p>启动</p>
+</blockquote>
+<blockquote>
+<p>service mysqld start/stop(这是停止哈，别傻乎乎写上去)</p>
+</blockquote>
+<ul>
+<li>呀，报错了</li>
+</ul>
+<p><img src="https://aymfx.github.io/img/a201801/c4.png" alt="美女"></p>
+<ul>
+<li>解决方式</li>
+</ul>
+<blockquote>
+<p>百度了下似乎是权限不够无法读取文件于是采用了百度推荐的方式</p>
+</blockquote>
+<ul>
+<li>mkdir -p /var/log/mariadb/</li>
+<li>cd /var/log/mariadb/</li>
+<li>touch mariadb.log</li>
+<li>chmod -R 775 mariadb.log</li>
+<li>chown -R mysql:mysql mariadb.log</li>
+</ul>
+<blockquote>
+<p>再一次运行命令service mysqld start</p>
+</blockquote>
+<ul>
+<li>又报错了</li>
+</ul>
+<p><img src="https://aymfx.github.io/img/a201801/c5.png" alt="美女"></p>
+<blockquote>
+<p>又是权限问题</p>
+</blockquote>
+<ul>
+<li>mkdir   /var/lib/mysql </li>
+<li>chmod 777  /var/lib/mysql</li>
+</ul>
+<blockquote>
+<p>agian</p>
+</blockquote>
+<ul>
+<li>妈呀，又报错了</li>
+</ul>
+<p><img src="https://aymfx.github.io/img/a201801/c6.png" alt="美女"></p>
+<blockquote>
+<p>没办法删除了etc/my.cnf</p>
+</blockquote>
+<blockquote>
+<p>rm -rf /etc/my.cnf</p>
+</blockquote>
+<blockquote>
+<p>成功 开心</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a201801/c7.png" alt="美女"></p>
+<h2 id="设置全局的mysql"><a href="#设置全局的mysql" class="headerlink" title="设置全局的mysql"></a>设置全局的mysql</h2><blockquote>
+<p>vim ./etc/profile</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a201801/c9.png" alt="美女"></p>
+<blockquote>
+<p>source ./etc/profile</p>
+</blockquote>
+<h2 id="修改初始化密码"><a href="#修改初始化密码" class="headerlink" title="修改初始化密码"></a>修改初始化密码</h2><blockquote>
+<p>mysql -uroot -p</p>
+</blockquote>
+<ul>
+<li>如图键入命令修改</li>
+</ul>
+<p><img src="https://aymfx.github.io/img/a201801/c8.png" alt="美女"></p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><blockquote>
+<p>mysql是我比较恐惧的一块，在window安装我都老是出问题，第一次只花了3个小时装完了感觉很开心，嘿嘿，睡觉了，明天还要上班。</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

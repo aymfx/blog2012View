@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react-Composition vs Inheritance | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#组合-vs-继承"><span class="toc-text">组合 vs 继承</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#包含"><span class="toc-text">包含</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#我们可以自定义自己传入的子组件"><span class="toc-text">我们可以自定义自己传入的子组件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#被定义为类的组件在组合方面同样优秀"><span class="toc-text">被定义为类的组件在组合方面同样优秀</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react-Composition vs Inheritance</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-13</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react 推荐使用组合，组合可以提高重复利用性，减少模块间的耦合</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="组合-vs-继承"><a href="#组合-vs-继承" class="headerlink" title="组合 vs 继承"></a>组合 vs 继承</h1><blockquote>
+<p>react 推荐使用组合，组合可以提高重复利用性，减少模块间的耦合</p>
+</blockquote>
+<h1 id="包含"><a href="#包含" class="headerlink" title="包含"></a>包含</h1><blockquote>
+<p>react 组件不知道有没有子元素，对那些像盒子一样的公共组件，它通过一个特殊的 children 属性来添加子组件输出</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">//包含</span><br><span class="line"></span><br><span class="line">function FancyBorder(props) &#123;</span><br><span class="line">     return (</span><br><span class="line">         &lt;div&gt;</span><br><span class="line">                &lt;p&gt;&#123;props.color&#125;&lt;/p&gt;</span><br><span class="line">                &#123;props.children&#125;</span><br><span class="line">         &lt;/div&gt;</span><br><span class="line">     )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function WelcomeDialog() &#123;</span><br><span class="line">    return (&lt;FancyBorder color=&quot;blue&quot;&gt;</span><br><span class="line">            &lt;h1&gt;我是标题啊&lt;/h1&gt;</span><br><span class="line">            &lt;p&gt;我是内容啊&lt;/p&gt;</span><br><span class="line">    &lt;/FancyBorder&gt;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在 FancyBorder 组件里面的内容将被传递给它的 props.children 属性，按原样输出</p>
+</blockquote>
+<h1 id="我们可以自定义自己传入的子组件"><a href="#我们可以自定义自己传入的子组件" class="headerlink" title="我们可以自定义自己传入的子组件"></a>我们可以自定义自己传入的子组件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">function Contacts() &#123;</span><br><span class="line">     return (&lt;div&gt;我是Contacts&lt;/div&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Chat() &#123;</span><br><span class="line">    return (&lt;div&gt;我是Chat&lt;/div&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function SplitPane(props) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;p&gt;显示啊&lt;/p&gt;</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &#123;props.left&#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &#123;props.right&#125;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Just() &#123;</span><br><span class="line">        return (&lt;SplitPane left=&#123;&lt;Contacts/&gt;&#125; right=&#123;&lt;Chat/&gt;&#125;/&gt;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="被定义为类的组件在组合方面同样优秀"><a href="#被定义为类的组件在组合方面同样优秀" class="headerlink" title="被定义为类的组件在组合方面同样优秀"></a>被定义为类的组件在组合方面同样优秀</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">//类的组合</span><br><span class="line"></span><br><span class="line">function FancyBorder(props) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;div style=&#123;&#123;background:&quot;#f99&quot;&#125;&#125;&gt;</span><br><span class="line">            &lt;p&gt;&#123;props.color&#125;Dialog&lt;/p&gt;</span><br><span class="line">             &lt;p&gt;</span><br><span class="line">                 &#123;props.children&#125;</span><br><span class="line">             &lt;/p&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">function Dialog(props) &#123;</span><br><span class="line">    return (</span><br><span class="line">        &lt;FancyBorder color=&quot;blue&quot;&gt;</span><br><span class="line">            &lt;h2&gt;我是Dialog&lt;/h2&gt;</span><br><span class="line">            &lt;h1 className=&quot;Dialog-title&quot;&gt;</span><br><span class="line">                &#123;props.title&#125;</span><br><span class="line">            &lt;/h1&gt;</span><br><span class="line">            &lt;p className=&quot;Dialog-message&quot;&gt;</span><br><span class="line">                &#123;props.message&#125;</span><br><span class="line">            &lt;/p&gt;</span><br><span class="line">            &#123;props.children&#125;</span><br><span class="line">        &lt;/FancyBorder&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class SignUpDailog extends Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.handleChange = this.handleChange.bind(this);</span><br><span class="line">        this.handleSignUp= this.handleSignUp.bind(this);</span><br><span class="line">        this.state = &#123;login:&apos;&apos;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        return (&lt;Dialog title=&quot;我是真标题&quot; message=&quot;我是假信息&quot;&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; value=&#123;this.state.login&#125; onChange=&#123;this.handleChange&#125;/&gt;</span><br><span class="line">            &lt;button onClick=&#123;this.handleSignUp&#125;&gt;点我&lt;/button&gt;</span><br><span class="line">        &lt;/Dialog&gt;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChange(e)&#123;</span><br><span class="line">        this.setState(&#123;login:e.target.value&#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleSignUp()&#123;</span><br><span class="line">        alert(`hahah ,$&#123;this.state.login&#125;`)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

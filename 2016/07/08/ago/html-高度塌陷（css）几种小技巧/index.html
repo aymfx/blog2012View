@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>html--高度塌陷（css）几种小技巧 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#高度塌陷的情况："><span class="toc-text">高度塌陷的情况：</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#解决办法"><span class="toc-text">解决办法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-在高度塌陷的父div里面加一个div："><span class="toc-text">1.在高度塌陷的父div里面加一个div：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-overflow-zoom方法"><span class="toc-text">2.overflow + zoom方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-after-zoom方法（绝杀"><span class="toc-text">3.after + zoom方法（绝杀)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#整个代码片段："><span class="toc-text">整个代码片段：</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">html--高度塌陷（css）几种小技巧</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-08</span>
+        </div>
+        <div class="article-container">
+          <h1 id="高度塌陷的情况："><a href="#高度塌陷的情况：" class="headerlink" title="高度塌陷的情况："></a>高度塌陷的情况：</h1><blockquote>
+<p>当父元素没有设置高度，并且子元素块都向左浮动起来了，那么父元素就会塌陷</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h1 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h1><h2 id="1-在高度塌陷的父div里面加一个div："><a href="#1-在高度塌陷的父div里面加一个div：" class="headerlink" title="1.在高度塌陷的父div里面加一个div："></a>1.在高度塌陷的父div里面加一个div：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=<span class="string">"a"</span>&gt;</span><br><span class="line">     	  &lt;div id=<span class="string">"a1"</span>&gt;&lt;/div&gt;</span><br><span class="line">     	  &lt;div id=<span class="string">"a2"</span>&gt;&lt;/div&gt;</span><br><span class="line">     	  &lt;div style=<span class="string">"clear: both;"</span>&gt;&lt;/div&gt;//加一个标签，清除浮动</span><br><span class="line">     &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优点：适合初学者，兼容性 强。<br>缺点：代码不简练，不利于优化。</p>
+</blockquote>
+<h2 id="2-overflow-zoom方法"><a href="#2-overflow-zoom方法" class="headerlink" title="2.overflow + zoom方法"></a>2.overflow + zoom方法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a&#123;</span></span><br><span class="line">	   	    background: red;</span><br><span class="line">	   	    /*第二种方法*/</span><br><span class="line">	   	    overflow: hidden;</span><br><span class="line">	   	    zoom:1;</span><br><span class="line">	   &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优点：兼容性强。<br>缺点：对margin属性会有影响，不能设负值，会被裁掉。负值绝对定位也不可以。</p>
+</blockquote>
+<h2 id="3-after-zoom方法（绝杀"><a href="#3-after-zoom方法（绝杀" class="headerlink" title="3.after + zoom方法（绝杀)"></a>3.after + zoom方法（绝杀)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a&#123;</span></span><br><span class="line">	   	    background: red;</span><br><span class="line">	   	    zoom:1;</span><br><span class="line">	   &#125;</span><br><span class="line">	   <span class="comment">#a:after&#123;</span></span><br><span class="line">	   	      display: block;</span><br><span class="line">	   	      content: <span class="string">'.'</span>;</span><br><span class="line">	   	      clear: both;</span><br><span class="line">	   	      line-height: 0;</span><br><span class="line">	   	      visibility: hidden;</span><br><span class="line">	   &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优点：通用，兼容性强<br>缺点：不好记。</p>
+</blockquote>
+<h2 id="整个代码片段："><a href="#整个代码片段：" class="headerlink" title="整个代码片段："></a>整个代码片段：</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">   &lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;高度塌陷问题&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">	&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">		   <span class="comment">#a&#123;</span></span><br><span class="line">		   	    background: red;</span><br><span class="line">		   	    zoom:1;</span><br><span class="line">		   &#125;</span><br><span class="line">		   <span class="comment">#a:after&#123;</span></span><br><span class="line">		   	      display: block;</span><br><span class="line">		   	      content: <span class="string">'.'</span>;</span><br><span class="line">		   	      clear: both;</span><br><span class="line">		   	      line-height: 0;</span><br><span class="line">		   	      visibility: hidden;</span><br><span class="line">		   &#125;</span><br><span class="line">		   <span class="comment">#a1,#a2&#123;</span></span><br><span class="line">		   	   width: 50px;</span><br><span class="line">		   	   height: 50px;</span><br><span class="line">		   	   margin: 10px;</span><br><span class="line">		   	   background: blue;</span><br><span class="line">		   	   <span class="built_in">float</span>: left;</span><br><span class="line">		   &#125;</span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">     &lt;div id=<span class="string">"a"</span>&gt;</span><br><span class="line">     	  &lt;div id=<span class="string">"a1"</span>&gt;是是是&lt;/div&gt;</span><br><span class="line">     	  &lt;div id=<span class="string">"a2"</span>&gt;&lt;/div&gt;</span><br><span class="line">     	  &lt;!-- &lt;div style=<span class="string">"clear: both;"</span>&gt;&lt;/div&gt; --&gt;</span><br><span class="line">     &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>python笔记 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python笔记"><span class="toc-text">python笔记</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pathon3的基础函数"><span class="toc-text">pathon3的基础函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串"><span class="toc-text">字符串</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">python笔记</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-12-26</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>这是学习py的记录笔记 没啥参考意义</p>
+</blockquote>
+<a id="more"></a>  
+
+<h2 id="python笔记"><a href="#python笔记" class="headerlink" title="python笔记"></a>python笔记</h2><p>最新的python3的学习，放弃了之前的py2</p>
+<h2 id="pathon3的基础函数"><a href="#pathon3的基础函数" class="headerlink" title="pathon3的基础函数"></a>pathon3的基础函数</h2><blockquote>
+<p>print()  打印函数</p>
+</blockquote>
+<blockquote>
+<p>output() 允许用输入函数</p>
+</blockquote>
+<blockquote>
+<p>Math 数学函数</p>
+</blockquote>
+<ul>
+<li>abs()  去绝对值</li>
+<li>sqrt() 平方</li>
+<li>floor() 向下取整</li>
+<li>ceil() 向上取整</li>
+</ul>
+<blockquote>
+<p>pow() 函数乘方</p>
+</blockquote>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><blockquote>
+<p>拼接字符串</p>
+</blockquote>
+<ul>
+<li>str()   拼接字符串 是一个类</li>
+<li>repr()  拼接字符串 是一个函数</li>
+</ul>
+<blockquote>
+<p>长字符串</p>
+</blockquote>
+<ul>
+<li>print(‘’’ ssdfsf    ‘’’’)   三个引号</li>
+<li>print(r’c:\\nsadadad’)    r   不转义</li>
+</ul>
+<p>这是个好玩的unioncode</p>
+<ul>
+<li>“his is a cat \N{dog}”</li>
+</ul>
+<blockquote>
+<p>py的三种编码方式</p>
+</blockquote>
+<ul>
+<li>ASCII</li>
+<li>UTF-8 （默认）</li>
+<li>UTF-32</li>
+</ul>
+<p>通过encode可以转成各自的编码格式,然后用decode解码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 编码</span></span><br><span class="line"><span class="string">'hello py'</span>.encode(<span class="string">'ASCII'</span>)</span><br><span class="line"><span class="comment">#  b'hello py'</span></span><br><span class="line"><span class="string">'hello py'</span>.encode(<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="comment"># b'hello py'</span></span><br><span class="line"><span class="string">'hello py'</span>.encode(<span class="string">'utf-32'</span>)</span><br><span class="line"><span class="comment"># b'\xff\xfe\x00\x00h\x00\x00\x00e\x00\x00\x00l\x00\x00\x00l\x00\x00\x00o\x00\x00\x00 \x00\x00\x00p\x00\x00\x00y\x00\x00\x00'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解码</span></span><br><span class="line"><span class="string">b'\xff\xfe\x00\x00h\x00\x00\x00e\x00\x00\x00l\x00\x00\x00l\x00\x00\x00o\x00\x00\x00 \x00\x00\x00p\x00\x00\x00y\x00\x00\x00'</span>.decode(<span class="string">'utf-32'</span>)</span><br><span class="line"><span class="comment"># 'hello py'</span></span><br></pre></td></tr></table></figure>
+
+<p>还有提供 bytes 和 str 来实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bytes(<span class="string">'fix app'</span>,encoding=<span class="string">'utf-8'</span>)</span><br><span class="line"><span class="comment"># b'fix app'</span></span><br><span class="line">str(<span class="string">b'fix app'</span>,encoding=<span class="string">'utf-8'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>python还提供一种可变的，叫bytearray,类似数组形式的可变其中的字符，插入字符的话需要使用ord获取其序数值</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x= bytearray(<span class="string">b'i xeed you'</span>)</span><br><span class="line">x[<span class="number">2</span>] = ord(<span class="string">b'n'</span>)</span><br><span class="line">x</span><br><span class="line"><span class="comment"># bytearray(b'i need you')</span></span><br></pre></td></tr></table></figure>
+
+<p>Python 默认是utf-8编码</p>
+<blockquote>
+<p>设置字符编码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: encoding name -*-</span></span><br><span class="line"><span class="comment"># 请将其中的encoding name替换为你要使用的编码(大小写都行)，如utf-8或latin-1</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>abs(number)</th>
+<th align="center">返回指定数的绝对值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bytes(string,encoding[,errors])</td>
+<td align="center">对指定的字符串进行编码，并以指定的方式处理错误</td>
+</tr>
+<tr>
+<td>cmath.sqrt(number)</td>
+<td align="center">返回平方根;可用于负数</td>
+</tr>
+<tr>
+<td>float(object)</td>
+<td align="center">将字符串或数字转换为浮点数</td>
+</tr>
+<tr>
+<td>help([object])</td>
+<td align="center">提供交互式帮助</td>
+</tr>
+<tr>
+<td>input(prompt)</td>
+<td align="center">以字符串的方式获取用户输入</td>
+</tr>
+<tr>
+<td>int(object)</td>
+<td align="center">将字符串或数转换为整数</td>
+</tr>
+<tr>
+<td>math.ceil(number)</td>
+<td align="center">以浮点数的方式返回向上圆整的结果</td>
+</tr>
+<tr>
+<td>math.floor(number)</td>
+<td align="center">以浮点数的方式返回向下圆整的结果</td>
+</tr>
+<tr>
+<td>math.sqrt(number)</td>
+<td align="center">返回平方根;不能用于负数</td>
+</tr>
+<tr>
+<td>pow(x, y[, z])</td>
+<td align="center">返回x的y次方对z求模的结果</td>
+</tr>
+<tr>
+<td>print(object, …)</td>
+<td align="center">将提供的实参打印出来，并用空格分隔</td>
+</tr>
+<tr>
+<td>repr(object)</td>
+<td align="center">返回指定值的字符串表示</td>
+</tr>
+<tr>
+<td>round(number[, ndigits])</td>
+<td align="center">四舍五入为指定的精度，正好为5时舍入到偶数</td>
+</tr>
+<tr>
+<td>str(object)</td>
+<td align="center">将指定的值转换为字符串。用于转换bytes时，可指定编码和错误处理方式</td>
+</tr>
+</tbody></table>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

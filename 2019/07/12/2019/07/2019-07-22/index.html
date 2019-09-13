@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>前端 100 题 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前端-100-题"><span class="toc-text">前端 100 题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-1-题：写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？"><span class="toc-text">第 1 题：写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-2-题：-39-1-39-39-2-39-39-3-39-map-parseInt-what-amp-why"><span class="toc-text">第 2 题：[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;].map(parseInt) what &amp; why ?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#parseInt"><span class="toc-text">parseInt</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#回到真实的事例上"><span class="toc-text">回到真实的事例上</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何在现实世界中做到这一点"><span class="toc-text">如何在现实世界中做到这一点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-3-题：什么是防抖和节流？有什么区别？如何实现？"><span class="toc-text">第 3 题：什么是防抖和节流？有什么区别？如何实现？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-4-题：介绍下-Set、Map、WeakSet-和-WeakMap-的区别？"><span class="toc-text">第 4 题：介绍下 Set、Map、WeakSet 和 WeakMap 的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-5-题：介绍下深度优先遍历和广度优先遍历，如何实现？"><span class="toc-text">第 5 题：介绍下深度优先遍历和广度优先遍历，如何实现？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-6-题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？"><span class="toc-text">第 6 题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第-7-题：ES5-ES6-的继承除了写法以外还有什么区别？"><span class="toc-text">第 7 题：ES5/ES6 的继承除了写法以外还有什么区别？</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">前端 100 题</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2019-07-12</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>前端 100 题</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h2 id="前端-100-题"><a href="#前端-100-题" class="headerlink" title="前端 100 题"></a>前端 100 题</h2><h2 id="第-1-题：写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？"><a href="#第-1-题：写-React-Vue-项目时为什么要在列表组件中写-key，其作用是什么？" class="headerlink" title="第 1 题：写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？"></a>第 1 题：写 React / Vue 项目时为什么要在列表组件中写 key，其作用是什么？</h2><p>答：1.更精准,因为带 key 就不能就地复用了，因为存在了唯一的 id，所以就可以避免就地复用的情况。2.更快了，利用 key 的唯一性生成 map 对象获取相应的结点，会比遍历的更快。</p>
+<h2 id="第-2-题：-39-1-39-39-2-39-39-3-39-map-parseInt-what-amp-why"><a href="#第-2-题：-39-1-39-39-2-39-39-3-39-map-parseInt-what-amp-why" class="headerlink" title="第 2 题：[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;].map(parseInt) what &amp; why ?"></a>第 2 题：<code>[&#39;1&#39;, &#39;2&#39;, &#39;3&#39;].map(parseInt)</code> what &amp; why ?</h2><p>答: 1,NaN,NaN</p>
+<p>解析:<br>主要是讲<strong>JS 的映射与解析</strong><br>早在 2013 年, 加里·伯恩哈德就在微博上发布了以下代码段:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;].map(parseInt);</span><br><span class="line">// [10, NaN, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="parseInt"><a href="#parseInt" class="headerlink" title="parseInt"></a>parseInt</h3><p><code>parseInt()</code> 函数解析一个字符串参数，并返回一个指定基数的整数 (数学系统的基础)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const intValue = parseInt(string[, radix]);</span><br></pre></td></tr></table></figure>
+
+<p><code>string</code> 要被解析的值。如果参数不是一个字符串，则将其转换为字符串(使用 ToString 抽象操作)。字符串开头的空白符将会被忽略。</p>
+<p><code>radix</code> 一个介于 2 和 36 之间的整数(数学系统的基础)，表示上述字符串的基数。默认为 10。<br><code>返回值</code> 返回一个整数或 NaN</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parseInt(100); // 100</span><br><span class="line">parseInt(100, 10); // 100</span><br><span class="line">parseInt(100, 2); // 4 -&gt; converts 100 in base 2 to base 10</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong><br>在<code>radix</code>为 undefined，或者<code>radix</code>为 0 或者没有指定的情况下，JavaScript 作如下处理：</p>
+<ul>
+<li>如果字符串 string 以”0x”或者”0X”开头, 则基数是 16 (16 进制).</li>
+<li>如果字符串 string 以”0”开头, 基数是 8（八进制）或者 10（十进制），那么具体是哪个基数由实现环境决定。ECMAScript 5 规定使用 10，但是并不是所有的浏览器都遵循这个规定。因此，永远都要明确给出 radix 参数的值。</li>
+<li>如果字符串 string 以其它任何值开头，则基数是 10 (十进制)。</li>
+</ul>
+<p>更多详见<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/parseInt" target="_blank" rel="noopener">parseInt | MDN</a></p>
+<h3 id="map"><a href="#map" class="headerlink" title="map"></a>map</h3><p><code>map()</code> 方法创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var new_array = arr.map(function callback(currentValue[,index[, array]]) &#123;</span><br><span class="line"> // Return element for new_array</span><br><span class="line"> &#125;[, thisArg])</span><br></pre></td></tr></table></figure>
+
+<p>可以看到<code>callback</code>回调函数需要三个参数, 我们通常只使用第一个参数 (其他两个参数是可选的)。<br><code>currentValue</code> 是 callback 数组中正在处理的当前元素。<br><code>index</code>可选, 是 callback 数组中正在处理的当前元素的索引。<br><code>array</code>可选, 是 callback map 方法被调用的数组。<br>另外还有<code>thisArg</code>可选, 执行 callback 函数时使用的 this 值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1, 2, 3];</span><br><span class="line">arr.map((num) =&gt; num + 1); // [2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<p>更多详见<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="noopener">Array.prototype.map() | MDN</a></p>
+<h3 id="回到真实的事例上"><a href="#回到真实的事例上" class="headerlink" title="回到真实的事例上"></a>回到真实的事例上</h3><p>回到我们真实的事例上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(parseInt)</span><br></pre></td></tr></table></figure>
+
+<p>对于每个迭代<code>map</code>, <code>parseInt()</code>传递两个参数: <strong>字符串和基数</strong>。<br>所以实际执行的的代码是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map((item, index) =&gt; &#123;</span><br><span class="line">	return parseInt(item, index)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>即返回的值分别为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parseInt(&apos;1&apos;, 0) // 1</span><br><span class="line">parseInt(&apos;2&apos;, 1) // NaN</span><br><span class="line">parseInt(&apos;3&apos;, 2) // NaN, 3 不是二进制</span><br></pre></td></tr></table></figure>
+
+<p>所以：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;1&apos;, &apos;2&apos;, &apos;3&apos;].map(parseInt)</span><br><span class="line">// 1, NaN, NaN</span><br></pre></td></tr></table></figure>
+
+<p>由此，加里·伯恩哈德例子也就很好解释了，这里不再赘述</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;].map(parseInt);</span><br><span class="line">// [10, NaN, 2, 3, 4]</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何在现实世界中做到这一点"><a href="#如何在现实世界中做到这一点" class="headerlink" title="如何在现实世界中做到这一点"></a>如何在现实世界中做到这一点</h3><p>如果您实际上想要循环访问字符串数组, 该怎么办？ <code>map()</code>然后把它换成数字？使用编号!</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;,&apos;10&apos;].map(Number);</span><br><span class="line">// [10, 10, 10, 10, 10]</span><br></pre></td></tr></table></figure>
+
+<h2 id="第-3-题：什么是防抖和节流？有什么区别？如何实现？"><a href="#第-3-题：什么是防抖和节流？有什么区别？如何实现？" class="headerlink" title="第 3 题：什么是防抖和节流？有什么区别？如何实现？"></a>第 3 题：什么是防抖和节流？有什么区别？如何实现？</h2><ol>
+<li><strong>防抖</strong></li>
+</ol>
+<blockquote>
+<p>触发高频事件后 n 秒内函数只会执行一次，如果 n 秒内高频事件再次被触发，则重新计算时间</p>
+</blockquote>
+<ul>
+<li>思路：</li>
+</ul>
+<blockquote>
+<p>每次触发事件时都取消之前的延时调用方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn) &#123;</span><br><span class="line">      let timeout = null; // 创建一个标记用来存放定时器的返回值</span><br><span class="line">      return function () &#123;</span><br><span class="line">        clearTimeout(timeout); // 每当用户输入的时候把前一个 setTimeout clear 掉</span><br><span class="line">        timeout = setTimeout(() =&gt; &#123; // 然后又创建一个新的 setTimeout, 这样就能保证输入字符后的 interval 间隔内如果还有字符输入的话，就不会执行 fn 函数</span><br><span class="line">          fn.apply(this, arguments);</span><br><span class="line">        &#125;, 500);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    function sayHi() &#123;</span><br><span class="line">      console.log(&apos;防抖成功&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var inp = document.getElementById(&apos;inp&apos;);</span><br><span class="line">    inp.addEventListener(&apos;input&apos;, debounce(sayHi)); // 防抖</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>节流</strong></li>
+</ol>
+<blockquote>
+<p>高频事件触发，但在 n 秒内只会执行一次，所以节流会稀释函数的执行频率</p>
+</blockquote>
+<ul>
+<li>思路：</li>
+</ul>
+<blockquote>
+<p>每次触发事件时都判断当前是否有等待执行的延时函数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function throttle(fn) &#123;</span><br><span class="line">      let canRun = true; // 通过闭包保存一个标记</span><br><span class="line">      return function () &#123;</span><br><span class="line">        if (!canRun) return; // 在函数开头判断标记是否为true，不为true则return</span><br><span class="line">        canRun = false; // 立即设置为false</span><br><span class="line">        setTimeout(() =&gt; &#123; // 将外部传入的函数的执行放在setTimeout中</span><br><span class="line">          fn.apply(this, arguments);</span><br><span class="line">          // 最后在setTimeout执行完毕后再把标记设置为true(关键)表示可以执行下一次循环了。当定时器没有执行的时候标记永远是false，在开头被return掉</span><br><span class="line">          canRun = true;</span><br><span class="line">        &#125;, 500);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">    function sayHi(e) &#123;</span><br><span class="line">      console.log(e.target.innerWidth, e.target.innerHeight);</span><br><span class="line">    &#125;</span><br><span class="line">    window.addEventListener(&apos;resize&apos;, throttle(sayHi));</span><br></pre></td></tr></table></figure>
+
+<h2 id="第-4-题：介绍下-Set、Map、WeakSet-和-WeakMap-的区别？"><a href="#第-4-题：介绍下-Set、Map、WeakSet-和-WeakMap-的区别？" class="headerlink" title="第 4 题：介绍下 Set、Map、WeakSet 和 WeakMap 的区别？"></a>第 4 题：介绍下 Set、Map、WeakSet 和 WeakMap 的区别？</h2><p>答：<a href="http://es6.ruanyifeng.com/#docs/set-map" target="_blank" rel="noopener">阮一峰关于四者的区别</a></p>
+<h2 id="第-5-题：介绍下深度优先遍历和广度优先遍历，如何实现？"><a href="#第-5-题：介绍下深度优先遍历和广度优先遍历，如何实现？" class="headerlink" title="第 5 题：介绍下深度优先遍历和广度优先遍历，如何实现？"></a>第 5 题：介绍下深度优先遍历和广度优先遍历，如何实现？</h2><h2 id="第-6-题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？"><a href="#第-6-题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？" class="headerlink" title="第 6 题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？"></a>第 6 题：请分别用深度优先思想和广度优先思想实现一个拷贝函数？</h2><h2 id="第-7-题：ES5-ES6-的继承除了写法以外还有什么区别？"><a href="#第-7-题：ES5-ES6-的继承除了写法以外还有什么区别？" class="headerlink" title="第 7 题：ES5/ES6 的继承除了写法以外还有什么区别？"></a>第 7 题：ES5/ES6 的继承除了写法以外还有什么区别？</h2><ol>
+<li><code>class</code> 声明会提升，但不会初始化赋值。<code>Foo</code> 进入暂时性死区，类似于 <code>let</code>、<code>const</code> 声明变量。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bar = <span class="keyword">new</span> Bar() <span class="comment">// it's ok</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo() <span class="comment">// ReferenceError: Foo is not defined</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.foo = <span class="number">42</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>class</code> 声明内部会启用严格模式。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用一个未声明的变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    baz = <span class="number">42</span> <span class="comment">// it's ok</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> bar = <span class="keyword">new</span> Bar()</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        fol = <span class="number">42</span> <span class="comment">// ReferenceError: fol is not defined</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo()</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>class</code> 的所有方法（包括静态方法和实例方法）都是不可枚举的。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引用一个未声明的变量</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line">Bar.answer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line">Bar.prototype.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.bar)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> barKeys = <span class="built_in">Object</span>.keys(Bar) <span class="comment">// ['answer']</span></span><br><span class="line"><span class="keyword">const</span> barProtoKeys = <span class="built_in">Object</span>.keys(Bar.prototype) <span class="comment">// ['print']</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.foo = <span class="number">42</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> answer() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">42</span></span><br><span class="line">    &#125;</span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> fooKeys = <span class="built_in">Object</span>.keys(Foo) <span class="comment">// []</span></span><br><span class="line"><span class="keyword">const</span> fooProtoKeys = <span class="built_in">Object</span>.keys(Foo.prototype) <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>class</code> 的所有方法（包括静态方法和实例方法）都没有原型对象 prototype，所以也没有<code>[[construct]]</code>，不能使用 <code>new</code> 来调用。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line">Bar.prototype.print = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.bar)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bar = <span class="keyword">new</span> Bar()</span><br><span class="line"><span class="keyword">const</span> barPrint = <span class="keyword">new</span> bar.print() <span class="comment">// it's ok</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.foo = <span class="number">42</span></span><br><span class="line">    &#125;</span><br><span class="line">    print() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.foo)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo()</span><br><span class="line"><span class="keyword">const</span> fooPrint = <span class="keyword">new</span> foo.print() <span class="comment">// TypeError: foo.print is not a constructor</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>必须使用 <code>new</code> 调用 <code>class</code>。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> bar = Bar() <span class="comment">// it's ok</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.foo = <span class="number">42</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> foo = Foo() <span class="comment">// TypeError: Class constructor Foo cannot be invoked without 'new'</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><code>class</code> 内部无法重写类名。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    Bar = <span class="string">'Baz'</span> <span class="comment">// it's ok</span></span><br><span class="line">    <span class="keyword">this</span>.bar = <span class="number">42</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> bar = <span class="keyword">new</span> Bar()</span><br><span class="line"><span class="comment">// Bar: 'Baz'</span></span><br><span class="line"><span class="comment">// bar: Bar &#123;bar: 42&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>() &#123;</span><br><span class="line">        <span class="keyword">this</span>.foo = <span class="number">42</span></span><br><span class="line">        Foo = <span class="string">'Fol'</span> <span class="comment">// TypeError: Assignment to constant variable</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> foo = <span class="keyword">new</span> Foo()</span><br><span class="line">Foo = <span class="string">'Fol'</span> <span class="comment">// it's ok</span></span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

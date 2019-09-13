@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记5 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Step-轻量级的流程控制库"><span class="toc-text">Step 轻量级的流程控制库</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#并行任务执行"><span class="toc-text">并行任务执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结果分组-group"><span class="toc-text">结果分组 group</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#wind"><span class="toc-text">wind</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记5</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-30</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="Step-轻量级的流程控制库"><a href="#Step-轻量级的流程控制库" class="headerlink" title="Step 轻量级的流程控制库"></a>Step 轻量级的流程控制库</h1><blockquote>
+<p>只提供一个接口</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Step(task1,task2,task3);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>示例代码</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Step(<span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="keyword">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">readFile2</span>(<span class="params">err,content</span>)</span>&#123;</span><br><span class="line">        fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,<span class="keyword">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">done</span>(<span class="params">err,content</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(content);</span><br><span class="line">    &#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>this 是Step内部的一个next()方法,将异步调用的结果传递给下一个任务作为参数，并调用执行</p>
+</blockquote>
+<h2 id="并行任务执行"><a href="#并行任务执行" class="headerlink" title="并行任务执行"></a>并行任务执行</h2><blockquote>
+<p>this有一个parallel()方法，可以告诉Step,需要等待所有任务结束才执行下一个任务</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Step = <span class="built_in">require</span>(<span class="string">'step'</span>);</span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">Step(<span class="function"><span class="keyword">function</span> <span class="title">readFile</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    fs.readFile(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>,<span class="keyword">this</span>.parallel());</span><br><span class="line">    fs.readFile(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>,<span class="keyword">this</span>.parallel());</span><br><span class="line">    fs.readFile(<span class="string">'file3.txt'</span>,<span class="string">'utf-8'</span>,<span class="keyword">this</span>.parallel());</span><br><span class="line">&#125;,</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">done</span>(<span class="params">err,content1,content2,content3</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">arguments</span>);</span><br><span class="line">&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>书上说异步方法的结果传回的是多个参数，step将只会取前两个参数（不懂）</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> asyncCall = <span class="function"><span class="keyword">function</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">    process.nextTick(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        callback(<span class="literal">null</span>,<span class="string">'result1'</span>,<span class="string">'result2'</span>)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用paraller()时，result2将会被丢弃</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Step的parallel()方法原理:每次执行时将内部的计数器加1,然后返回一个回调函数，这个回调函数在异步调用结束时才执行。当回调函数执行时，将计数器减1,当计数器为0时，告知所有的异步调用结束，Step执行下一个方法</p>
+</blockquote>
+<h2 id="结果分组-group"><a href="#结果分组-group" class="headerlink" title="结果分组 group"></a>结果分组 group</h2><blockquote>
+<p>看下示例代码基本能明白</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Step(</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">readDir</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            fs.readdir(_dirname,<span class="keyword">this</span>);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">readFiles</span>(<span class="params">err,results</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</span><br><span class="line">            <span class="keyword">var</span> group = <span class="keyword">this</span>.group();</span><br><span class="line"></span><br><span class="line">            results.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">filename</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="regexp">/\.js$/</span>.test(filename))&#123;</span><br><span class="line">                    fs.readFile(_dirname+<span class="string">'/'</span>+filename,<span class="string">'utf-8'</span>,group())</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">showAll</span>(<span class="params">err,files</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(err) <span class="keyword">throw</span> err;</span><br><span class="line">            <span class="built_in">console</span>.log(files);</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br></pre></td></tr></table></figure>
+
+<h1 id="wind"><a href="#wind" class="headerlink" title="wind"></a>wind</h1><blockquote>
+<p>也是一个y异步的流程库，咱们中国人写的，做异步动画挺好的样子，我们来实现下异步动画排序的过程，先看看过程，再讲方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> compare = <span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x-y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> swapAsync = <span class="built_in">eval</span>(Wind.compile(<span class="string">'async'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">a,i,j</span>)</span>&#123;</span><br><span class="line">    $<span class="keyword">await</span>(Wind.Async.sleep(<span class="number">20</span>));<span class="comment">//休息20毫秒</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> t =a[i];</span><br><span class="line">    a[i] = a[j];</span><br><span class="line">    a[j] = t;</span><br><span class="line">    paint(a);</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> bubbleSort = <span class="built_in">eval</span>(Wind.compile(<span class="string">'async'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">array</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;array.length;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> j=<span class="number">0</span>;j&lt;array.length-i<span class="number">-1</span>;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(compare(array[j],array[i])&gt;<span class="number">0</span>)&#123;</span><br><span class="line">                    $<span class="keyword">await</span>(swapAsync(array,j,j+<span class="number">1</span>))</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>eval(Wind.compile(‘async’,function(){}))</p>
+</blockquote>
+<ul>
+<li>Wind.compile()将普通的函数进行编译</li>
+<li>eval()执行代码</li>
+</ul>
+<blockquote>
+<p>Wind.Async.sleep()</p>
+</blockquote>
+<ul>
+<li>内置了对setTimeout()的封装</li>
+</ul>
+<blockquote>
+<p>$await()</p>
+</blockquote>
+<ul>
+<li>它不是一个方法，只是一个等待的占位符，告诉编译器需要等待</li>
+<li>他接受一个任务对象，表示任务结束才能继续执行，每个异步任务都可以转化为一个任务，wind正是基于任务模型实现的，这是一个将fs.readFile()调用转换成一个任务模型</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> Wind = <span class="built_in">require</span>(<span class="string">'wind'</span>);</span><br><span class="line"><span class="keyword">var</span> Task = Wind.Async.Task;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> readFileAsync = <span class="function"><span class="keyword">function</span>(<span class="params">file,encoding</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> Task.create(<span class="function"><span class="keyword">function</span>(<span class="params">t</span>)</span>&#123;</span><br><span class="line">            fs.readFile(file,encoding,<span class="function"><span class="keyword">function</span>(<span class="params">err.file</span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(err) &#123;</span><br><span class="line">                    t.complete(<span class="string">'failure'</span>,err);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    t.complete(<span class="string">'success'</span>,file);</span><br><span class="line">                &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Wind串行展示</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> serial = <span class="built_in">eval</span>(Wind.compile(<span class="string">'async'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="keyword">var</span> file1 = $<span class="keyword">await</span>(readFileAsync(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>));</span><br><span class="line">     <span class="built_in">console</span>.log(file1);</span><br><span class="line">     <span class="keyword">var</span> file2 = $<span class="keyword">await</span>(readFileAsync(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>));</span><br><span class="line">     <span class="built_in">console</span>.log(file2);</span><br><span class="line">     <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> file3 = $<span class="keyword">await</span>(readFileAsync(<span class="string">'file3.txt'</span>,<span class="string">'utf-8'</span>))</span><br><span class="line">     &#125; <span class="keyword">catch</span>(err)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(err)</span><br><span class="line">     &#125;</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">serial().start();</span><br><span class="line"></span><br><span class="line"><span class="comment">//file1 file2 error</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>并行效果展示</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> parallel = <span class="built_in">eval</span>(Wind.compile(<span class="string">'async'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> results = $<span class="keyword">await</span>(Task.whenAll(&#123;</span><br><span class="line">        file1:readFileAsync(<span class="string">'file1.txt'</span>,<span class="string">'utf-8'</span>);</span><br><span class="line">        file2:readFileAsync(<span class="string">'file2.txt'</span>,<span class="string">'utf-8'</span>);</span><br><span class="line">    &#125;))</span><br><span class="line">    <span class="built_in">console</span>.log(results.file1,results.file2);</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">parallel().start();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Wind好似同步编程的感觉，但是我们需要做一些麻烦的操作。</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

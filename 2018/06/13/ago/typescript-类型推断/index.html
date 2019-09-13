@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>typescript-类型推断 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#最佳通用类型"><span class="toc-text">最佳通用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#上下文类型"><span class="toc-text">上下文类型</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">typescript-类型推断</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-06-13</span>
+        </div>
+        <div class="article-container">
+          <p><img src="https://upload-images.jianshu.io/upload_images/10843623-d1427ac46b2dd12f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="typescript"></p>
+<blockquote>
+<p>这节写的是类型是怎样被推断出来的</p>
+</blockquote>
+<a id="more"></a>   
+
+<h3 id="最佳通用类型"><a href="#最佳通用类型" class="headerlink" title="最佳通用类型"></a>最佳通用类型</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="literal">null</span>,<span class="number">2</span>,<span class="string">'string'</span>]; <span class="comment">//let arr: (string | number)[]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于未定义类型的数组，编译器会自动选择最佳通用类型 let arr: (string | number)[]</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> tongyong &#123;</span><br><span class="line">    name:<span class="built_in">string</span>;</span><br><span class="line">    age:<span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">    [index: <span class="built_in">number</span>]:tongyong</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Rhino <span class="keyword">implements</span> tongyong&#123;</span><br><span class="line">     name = <span class="string">'Rhino'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> fish <span class="keyword">implements</span> tongyong&#123;</span><br><span class="line">     name = <span class="string">'fish'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> jafish <span class="keyword">implements</span> tongyong&#123;</span><br><span class="line">     name = <span class="string">'jafish'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zoo = [<span class="keyword">new</span> Rhino(), <span class="keyword">new</span> fish(), <span class="keyword">new</span> jafish()] <span class="comment">//let zoo: (Rhino | fish | jafish)[]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的zoo最佳推断类型就是这个 let zoo: (Rhino | fish | jafish)[]，其实可以改下</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Animal &#123;</span><br><span class="line">    name:<span class="built_in">string</span>;</span><br><span class="line">    age:<span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> Rhino <span class="keyword">implements</span> Animal&#123;</span><br><span class="line">     name = <span class="string">'Rhino'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> fish <span class="keyword">implements</span> Animal&#123;</span><br><span class="line">     name = <span class="string">'fish'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span> jafish <span class="keyword">implements</span> Animal&#123;</span><br><span class="line">     name = <span class="string">'jafish'</span>;</span><br><span class="line">     age = <span class="number">12</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> zoo:Animal[] = [<span class="keyword">new</span> Rhino(), <span class="keyword">new</span> fish(), <span class="keyword">new</span> jafish()] <span class="comment">//let zoo: (Rhino | fish | jafish)[]</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="上下文类型"><a href="#上下文类型" class="headerlink" title="上下文类型"></a>上下文类型</h4><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmousedown = <span class="function"><span class="keyword">function</span>(<span class="params">mouseEvent</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(mouseEvent.button);  <span class="comment">//&lt;- Error</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>官网文档说这样写会报错，但是实际并没有，有点头晕，下面官方写法</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onmousedown = <span class="function"><span class="keyword">function</span>(<span class="params">mouseEvent: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(mouseEvent.button);  <span class="comment">//&lt;- Now, no error is given</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">//这个函数表达式有明确的参数类型注解，上下文类型被忽略</span></span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

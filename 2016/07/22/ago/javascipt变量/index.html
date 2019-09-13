@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>javascipt变量 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript变量"><span class="toc-text">JavaScript变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命名"><span class="toc-text">命名</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#规则"><span class="toc-text">规则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#声明"><span class="toc-text">声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量类型"><span class="toc-text">变量类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#作用域"><span class="toc-text">作用域</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">javascipt变量</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-22</span>
+        </div>
+        <div class="article-container">
+          <h1 id="JavaScript变量"><a href="#JavaScript变量" class="headerlink" title="JavaScript变量"></a>JavaScript变量</h1><a id="more"></a>   
+
+<h2 id="命名"><a href="#命名" class="headerlink" title="命名"></a>命名</h2><h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li>匈牙利命名法：变量名=类型+对象描述<ul>
+<li>Int整形 i</li>
+<li>Float浮点 fl</li>
+<li>Boolean布尔 b</li>
+<li>String字符串 s</li>
+<li>Array数组    a</li>
+<li>Object对象 o</li>
+<li>Function函数 fn</li>
+<li>Regular Expressino 正则  re</li>
+</ul>
+</li>
+<li>驼峰命名法<ul>
+<li>全部小写：单词与单词用下划线分割</li>
+<li>大小写混合<ul>
+<li>大驼峰:每个首字母大写</li>
+<li>小驼峰:第一个单词首字母小写，其他首字母大写</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><ul>
+<li><p>首字符:英文或者下滑线或者$符号</p>
+<pre><code>var $a=&quot;asd&quot;;
+
+alert($a);</code></pre></li>
+<li><p>组成：英文字母，数字，下划线 $符号</p>
+</li>
+<li><p>禁忌：不能使用关键字和保留字</p>
+</li>
+</ul>
+<h2 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h2><ul>
+<li>显示声明：var 变量名</li>
+<li>陋习<ul>
+<li>没有类型</li>
+<li>重复声明</li>
+<li>隐式声明</li>
+<li>不声明直接赋值</li>
+</ul>
+</li>
+<li>正解<ul>
+<li>先声明，后读写</li>
+<li>先赋值，后运算</li>
+</ul>
+</li>
+</ul>
+<h2 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h2><ul>
+<li>值类型<ul>
+<li>占用空间固定，保存在栈中</li>
+<li>保存与复制的是值本身</li>
+<li>使用typeof检测数据的类型</li>
+<li>基本数据类型是值类型</li>
+</ul>
+</li>
+<li>引用类型<ul>
+<li>占用空间不固定，保存在堆中</li>
+<li>保存和赋值的是指向对象的指针</li>
+<li>使用instanceof检测数据类型</li>
+<li>使用new()方法构造出的对象是引用类型</li>
+</ul>
+</li>
+</ul>
+<h2 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h2><ul>
+<li>全局变量<ul>
+<li>包含<ul>
+<li>在函数体外定义的变量</li>
+<li>在函数内部定义的无var的变量</li>
+</ul>
+</li>
+<li>调用:任何位置</li>
+</ul>
+</li>
+<li>局部变量<ul>
+<li>包含<ul>
+<li>在函数内使用var声明的变量</li>
+<li>函数的参数变量</li>
+</ul>
+</li>
+<li>调用：在当前函数体内使用</li>
+</ul>
+</li>
+<li>优先级<ul>
+<li>局部同名变量&gt;局部同名参数&gt;全局同名变量</li>
+</ul>
+</li>
+<li>特性<ul>
+<li>忽略块级作用域</li>
+<li>全局变量是全局对象的属性</li>
+<li>局部变量是调用对象的属性</li>
+<li>作用域链<ul>
+<li>内层函数可以访问外层函数的局部变量</li>
+<li>外层函数不能访问内层函数的局部变量</li>
+</ul>
+</li>
+<li>生命周期<ul>
+<li>全局变量：除非被显示删除，否则一直存在</li>
+<li>局部变量：自声明起至函数运行完毕或显示删除</li>
+<li>回收机制<ul>
+<li>标记清除</li>
+<li>引用计数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

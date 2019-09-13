@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>es6-函数 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引子"><span class="toc-text">引子</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#函数形参的默认值"><span class="toc-text">函数形参的默认值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认参数对arguments对象的影响"><span class="toc-text">默认参数对arguments对象的影响</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认参数表达式-可以传函数"><span class="toc-text">默认参数表达式,可以传函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不定参数-（…keys）"><span class="toc-text">不定参数 （…keys）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Function-构造函数功能增强-可以使用默认参数和不定参数"><span class="toc-text">Function 构造函数功能增强 可以使用默认参数和不定参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#展开运算符"><span class="toc-text">展开运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#函数中可以获取函数名称的的属性-name"><span class="toc-text">函数中可以获取函数名称的的属性 name</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#明确函数的多重用途"><span class="toc-text">明确函数的多重用途</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#es5判断函数被调用的方法"><span class="toc-text">es5判断函数被调用的方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#new-target-精准判断"><span class="toc-text">new.target 精准判断</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#块级作用域"><span class="toc-text">块级作用域</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重要改变-箭头函数"><span class="toc-text">重要改变 箭头函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#箭头函数的语法"><span class="toc-text">箭头函数的语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#箭头函数没有this绑定"><span class="toc-text">箭头函数没有this绑定</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数不存在arguments绑定所以可以这么操作"><span class="toc-text">箭头函数不存在arguments绑定所以可以这么操作</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#尾调用的优化-Tail-Call"><span class="toc-text">尾调用的优化(Tail Call)</span></a></li></ol></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">es6-函数</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-04-06</span>
+        </div>
+        <div class="article-container">
+          <p><img src="http://upload-images.jianshu.io/upload_images/10843623-f6bc1326e758c851.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="i.jpg"></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>杭州这周温度达到-5度了，温度下降的蛮快，年会排舞感觉好悬啊，不知到能拍出啥道道来,现在唯一的心愿就是，早点回家，冷也阻止不了我回家的脚步，嗯哼。</p>
+</blockquote>
+ <a id="more"></a>   
+
+<blockquote>
+<p>我的博客地址 ：<a href="http://www.aymfx.cn/" target="_blank" rel="noopener">http://www.aymfx.cn/</a></p>
+</blockquote>
+<h3 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h3><blockquote>
+<p>ES6函数的改变不算太大，都是一些其他语言早就有的功能，而Javascript一直比较欠缺的，比如函数参数默认值，任意参数的表示法，最大的变化应该是支持箭头函数(其他语言称之为LAMBDA表达式)，一种对匿名函数的一种简写方式</p>
+</blockquote>
+<h4 id="函数形参的默认值"><a href="#函数形参的默认值" class="headerlink" title="函数形参的默认值"></a>函数形参的默认值</h4><blockquote>
+<p>es5 模拟默认参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sendAjax(url,timeout,callback)&#123;</span><br><span class="line">    timeout = timeout || 2000;</span><br><span class="line">    callback = callback || $.noop(); //默认参数</span><br><span class="line">    </span><br><span class="line">    $.ajax(url).done(function()&#123;</span><br><span class="line">        setTimeout(callback,timeout)</span><br><span class="line">    &#125;)</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面的赋值操作会存在问题，你懂的，所以引入了es6的默认参数</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function add(a=200,b=2)&#123;</span><br><span class="line">    return a+b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add()); //202</span><br><span class="line">console.log(add(2)); //4</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(add(null,2)); //2  null是合法值 被当成0</span><br><span class="line">console.log(add(undefined,2)); //202</span><br></pre></td></tr></table></figure>
+
+<h4 id="默认参数对arguments对象的影响"><a href="#默认参数对arguments对象的影响" class="headerlink" title="默认参数对arguments对象的影响"></a>默认参数对arguments对象的影响</h4><blockquote>
+<p>非严格模式下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function temp(first,second)&#123;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">    first = &apos;c&apos;;</span><br><span class="line">    second = &apos;d&apos;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">temp(&apos;a&apos;,&apos;b&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//true</span><br><span class="line">//VM264:3 true</span><br><span class="line">//VM264:6 true</span><br><span class="line">//VM264:7 true</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>严格模式下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function temp(first,second)&#123;</span><br><span class="line">    &apos;use strict&apos;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">    first = &apos;c&apos;;</span><br><span class="line">    second = &apos;d&apos;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">temp(&apos;a&apos;,&apos;b&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//true</span><br><span class="line">//VM264:3 true</span><br><span class="line">//VM264:6 false</span><br><span class="line">//VM264:7 false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>非严格模式下，参数与argument的值保持一致,严格模式下arguments与传进来的初始参数保持一致，看看es6默认值存在的话</p>
+</blockquote>
+<blockquote>
+<p>非严格模式下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function temp(first,second=&apos;b&apos;)&#123;</span><br><span class="line">    console.log(arguments.length)</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">    first = &apos;c&apos;;</span><br><span class="line">    second = &apos;b&apos;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">temp(&apos;a&apos;)</span><br><span class="line"></span><br><span class="line">//1</span><br><span class="line">//true</span><br><span class="line">//VM264:3 false</span><br><span class="line">//VM264:6 false</span><br><span class="line">//VM264:7 false</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>严格模式下</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function temp(first,second=&apos;b&apos;)&#123;</span><br><span class="line">    &apos;use strict&apos;</span><br><span class="line">    console.log(arguments.length)</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">    first = &apos;c&apos;;</span><br><span class="line">    second = &apos;d&apos;</span><br><span class="line">    console.log(first=== arguments[0]);</span><br><span class="line">    console.log(second=== arguments[1]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">temp(&apos;a&apos;)</span><br><span class="line"></span><br><span class="line">// Illegal &apos;use strict&apos; directive in function with non-simple parameter list</span><br><span class="line"></span><br><span class="line">//hhhhhhhhhhhh,不能用，尴尬</span><br></pre></td></tr></table></figure>
+
+<h4 id="默认参数表达式-可以传函数"><a href="#默认参数表达式-可以传函数" class="headerlink" title="默认参数表达式,可以传函数"></a>默认参数表达式,可以传函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function getValue()&#123;</span><br><span class="line">    return 5;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function add(first,second=getValue())&#123;</span><br><span class="line">    return first+second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">console.log(add(1,2)); //3</span><br><span class="line">console.log(add(10));  //15</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以将先前定义好的形参当默认值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function add(first,second=first)&#123;</span><br><span class="line">    return first+second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1,2)); //3</span><br><span class="line">console.log(add(10));  //20</span><br><span class="line"></span><br><span class="line">反之不行哈</span><br><span class="line"></span><br><span class="line">function add(first=second,second)&#123;</span><br><span class="line">    return first+second;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(add(1,2)); //3</span><br><span class="line">console.log(add(undefined,10));  //second is not defined</span><br><span class="line"></span><br><span class="line">//这就是所谓的临时死区TDZ，未初始化之前不可被引用</span><br></pre></td></tr></table></figure>
+
+<h4 id="不定参数-（…keys）"><a href="#不定参数-（…keys）" class="headerlink" title="不定参数 （…keys）"></a>不定参数 （…keys）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//模仿Underscore.js pick()方法</span><br><span class="line"></span><br><span class="line">function pick(object,...keys)&#123;</span><br><span class="line">    console.log(arguments.length); //3</span><br><span class="line">    let result = Object.create(null);</span><br><span class="line">    for(let i=0,len=keys.length;i&lt;len;i++)&#123;</span><br><span class="line">        result[keys[i]]= object[keys[i]]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    return result;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">let person = pick(&#123;name:&apos;ly&apos;,age:&apos;18&apos;,sex:&apos;mael&apos;&#125;,&apos;age&apos;,&apos;sex&apos;); </span><br><span class="line"></span><br><span class="line">console.log(person.name); //undefind</span><br><span class="line">console.log(person.age); //18</span><br><span class="line">console.log(person.sex); //mael</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不定参数的要求</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function pick(obj,...keys,last)&#123;&#125; //报错，不定参数必须放在最后后面</span><br><span class="line"></span><br><span class="line">//不定参数不能用于对象字面量setter之中</span><br><span class="line"></span><br><span class="line">let object = &#123;</span><br><span class="line">    set name(...values)&#123;</span><br><span class="line">        //执行逻辑</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Function-构造函数功能增强-可以使用默认参数和不定参数"><a href="#Function-构造函数功能增强-可以使用默认参数和不定参数" class="headerlink" title="Function 构造函数功能增强 可以使用默认参数和不定参数"></a>Function 构造函数功能增强 可以使用默认参数和不定参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const add = new Function(&apos;first&apos;,&apos;second = first&apos;,&apos;return first+second&apos;)</span><br><span class="line"></span><br><span class="line">console.log(add(1,2),add(1))  //3 2</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">var pick = new Function(&quot;...args&quot;,&quot;return args[0]&quot;)</span><br><span class="line"></span><br><span class="line">console.log(pick(1,2));  //1</span><br></pre></td></tr></table></figure>
+
+<h4 id="展开运算符"><a href="#展开运算符" class="headerlink" title="展开运算符"></a>展开运算符</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//之前求最大值的时候</span><br><span class="line"></span><br><span class="line">let values = [25,100,75,56];</span><br><span class="line"></span><br><span class="line">console.log(Math.max.apply(this,values));  //100</span><br><span class="line"></span><br><span class="line">//有点麻烦，但是用展开运算符的话</span><br><span class="line"></span><br><span class="line">console.log(Math.max(...values)); //100</span><br><span class="line"></span><br><span class="line">//开不开心，我们可以拿其他值和数组值比较</span><br><span class="line"></span><br><span class="line">console.log(Math.max(...values,200)); //200</span><br></pre></td></tr></table></figure>
+
+<h4 id="函数中可以获取函数名称的的属性-name"><a href="#函数中可以获取函数名称的的属性-name" class="headerlink" title="函数中可以获取函数名称的的属性 name"></a>函数中可以获取函数名称的的属性 name</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">var func1 = function () &#123;&#125;;</span><br><span class="line">// ES5</span><br><span class="line">func1.name // &quot;&quot;</span><br><span class="line">// ES6</span><br><span class="line">func1.name // &quot;func1&quot;</span><br><span class="line">//上面代码中，变量func1等于一个匿名函数， ES5 和 ES6 的name属性返回的值不一样。</span><br><span class="line">//如果将一个具名函数赋值给一个变量，则 ES5 和 ES6 的name属性都返回这个具名函数原本的名字。</span><br><span class="line">const bar = function baz() &#123;&#125;;</span><br><span class="line">// ES5</span><br><span class="line">bar.name // &quot;baz&quot;</span><br><span class="line">// ES6</span><br><span class="line">bar.name // &quot;baz&quot;</span><br><span class="line">//Function构造函数返回的函数实例，name属性的值为 “anonymous” 。</span><br><span class="line">(new Function).name // &quot;anonymous&quot;</span><br><span class="line">//bind返回的函数，name属性值会加上 “bound ” 前缀。</span><br><span class="line">function foo() &#123;&#125;;</span><br><span class="line">foo.bind(&#123;&#125;).name // &quot;bound foo&quot;</span><br><span class="line">(function()&#123;&#125;).bind(&#123;&#125;).name // &quot;bound &quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//还有几个es6的情况</span><br><span class="line"></span><br><span class="line">var dosomething = function()&#123;&#125;</span><br><span class="line"></span><br><span class="line">console.log(dosomething.bind().name);  //bound dosomething</span><br><span class="line">console.log((new Function()).name);    //anonymous</span><br></pre></td></tr></table></figure>
+
+<h4 id="明确函数的多重用途"><a href="#明确函数的多重用途" class="headerlink" title="明确函数的多重用途"></a>明确函数的多重用途</h4><blockquote>
+<p>js函数有两种内部方式 [[Call]]和[[Construct]],当通过new关键字调用函数时，执行的是[[Construct]]函数,他负责创建一个通常被称作实例的新对象，然后再执行函数体,将this绑定到实例上;如果不同过new则执行[[Call]]函数,从而直接执行代码中的函数体</p>
+</blockquote>
+<h4 id="es5判断函数被调用的方法"><a href="#es5判断函数被调用的方法" class="headerlink" title="es5判断函数被调用的方法"></a>es5判断函数被调用的方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    if(this instanceof Person)&#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125; else&#123;</span><br><span class="line">        throw new Error(&apos;必须new才行，嘿嘿&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person(&quot;ly&quot;); //</span><br><span class="line">var notperson =Person(&quot;ll&quot;); // 必须new才行，嘿嘿</span><br><span class="line"></span><br><span class="line">//但是可以蒙混过关</span><br><span class="line"></span><br><span class="line">var notperson =Person.call(peson,&quot;ll&quot;); //</span><br></pre></td></tr></table></figure>
+
+<h4 id="new-target-精准判断"><a href="#new-target-精准判断" class="headerlink" title="new.target 精准判断"></a>new.target 精准判断</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function Person(name)&#123;</span><br><span class="line">    if(typeof new.target !== &apos;undefined&apos;)&#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125; else&#123;</span><br><span class="line">        throw new Error(&apos;必须new才行，嘿嘿&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var person = new Person(&quot;ly&quot;); //</span><br><span class="line">var notperson =Person.call(person,&quot;ll&quot;); //</span><br></pre></td></tr></table></figure>
+
+<h4 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h4><blockquote>
+<p>在es5的时代，当启用严格模式时，下列代码会报错,es6则不会,因为产生了块级作用域，该函数可以在这个if条件语句内部使用，外部依旧是undefined</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;use strict&quot;</span><br><span class="line">if(true)&#123;</span><br><span class="line">   console.log(typeof add); //function</span><br><span class="line">   function add(a,b)&#123;</span><br><span class="line">       return a+b;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(typeof add);  //undefined</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是在非严格模式下，该函数还是会被提升到全局作用域顶部</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">   console.log(typeof add); //function</span><br><span class="line">   function add(a,b)&#123;</span><br><span class="line">       return a+b;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(typeof add);  //function</span><br></pre></td></tr></table></figure>
+
+<h3 id="重要改变-箭头函数"><a href="#重要改变-箭头函数" class="headerlink" title="重要改变 箭头函数"></a>重要改变 箭头函数</h3><blockquote>
+<p>一些好玩的改变（兴奋状）</p>
+</blockquote>
+<ul>
+<li>没有this,spuer,arguments和new.target绑定</li>
+<li>不能通过new关键字调用</li>
+<li>没有原型</li>
+<li>不可以改变this的绑定</li>
+<li>不支持arguments对象</li>
+<li>不支持重复的命名参数</li>
+</ul>
+<h4 id="箭头函数的语法"><a href="#箭头函数的语法" class="headerlink" title="箭头函数的语法"></a>箭头函数的语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">let add = (a,b) =&gt; a+b;</span><br><span class="line"></span><br><span class="line">//实际类似于</span><br><span class="line"></span><br><span class="line">let add = function(a,b)&#123;return a+b&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//当箭头函数只有一个参数时，不需要括号</span><br><span class="line"></span><br><span class="line">let reflrct = value =&gt; value</span><br><span class="line"></span><br><span class="line">//类似于</span><br><span class="line"></span><br><span class="line">let reflrct = function(value)&#123;return value&#125;</span><br><span class="line"></span><br><span class="line">//不写参数时要加括号</span><br><span class="line"></span><br><span class="line">let name = () =&gt; &apos;ly&apos;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//类似于</span><br><span class="line"></span><br><span class="line">let name = function()&#123;return &apos;ly&apos;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//如果需要写复杂的函数体，则必须这样写</span><br><span class="line"></span><br><span class="line">let getName = (fisrtName,secondName) =&gt; &#123;</span><br><span class="line">    return firstName+&apos; &apos;+ secondName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//类似于</span><br><span class="line"></span><br><span class="line">let getName = function(fisrtName,secondName)&#123;</span><br><span class="line">    return firstName+&apos; &apos;+ secondName;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//如果想反回一个字面量对象则需要这样写</span><br><span class="line"></span><br><span class="line">let person = () =&gt; (&#123;</span><br><span class="line">    name:&apos;ly&apos;,</span><br><span class="line">    age:18</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//类似于</span><br><span class="line"></span><br><span class="line">let person = function()&#123;</span><br><span class="line">    return &#123;</span><br><span class="line">    name:&apos;ly&apos;,</span><br><span class="line">    age:18</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//创建一个立即表达函数</span><br><span class="line"></span><br><span class="line">let person = ((name) =&gt; (&#123;getName:() =&gt; name&#125;))(&apos;ly&apos;)</span><br><span class="line"></span><br><span class="line">//自己还原下看看，嘿嘿</span><br></pre></td></tr></table></figure>
+
+<h4 id="箭头函数没有this绑定"><a href="#箭头函数没有this绑定" class="headerlink" title="箭头函数没有this绑定"></a>箭头函数没有this绑定</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let PageHandler = &#123;</span><br><span class="line">     id:&apos;13579&apos;,</span><br><span class="line">     init:function()&#123;</span><br><span class="line">         document.addEventListener(&apos;click&apos;,function(event)&#123;</span><br><span class="line">             this.doSomething(event.type)  //会报错</span><br><span class="line">         &#125;)</span><br><span class="line">     &#125;,</span><br><span class="line">     doSomething:function(type)&#123;</span><br><span class="line">         console.log(type);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>es5的做法，将会这么做</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let PageHandler = &#123;</span><br><span class="line">     id:&apos;13579&apos;,</span><br><span class="line">     init:function()&#123;</span><br><span class="line">         document.addEventListener(&apos;click&apos;,(function(event)&#123;</span><br><span class="line">             this.doSomething(event.type)  </span><br><span class="line">         &#125;).bind(this))</span><br><span class="line">     &#125;,</span><br><span class="line">     doSomething:function(type)&#123;</span><br><span class="line">         console.log(type);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是有了箭头函数的话，就帅多了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">let PageHandler = &#123;</span><br><span class="line">     id:&apos;13579&apos;,</span><br><span class="line">     init:function()&#123;</span><br><span class="line">         document.addEventListener(&apos;click&apos;,event =&gt; this.doSomething(event.type) </span><br><span class="line">         )</span><br><span class="line">     &#125;,</span><br><span class="line">     doSomething:function(type)&#123;</span><br><span class="line">         console.log(type);</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>因为箭头函数是没有this的,所以在处理的过程中，它里面的this取决函数外部非箭头函数的this值</p>
+</blockquote>
+<h3 id="箭头函数不存在arguments绑定所以可以这么操作"><a href="#箭头函数不存在arguments绑定所以可以这么操作" class="headerlink" title="箭头函数不存在arguments绑定所以可以这么操作"></a>箭头函数不存在arguments绑定所以可以这么操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function outer()&#123;</span><br><span class="line">    return () =&gt; arguments[0];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let inner = outer(18)</span><br><span class="line"></span><br><span class="line"> console.log(inner()); //18  就是这么骚气，直接访问箭头函数体外函数的arguments</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>call(),bind(),apply() 都是可以用的，但是改变不了this的值的哈</p>
+</blockquote>
+<h4 id="尾调用的优化-Tail-Call"><a href="#尾调用的优化-Tail-Call" class="headerlink" title="尾调用的优化(Tail Call)"></a>尾调用的优化(Tail Call)</h4><blockquote>
+<p>尾调用指的是函数做为另一个函数最后一条语句被调用,它不会在调用栈上增加新的堆栈帧，而是直接更新调用栈，调用栈所占空间始终是常量，节省了内存，避免了爆栈的可能性,但是es5存在调用栈变得过大则会造成程序问题</p>
+</blockquote>
+<blockquote>
+<p>尾调用实例</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">function add(a,b)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function max(a,b,c,d)&#123;</span><br><span class="line"></span><br><span class="line">   //......</span><br><span class="line">    return add(a,c);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>优化需要满足以下条件,尾调用才不会创建新栈帧,而是清除并重用当前栈帧</p>
+</blockquote>
+<ul>
+<li>尾调用不访问当前栈的变量(不形成闭包)</li>
+<li>尾调用是函数内部的最后一句</li>
+<li>尾调用的结果将作为函数值返回 (必须有return fn())</li>
+</ul>
+<blockquote>
+<p>使用场景 尾递归</p>
+</blockquote>
+<blockquote>
+<p>错误方式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">console.time(&apos;testForEach&apos;);</span><br><span class="line">function factorial(n) &#123;</span><br><span class="line">    if(n&lt;=1)&#123;</span><br><span class="line">        return 1</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return n*factorial(n-1)  //如果n很大，在不断递归的情况下，会栈溢出，这也不是尾递归</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var a =factorial(5000);</span><br><span class="line">console.log(a); </span><br><span class="line">console.timeEnd(&apos;testForEach&apos;); // 1.55322265625ms</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>正确写法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">console.time(&apos;testForEach&apos;);</span><br><span class="line">function factorial(n,p=1) &#123;</span><br><span class="line">    if(n&lt;=1)&#123;</span><br><span class="line">        return 1*p;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        let result = p*n;</span><br><span class="line">        return factorial(n-1,result)  </span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">factorial(5000);</span><br><span class="line">console.timeEnd(&apos;testForEach&apos;); //0.492919921875ms    测 了10000 居然栈溢出  搞不懂</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

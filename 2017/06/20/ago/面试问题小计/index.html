@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>面试问题小计 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">面试问题小计</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-06-20</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<ol>
+<li>说一下undefind和null那个是全局变量</li>
+</ol>
+</blockquote>
+ <a id="more"></a>
+
+<p>答:javaScript权威指南： null 和 undefined 都表示“值的空缺”，你可以认为undefined是表示系统级的、出乎意料的或类似错误的值的空缺，而null是表示程序级的、正常的或在意料之中的值的空缺。<br>javaScript高级程序设计： 在使用var声明变量但未对其加以初始化时，这个变量的值就是undefined。   null值则是表示空对象指针。<br>所以undefind是全局变量</p>
+<blockquote>
+<p>一个页面适合写多少行代码？</p>
+</blockquote>
+<p>答：我记得是300行。</p>
+<blockquote>
+<p>后台返回一个对象包含null怎么处理?</p>
+</blockquote>
+<p>答:对所有使用到的json中的对象做判断,或者使用第三方json解析库<br><a href="http://www.cnblogs.com/LQCQ-Silent/p/6763264.html" target="_blank" rel="noopener">http://www.cnblogs.com/LQCQ-Silent/p/6763264.html</a> 参考</p>
+<blockquote>
+<p>require和import的区别，那个是按需加载</p>
+</blockquote>
+<p>答:require按需加载</p>
+<blockquote>
+<p>为什么vue不能和jquery一起使用?</p>
+</blockquote>
+<p>答:因为jquery是操作dom的，而vue是虚拟dom</p>
+<blockquote>
+<p>let var const 区别</p>
+</blockquote>
+<p>答:let是块级作用域，函数内部使用let定义后，对函数外部无影响。<br>var定义的变量可以修改，如果不初始化会输出undefined，不会报错。<br>const定义的变量不可以修改，而且必须初始化。</p>
+<blockquote>
+<p>vue如何做权限认证?</p>
+</blockquote>
+<p>答:在路由阶段定义一个校验的阈值，然后在登录阶段保存状态信息，路由进行跳转，进行校验</p>
+<blockquote>
+<p>良好的编程习惯体现在哪里?</p>
+</blockquote>
+<p>答:打注释，代码整洁，函数命名要有意义</p>
+<blockquote>
+</blockquote>
+<p>​    </p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>
