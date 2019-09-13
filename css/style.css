@@ -72,6 +72,14 @@ var {
   font-size: 100%;
   vertical-align: baseline;
 }
+ul,
+li,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
 .article-container figure.highlight.js table:before {
   content: "js";
 }
@@ -498,6 +506,61 @@ blockquote {
 }
 .header-main .outer .navbar a:hover {
   color: #38b7ea;
+}
+.layout-tags .tag-list {
+  width: 800px;
+  margin: 80px auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+.layout-tags .tag-list .tag-list-item {
+  padding: 10px;
+  margin: 10px;
+  background: #e7c000;
+  border-radius: 3px;
+}
+.layout-tags .tag-list .tag-list-link {
+  color: #3eaf7c;
+}
+.layout-tags .tag-list .tag-list-count {
+  display: none;
+}
+.layout-photo img {
+  max-width: 300px;
+}
+.layout-photo .photo-item {
+  width: 1400px;
+  margin: 30px auto;
+  background: #aaa;
+  padding: 10px;
+}
+.layout-photo .photo-item article {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.layout-photo .photo-item p {
+  display: flex;
+  max-width: 300px;
+  flex-wrap: wrap;
+  margin: 20px 20px;
+  align-items: center;
+  flex-direction: column;
+}
+.layout-photo .photo-item h4 {
+  font-size: 24px;
+}
+.layout-about main {
+  width: 400px;
+  margin: 50px auto;
+  background-image: radial-gradient(ellipse farthest-corner at 50% 0, #dbf5f1 0%, #9be4d8 100%);
+  padding: 20px;
+}
+.layout-about main h2 {
+  font-size: 24px;
+}
+.layout-about main ul li {
+  padding-left: 20px;
 }
 .layout-paginator .page-nav {
   width: 800px;
