@@ -4,10 +4,10 @@
 
 # Site
 title: Aymfx's Blog
-subtitle: aymfx 
+subtitle: aymfx 博客
 description: 前端码农一枚，喜欢看书以及跑步，还在努力前行着,2019我们一起加油
-keywords: 前端
-author: John Doe
+keywords: 前端 h5 koa node html5 js css vue react eslint 
+author: ly
 language: zh-CN
 timezone:
 
@@ -20,7 +20,7 @@ permalink_defaults:
 
 # Directory
 source_dir: source
-public_dir: public
+public_dir: dist
 tag_dir: tags
 archive_dir: archives
 category_dir: categories
