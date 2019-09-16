@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "hexo g && hexo d",
-    "dev": "hexo s --debug"
+    "build:hexo": "cross-env NODE_ENV=production hexo g && hexo d",
+    "build:app": "cross-env NODE_ENV=production hexo g && hexo d",
+    "dev:hexo": "cross-env NODE_ENV=development hexo s --debug",
+    "dev:node": "cross-env NODE_ENV=development nodemon app.js"
   },
   "hexo": {
     "version": "3.9.0"
@@ -22,6 +24,7 @@
     "hexo-server": "^0.3.3"
   },
   "devDependencies": {
+    "cross-env": "^5.2.1",
     "koa": "^2.8.1",
     "koa-bodyparser": "^4.2.1",
     "koa-compose": "^4.1.0",
@@ -29,6 +32,7 @@
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
     "koa-views": "^6.2.1",
-    "log4js": "^5.1.0"
+    "log4js": "^5.1.0",
+    "nodemon": "^1.19.2"
   }
 }
