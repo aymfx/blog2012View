@@ -5,5 +5,5 @@ git reset --hard origin/master
 git clean -f
 git pull
 cnpm i
-hexo d
+npm build:hexo
 pm2 startOrReload pm2.json
