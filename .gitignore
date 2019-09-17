@@ -3,3 +3,5 @@ db.json
 debug.log
 /.deploy_git
 blog
+logs
+
