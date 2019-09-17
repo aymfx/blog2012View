@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react-Optimizing Performance | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#性能优化"><span class="toc-text">性能优化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#虚拟节点，避免重复渲染"><span class="toc-text">虚拟节点，避免重复渲染</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react-Optimizing Performance</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-18</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react 做了很多处理，最大限度的减少了 dom 的操作，使我们能快速的开发，而不需要做很多操作，但是有些地方需要我们手动去操作 react 应用，提高性能</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h1><blockquote>
+<p>react 做了很多处理，最大限度的减少了 dom 的操作，使我们能快速的开发，而不需要做很多操作，但是有些地方需要我们手动去操作 react 应用，提高性能</p>
+</blockquote>
+<ul>
+<li>使用生产环境下的 react.js,这样可以减少体积以及在生产环境下不需要的提示</li>
+<li>创建 reactAPP —&gt; npm run build 进行打包压缩</li>
+<li>利用 branch 创建更高效的生产版本<ul>
+<li>npm install –save-dev uglify-js-brunch 或者 yarn add –dev uglify-js-brunch</li>
+<li>brunch build -p</li>
+</ul>
+</li>
+<li>利用 webpack 创建，如果是用 create-react 创建的可以不考虑重新建</li>
+</ul>
+<h1 id="虚拟节点，避免重复渲染"><a href="#虚拟节点，避免重复渲染" class="headerlink" title="虚拟节点，避免重复渲染"></a>虚拟节点，避免重复渲染</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">  return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第一种方式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">class CounterButton extends Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;count:1&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    shouldComponentUpdate(nextProps,nextState) &#123;</span><br><span class="line">        if(this.props.color !== nextProps.color)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">        if(this.state.count !==nextState.count)&#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        return (</span><br><span class="line"></span><br><span class="line">            &lt;button</span><br><span class="line">                color=&#123;this.props.color&#125;</span><br><span class="line">                onClick=&#123;()=&gt;this.setState(state =&gt; (&#123;count:state.count+1&#125;))&#125;&gt;</span><br><span class="line">            Count:&#123;this.state.count&#125;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line"></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二种方式</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class CounterButton extends React.PureComponent &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;count:1&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return (</span><br><span class="line"></span><br><span class="line">            &lt;button</span><br><span class="line">                color=&#123;this.props.color&#125;</span><br><span class="line">                onClick=&#123;()=&gt;this.setState(state =&gt; (&#123;count:state.count+1&#125;))&#125;&gt;</span><br><span class="line">                Count:&#123;this.state.count&#125;</span><br><span class="line">            &lt;/button&gt;</span><br><span class="line"></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>第二种适合复杂的情况下的浅比较，但是在某些情况下浅比较也会错失，如数据的突变情况</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">class ListOfWords extends React.PureComponent&#123;</span><br><span class="line">    render()&#123;</span><br><span class="line">        return (&lt;div&gt;&#123;this.props.words.join(&apos;,&apos;)&#125;&lt;/div&gt;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class WordAdder extends Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.state = &#123;words:[&apos;maodan&apos;]&#125;;</span><br><span class="line">        this.handleClick = this.handleClick.bind(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">     handleClick()&#123;</span><br><span class="line">         //这是造成不跟新的原因</span><br><span class="line">        const words  =this.state.words;</span><br><span class="line">        words.push(&apos;iloveyou&apos;);</span><br><span class="line">        this.setState(&#123;words:words&#125;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        return(&lt;div&gt;</span><br><span class="line">            &lt;button onClick=&#123;this.handleClick&#125;&gt;确定&lt;/button&gt;</span><br><span class="line">            &lt;ListOfWords words=&#123;this.state.words&#125;/&gt;</span><br><span class="line">        &lt;/div&gt;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//可以使用concat链接解决、</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">handleClick() &#123;</span><br><span class="line">        this.setState(prevState =&gt;(&#123;words:[...prevState.words,&apos;iloveyou&apos;]&#125;))</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>不可变的数据结构为您提供了一种跟踪对象变化的廉价方法，这就是我们需要实现的组件。这通常会给你带来一个很好的性能提升</p>
+</blockquote>
+<blockquote>
+<p>没怎么看懂 <a href="https://facebook.github.io/react/docs/optimizing-performance.html" target="_blank" rel="noopener">https://facebook.github.io/react/docs/optimizing-performance.html</a></p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

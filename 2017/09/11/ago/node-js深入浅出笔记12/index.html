@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记12 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP"><span class="toc-text">HTTP</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#http模块"><span class="toc-text">http模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http请求"><span class="toc-text">http请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP响应"><span class="toc-text">HTTP响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP事件"><span class="toc-text">HTTP事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http客户端"><span class="toc-text">Http客户端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP代理"><span class="toc-text">HTTP代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP客户端事件"><span class="toc-text">HTTP客户端事件</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记12</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-11</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h1><blockquote>
+<p>HTTP（HyperText Transport Protocol）是超文本传输协议的缩写，它用于传送WWW方式的数据，关于HTTP协议的详细内容请参考RFC2616。HTTP协议采用了请求/响应模型。客户端向服务器发送一个请求，请求头包含请求的方法、URL、协议版本、以及包含请求修饰符、客户信息和内容的类似于MIME的消息结构。服务器以一个状态行作为响应，响应的内容包括消息协议的版本，成功或者错误编码加上包含服务器信息、实体元信息以及可能的实体内容。</p>
+</blockquote>
+<h2 id="http模块"><a href="#http模块" class="headerlink" title="http模块"></a>http模块</h2><blockquote>
+<p>这是继承于TCP的net模块，但是tcp以connection为单位进行服务，http以request为单位进行服务 如图：</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a4.png" alt="流程图"></p>
+<blockquote>
+<p>http模块将连接所用的套接字的读写抽象为ServerRequest和ServerResponse对象，他们分别对应请求和相应操作</p>
+</blockquote>
+<blockquote>
+<p>在请求产生的过程中，http模块拿到连接中传来的数据，调用二进制模块http_parser进行解析，在解析完请求报文的报头后，触发request事件，调用用户的业务逻辑，如图：</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a5.png" alt="流程图"></p>
+<h2 id="http请求"><a href="#http请求" class="headerlink" title="http请求"></a>http请求</h2><blockquote>
+<p>对于tcp连接的读操作，http将其封装成ServerRequest对象,报文头会用http_parser进行解析，报文头如下</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt;GET / HTTP /<span class="number">1.1</span></span><br><span class="line">&gt;User-Agent:curl/<span class="number">7.24</span><span class="number">.0</span> (x86_64-apple-darwin12<span class="number">.0</span>) libcurl/<span class="number">7.24</span><span class="number">.0</span> OPenSSL/<span class="number">0.9</span><span class="number">.8</span>r zlib/<span class="number">1.2</span><span class="number">.5</span></span><br><span class="line">&gt;Host:<span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span><span class="number">.8995</span></span><br><span class="line">&gt;Accept: *<span class="comment">//*</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>被解析成如下属性</p>
+</blockquote>
+<ul>
+<li>req.method属性: GET</li>
+<li>req.url:值为/</li>
+<li>req.httpVersion属性值:1.1</li>
+<li>其余的都被放置在req.headers上传递给业务逻辑以供调用</li>
+</ul>
+<blockquote>
+<p>报文体部分是一个只读流对象，如果业务逻辑需要读取报文体的数据，则需要等数据流结束后操作</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">req,res</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> buffers = [];</span><br><span class="line">    req.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">trunk</span>)</span>&#123;</span><br><span class="line">        buffers.push(trunk);</span><br><span class="line">    &#125;).on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> buffer = Buffer.concat(buffers);</span><br><span class="line">        res.end(<span class="string">'Hello world'</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><blockquote>
+<p>用于设置响应头的有res.setHeader()和writeHead()，setHeader()可以多次设置,但是只有调用writeHead,报头才会写入连接中</p>
+</blockquote>
+<blockquote>
+<p>响应体则是由res.write()和res.end()实现,后者会先调用write()发送数据，然后发送信号告诉服务器这次响应结束，它一定要写，否则客户端一直处在等待状态</p>
+</blockquote>
+<h2 id="HTTP事件"><a href="#HTTP事件" class="headerlink" title="HTTP事件"></a>HTTP事件</h2><ul>
+<li>connection事件:在开始http请求和响应之前，客户端要与服务器端建立底层的TCP连接，这个连接可能因为开启了keep-alive,可以在多次请求响应之间使用，当这个连接建立时，服务器触发一次connection事件</li>
+<li>request事件:建立TCP连接后，http模块的底层将在数据流中抽离出http请求和http响应，当请求数据发送到服务器端，在解析出http请求头后，将会触发该事件，res.end()后，tcp连接可能用于下一次响应</li>
+<li>close事件:与TCP服务器行为一直，调用server.close()停止接收新的连接，当已有的连接都断开时，触发该事件，可以给server.close()传递一个回调函数来快速注册该事件</li>
+<li>checkContinue事件:比较有用的事件，对某些大型的数据传输有用</li>
+<li>connect：当客户端发起connect请求时触发，而发起connect请求通常在http代理时出现，如果不监听该事件，发送请求的连接将会关闭</li>
+<li>upgrade事件:当客户端要求升级连接的协议时，需要喝服务器端协商，客户端会在请求头中带上upgrade字段，服务器端会在接收到请求时触发该事件</li>
+<li>clientError：连接的客户端触发error事件时，该错误会传递到服务器，触发该事件</li>
+</ul>
+<h2 id="Http客户端"><a href="#Http客户端" class="headerlink" title="Http客户端"></a>Http客户端</h2><blockquote>
+<p>通过http.request(options,connect)可以构造一个http客户端</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//服务器端</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123; <span class="string">'Content-Type'</span>: <span class="string">'text/html;charset=utf-8'</span> &#125;);</span><br><span class="line">    res.write(<span class="string">'在学习'</span>);</span><br><span class="line">    res.write(<span class="string">'mess'</span>);</span><br><span class="line">    res.end(<span class="string">"node"</span>);</span><br><span class="line"></span><br><span class="line">&#125;).listen(<span class="number">3000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//客户端</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> options = &#123;</span><br><span class="line">    host:<span class="string">'127.0.0.1'</span> <span class="comment">//服务器IP地址</span></span><br><span class="line">    hostname:<span class="string">'127.0.0.1'</span>,<span class="comment">//服务器名字</span></span><br><span class="line">    port:<span class="number">3000</span>,<span class="comment">//端口号</span></span><br><span class="line">    path:<span class="string">'/'</span>,<span class="comment">//请求路劲</span></span><br><span class="line">    method:<span class="string">'GET'</span><span class="comment">//</span></span><br><span class="line">    <span class="comment">//socketPath:Domain套接字路劲</span></span><br><span class="line">    <span class="comment">//localAddress：建立网络连接的本地网卡</span></span><br><span class="line">    <span class="comment">//headers:请求头对象</span></span><br><span class="line">    <span class="comment">//auth:BAsic认证</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> req = http.request(options,<span class="function"><span class="keyword">function</span>(<span class="params">res</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'STATUS'</span>+res.statusCode);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'HEADERS'</span>+<span class="built_in">JSON</span>.stringify(res.headers))</span><br><span class="line">    res.setEncoding(<span class="string">'utf-8'</span>);</span><br><span class="line">    res.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(chunk);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">req.end();</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP代理"><a href="#HTTP代理" class="headerlink" title="HTTP代理"></a>HTTP代理</h2><blockquote>
+<p>http模块包含一个默认的客户端代理对象http.globalAgent，它对每一个服务器端创建的连接进行了管理，默认情况下,通过clientRequest对象对用一个服务器发起的http请求最多可以创建5个连接，他的实质是一个连接池<br><img src="https://aymfx.github.io/img/a20170906/a6.png" alt="流程图"></p>
+</blockquote>
+<blockquote>
+<p>通过这个我们可以自行构造代理对象，从而扩充连接数</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    <span class="keyword">var</span> agent = <span class="keyword">new</span> http.Agent(&#123;</span><br><span class="line">    maxSockets:<span class="number">10</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> options = &#123;</span><br><span class="line">        host:<span class="string">'127.0.0.1'</span> <span class="comment">//服务器IP地址</span></span><br><span class="line">        hostname:<span class="string">'127.0.0.1'</span>,<span class="comment">//服务器名字</span></span><br><span class="line">        port:<span class="number">3000</span>,<span class="comment">//端口号</span></span><br><span class="line">        path:<span class="string">'/'</span>,<span class="comment">//请求路劲</span></span><br><span class="line">        method:<span class="string">'GET'</span></span><br><span class="line">        agent:agent</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP客户端事件"><a href="#HTTP客户端事件" class="headerlink" title="HTTP客户端事件"></a>HTTP客户端事件</h2><ul>
+<li>response:当得到服务器响应时触发该事件</li>
+<li>socket:当底层连接池中建立的连接分配给当前请求对象时，触发该事件</li>
+<li>connect:当客户端向服务器端发起connect请求时，如果客户端响应200状态码，客户端会触发该事件</li>
+<li>upgrade:客户端向服务器发起upgrade请求时，如果服务端响应101 Switching Protocols状态，客户端会触发该事件</li>
+<li>continue:客户端向服务器发起Expect：100-continue头信息，以试图发送较大的数据量，如果服务器端响应100 continue状态，客户端将触发该事件</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>css3-布局样式相关-慕课网学习 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Columns"><span class="toc-text">Columns</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法："><span class="toc-text">语法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数说明"><span class="toc-text">参数说明</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#column-width"><span class="toc-text">column-width</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#column-count"><span class="toc-text">column-count</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#column-gap"><span class="toc-text">column-gap</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#column-rule"><span class="toc-text">column-rule</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#column-span"><span class="toc-text">column-span</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#W3C标准盒模型"><span class="toc-text">W3C标准盒模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#外盒尺寸计算（元素空间尺寸）"><span class="toc-text">外盒尺寸计算（元素空间尺寸）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内盒尺寸计算（元素大小）"><span class="toc-text">内盒尺寸计算（元素大小）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#外盒尺寸计算（元素空间尺寸）-1"><span class="toc-text">外盒尺寸计算（元素空间尺寸）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内盒尺寸计算（元素大小）-1"><span class="toc-text">内盒尺寸计算（元素大小）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#box-sizing-css3新自定义盒子属性"><span class="toc-text">box-sizing(css3新自定义盒子属性)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#box-sizing-content-box-border-box-inherit"><span class="toc-text">box-sizing: content-box | border-box | inherit</span></a></li></ol></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">css3-布局样式相关-慕课网学习</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-21</span>
+        </div>
+        <div class="article-container">
+          <h1 id="Columns"><a href="#Columns" class="headerlink" title="Columns"></a>Columns</h1><h3 id="语法："><a href="#语法：" class="headerlink" title="语法："></a>语法：</h3><pre><code>columns：&lt;column-width&gt; || &lt;column-count&gt;</code></pre><h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><p><column-width>  主要用来定义多列中每列的宽度</column-width></p>
+<p><column-count>  主要用来定义多列中的列数</column-count></p>
+ <a id="more"></a>   
+
+<h1 id="column-width"><a href="#column-width" class="headerlink" title="column-width"></a>column-width</h1><p>属性值：<br>auto<br>如果column-width设置值为auto或者没有显式的设置值时，元素多列的列宽将由其他属性来决定，比如前面的示例就是由列数column-count来决定。<br>length<br>使用固定值来设置元素列的宽度，其主要是由数值和长度单位组成，不过其值只能是正值，不能为负值。</p>
+<h1 id="column-count"><a href="#column-count" class="headerlink" title="column-count"></a>column-count</h1><p>属性值<br>auto<br>此值为column-count的默认值，表示元素只有一列，其主要依靠浏览器计算自动设置<br>integer<br>此值为正整数值，主要用来定义元素的列数，取值为大于0的整数，负值无效。</p>
+<h1 id="column-gap"><a href="#column-gap" class="headerlink" title="column-gap"></a>column-gap</h1><p>normal</p>
+<p>默认值，默值为1em（如果你的字号是px，其默认值为你的font-size值）。</p>
+<p>length&gt;</p>
+<p>此值用来设置列与列之间的距离，其可以使用px,em单位的任何整数值，但不能是负值。</p>
+<h1 id="column-rule"><a href="#column-rule" class="headerlink" title="column-rule"></a>column-rule</h1><p>属性值<br>column-rule-width</p>
+<p>类似于border-width属性，主要用来定义列边框的宽度，其默认值为“medium”，column-rule-width属性接受任意浮点数，但不接收负值。但也像border-width属性一样，可以使用关键词：medium、thick和thin。</p>
+<p>column-rule-style</p>
+<p>类似于border-style属性，主要用来定义列边框样式，其默认值为“none”。column-rule-style属性值与border-style属值相同，包括none、hidden、dotted、dashed、solid、double、groove、ridge、inset、outset。</p>
+<p>column-rule-color</p>
+<p>类似于border-color属性，主要用来定义列边框颜色，其默认值为前景色color的值，使用时相当于border-color。column-rule-color接受所有的颜色。如果不希望显示颜色，也可以将其设置为transparent(透明色)</p>
+<h1 id="column-span"><a href="#column-span" class="headerlink" title="column-span"></a>column-span</h1><p>属性值<br>none</p>
+<p>此值为column-span的默认值，表示不跨越任何列。</p>
+<p>all</p>
+<p>这个值跟none值刚好相反，表示的是元素跨越所有列，并定位在列的Ｚ轴之上。</p>
+<h1 id="W3C标准盒模型"><a href="#W3C标准盒模型" class="headerlink" title="W3C标准盒模型"></a>W3C标准盒模型</h1><h3 id="外盒尺寸计算（元素空间尺寸）"><a href="#外盒尺寸计算（元素空间尺寸）" class="headerlink" title="外盒尺寸计算（元素空间尺寸）"></a>外盒尺寸计算（元素空间尺寸）</h3><p>element空间高度＝内容高度＋内距＋边框＋外距</p>
+<p>element空间宽度＝内容宽度＋内距＋边框＋外距</p>
+<h3 id="内盒尺寸计算（元素大小）"><a href="#内盒尺寸计算（元素大小）" class="headerlink" title="内盒尺寸计算（元素大小）"></a>内盒尺寸计算（元素大小）</h3><p>element高度＝内容高度＋内距＋边框（height为内容高度）</p>
+<p>element宽度＝内容宽度＋内距＋边框（width为内容宽度）</p>
+<p>#IE传统下盒模型（IE6以下，不包含IE6版本或”QuirksMode下IE5.5+”）</p>
+<h3 id="外盒尺寸计算（元素空间尺寸）-1"><a href="#外盒尺寸计算（元素空间尺寸）-1" class="headerlink" title="外盒尺寸计算（元素空间尺寸）"></a>外盒尺寸计算（元素空间尺寸）</h3><p>element空间高度＝内容高度＋外距（height包含了元素内容宽度、边框、内距）</p>
+<p>element宽间宽度＝内容宽度＋外距（width包含了元素内容宽度、边框、内距）</p>
+<h3 id="内盒尺寸计算（元素大小）-1"><a href="#内盒尺寸计算（元素大小）-1" class="headerlink" title="内盒尺寸计算（元素大小）"></a>内盒尺寸计算（元素大小）</h3><p>element高度＝内容高度（height包含了元素内容宽度、边框、内距）</p>
+<p>element宽度＝内容宽度（width包含了元素内容宽度、边框、内距）</p>
+<h1 id="box-sizing-css3新自定义盒子属性"><a href="#box-sizing-css3新自定义盒子属性" class="headerlink" title="box-sizing(css3新自定义盒子属性)"></a>box-sizing(css3新自定义盒子属性)</h1><h3 id="box-sizing-content-box-border-box-inherit"><a href="#box-sizing-content-box-border-box-inherit" class="headerlink" title="box-sizing: content-box | border-box | inherit"></a>box-sizing: content-box | border-box | inherit</h3><p>属性值<br>content-box<br>默认值，其让元素维持W3C的标准盒模型，也就是说元素的宽度和高度（width/height）等于元素边框宽度（border）加上元素内距（padding）加上元素内容宽度或高度（content width/ height），也就是element width/height = border + padding + content width / height</p>
+<p>border-box<br>重新定义CSS2.1中盒模型组成的模式，让元素维持IE传统的盒模型（IE6以下版本和IE6-7怪异模式），也就是说元素的宽度或高度等于元素内容的宽度或高度。从上面盒模型介绍可知，这里的内容宽度或高度包含了元素的border、padding、内容的宽度或高度（此处的内容宽度或高度＝盒子的宽度或高度—边框—内距）。</p>
+<p>inherit<br>使元素继承父元素的盒模型模式</p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

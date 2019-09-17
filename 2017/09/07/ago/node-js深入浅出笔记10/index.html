@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记10 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#网络编程"><span class="toc-text">网络编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#构建Tcp服务"><span class="toc-text">构建Tcp服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构建Tcp服务端"><span class="toc-text">构建Tcp服务端</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP服务事件"><span class="toc-text">TCP服务事件</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记10</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-07</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a>网络编程</h1><blockquote>
+<p>node是一个面向网络而生的平台，它具有事件驱动，无阻塞，单线程等特性，具有良好的伸缩性，很适合网络编程</p>
+</blockquote>
+<h2 id="构建Tcp服务"><a href="#构建Tcp服务" class="headerlink" title="构建Tcp服务"></a>构建Tcp服务</h2><blockquote>
+<p>TCP协议的组成</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a2.png" alt="流程图"></p>
+<blockquote>
+<p>TCP是面向链接的协议，其显著特征是传输之前要进行三次握手</p>
+</blockquote>
+<h2 id="构建Tcp服务端"><a href="#构建Tcp服务端" class="headerlink" title="构建Tcp服务端"></a>构建Tcp服务端</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//server.js</span></span><br><span class="line">    <span class="keyword">var</span> net = <span class="built_in">require</span>(<span class="string">'net'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> server = net.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">        <span class="comment">// 新的链接</span></span><br><span class="line">        socket.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">            socket.write(<span class="string">'hello'</span>);</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        socket.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">'cut connect'</span>);</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        socket.write(<span class="string">"我叫ly，欢迎来到我的小屋"</span>)</span><br><span class="line"></span><br><span class="line">    &#125;).listen(<span class="number">8995</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"服务链接"</span>);</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>还有一种写法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> server = net.createServer();</span><br><span class="line">server.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;&#125;)</span><br><span class="line">server.listen(<span class="number">8555</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>客户端，可以用net模块进行构造，来测试构建的TCP服务</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//client.js</span></span><br><span class="line"><span class="keyword">var</span> net = <span class="built_in">require</span>(<span class="string">'net'</span>);</span><br><span class="line"><span class="keyword">var</span> client = net.connect(&#123;<span class="attr">port</span>:<span class="number">8995</span>&#125;,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'client connected'</span>);</span><br><span class="line">    client.write(<span class="string">"ly's home\n"</span>);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">client.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data.toString());</span><br><span class="line">    client.end();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">client.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"is over"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ps 如果是linux，在填写时直接填path var client = net.connect({path:’/tmp/echo.sock’})</p>
+</blockquote>
+<h2 id="TCP服务事件"><a href="#TCP服务事件" class="headerlink" title="TCP服务事件"></a>TCP服务事件</h2><blockquote>
+<p>服务事件</p>
+<ul>
+<li>listening: 对应方法:server.listen(port,listenEvent)</li>
+<li>connection:对应方法:net.createServer</li>
+<li>close:调用server.close()后，服务器停止接收套接字，等所有连接都断开后，出发该事件</li>
+<li>error:当服务器异常时，该事件触发</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>连接事件</p>
+<ul>
+<li>data:当调用write()发送数据时，另一端会触发data事件，事件传递就是write()发送的数据</li>
+<li>end:当连接的任意一端发送了FIN数据时，该事件触发</li>
+<li>connect:该事件用于客户端，当套接字与服务器连接成功时触发</li>
+<li>drain：当任意一端调用write()发送数据时，当前这端会触发该事件</li>
+<li>error:发生异常触发事件</li>
+<li>close:套接字完全关闭，触发该事件</li>
+<li>tiemout:当一定时间连接不再活跃，该事件会被触发，通知当前该链接已经闲置了</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>TCP套接字是可读可写的Stream对象,利用pipe()方法巧妙的实现管道操作</p>
+</blockquote>
+<blockquote>
+<p>简单实现echo服务器</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> net = <span class="built_in">require</span>(<span class="string">'net'</span>);</span><br><span class="line"><span class="keyword">var</span> server = net.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</span><br><span class="line">    socket.write(<span class="string">'Echo server\r\n'</span>);</span><br><span class="line">    socket.pipe(socket);</span><br><span class="line">&#125;).sisten(<span class="number">8995</span>,<span class="string">'127.0.0.1'</span>)</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>javasciptDom操作 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#document"><span class="toc-text">document</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#节点指针"><span class="toc-text">节点指针</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#节点操作"><span class="toc-text">节点操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建节点"><span class="toc-text">创建节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#插入节点"><span class="toc-text">插入节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#替换节点"><span class="toc-text">替换节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#复制节点"><span class="toc-text">复制节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#删除节点"><span class="toc-text">删除节点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性操作"><span class="toc-text">属性操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文本操作"><span class="toc-text">文本操作</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">javasciptDom操作</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-08-03</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>获取节点</p>
+</blockquote>
+<a id="more"></a>  
+
+<h2 id="document"><a href="#document" class="headerlink" title="document"></a>document</h2><ul>
+<li>getElementById<ul>
+<li>通过id属性获取节点（object）</li>
+</ul>
+</li>
+<li>getElementsByName<ul>
+<li>通过names属性获取节点(类数组)</li>
+</ul>
+</li>
+<li>getElementsByTagName<ul>
+<li>通过元素标签获取元素(类数组)</li>
+</ul>
+</li>
+<li>getElementsByClassName<ul>
+<li>通过class属性获取节点(类数组)ie8不兼容</li>
+</ul>
+</li>
+</ul>
+<h2 id="节点指针"><a href="#节点指针" class="headerlink" title="节点指针"></a>节点指针</h2><ul>
+<li>firstChild<ul>
+<li>语法:父节点.firstChild</li>
+<li>功能:获取元素首个子节点</li>
+</ul>
+</li>
+<li>lastChild<ul>
+<li>语法:父节点.lastChild</li>
+<li>功能:获取元素的最后一个字节点</li>
+</ul>
+</li>
+<li>childNodes<ul>
+<li>语法:父节点.childNodes</li>
+<li>功能:获取元素子节点列表</li>
+</ul>
+</li>
+<li>previousSibling<ul>
+<li>语法:兄弟节点.previousSibling</li>
+<li>功能:获取已知节点的前一个节点</li>
+</ul>
+</li>
+<li>nextSibling<ul>
+<li>语法:兄弟节点.nextSibling</li>
+<li>功能:获取已知节点的后一个节点</li>
+</ul>
+</li>
+<li>parentNode<ul>
+<li>语法:子节点.parentNode</li>
+<li>功能:获取已知节点的父节点</li>
+</ul>
+</li>
+</ul>
+<h1 id="节点操作"><a href="#节点操作" class="headerlink" title="节点操作"></a>节点操作</h1><h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><ul>
+<li>createElement<ul>
+<li>语法:document.createElement（元素标签）</li>
+<li>功能:创建元素节点</li>
+</ul>
+</li>
+<li>createAttribute<ul>
+<li>语法:document.createAttribute（元素属性）</li>
+<li>功能:创建属性节点</li>
+</ul>
+</li>
+<li>createTextNode<ul>
+<li>语法:document.createTextNode(文本内容)</li>
+<li>功能:创建文本节点<h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2></li>
+</ul>
+</li>
+<li>appendChild(所要添加的节点)<ul>
+<li>向子节点列表末尾添加新的子节点</li>
+</ul>
+</li>
+<li>insertBefore(所要添加的节点，已知的节点)<ul>
+<li>在已知的节点插入新的节点，如果没有可以写null；</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var div=document.getElementById(&apos;myDiv&apos;);</span><br><span class="line">var odi=document.createElement(&apos;div&apos;);</span><br><span class="line">var text=document.createTextNode(&apos;我不再爱你&apos;);</span><br><span class="line">odi.appendChild(text);</span><br><span class="line">div.insertBefore(odi,null);</span><br></pre></td></tr></table></figure>
+
+<h2 id="替换节点"><a href="#替换节点" class="headerlink" title="替换节点"></a>替换节点</h2><ul>
+<li>replaceChild(要插入的元素，将要替换的元素)<ul>
+<li>将一个节点替换成另一个</li>
+</ul>
+</li>
+</ul>
+<h2 id="复制节点"><a href="#复制节点" class="headerlink" title="复制节点"></a>复制节点</h2><ul>
+<li>cloneNode<ul>
+<li>语法：需要被复制的节点.cloneNode(true/false)//默认为false</li>
+<li>功能:创建指定节点副本</li>
+<li>参数<ul>
+<li>true:复制当前节点以及所有子节点</li>
+<li>false:仅复制当前节点<h2 id="删除节点"><a href="#删除节点" class="headerlink" title="删除节点"></a>删除节点</h2></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>removeChild(删除的节点)<ul>
+<li>删除指定的节点</li>
+</ul>
+</li>
+</ul>
+<h2 id="属性操作"><a href="#属性操作" class="headerlink" title="属性操作"></a>属性操作</h2><ul>
+<li>获取属性：getAttribute(元素属性名)<ul>
+<li>获取元素节点中指定的属性值</li>
+</ul>
+</li>
+<li>设置属性: setAttribute(属性名,属性值)<ul>
+<li>创建或元素节点的属性</li>
+</ul>
+</li>
+<li>删除属性: removeAttribute（属性名）<ul>
+<li>删除元素中指定的属性</li>
+</ul>
+</li>
+</ul>
+<h2 id="文本操作"><a href="#文本操作" class="headerlink" title="文本操作"></a>文本操作</h2><ul>
+<li>insertData(offset,String):从offset指定的位置插入string        </li>
+<li>appendData(string):将string插入到文本节点的末尾处</li>
+<li>deleteDate(offset,count) 从off将count个字符用string替代</li>
+<li>replaceData(off,count,string);从off将count个字符用string替代</li>
+<li>splitData(offset) 从offset起将文本节点分成两个节点</li>
+<li>substring(offset,count) 返回由offset起的count个节点</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

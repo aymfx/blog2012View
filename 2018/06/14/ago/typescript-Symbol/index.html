@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>typescript-Symbol | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">typescript-Symbol</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-06-14</span>
+        </div>
+        <div class="article-container">
+          <p><img src="https://upload-images.jianshu.io/upload_images/10843623-d1427ac46b2dd12f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="typescript"></p>
+<blockquote>
+<p>Symbol 新的原生类型</p>
+</blockquote>
+<a id="more"></a>   
+
+<ul>
+<li>symbol 类型的值是通过 Symbol 构造函数创建的</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym1 = Symbol()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sym2 = Symbol(<span class="string">'key'</span>) <span class="comment">// 可选的字符串key</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Symbols 是不可改变且唯一的</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym2 = Symbol(<span class="string">'key'</span>)</span><br><span class="line"><span class="keyword">let</span> sym3 = Symbol(<span class="string">'key'</span>)</span><br><span class="line"></span><br><span class="line">sym2 === sym3 <span class="comment">// false, symbols是唯一的</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>像字符串一样，symbols 也可以被用做对象属性的键。</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sym = Symbol()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> obj = &#123;</span><br><span class="line">    [sym]: <span class="string">'value'</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(obj[sym]) <span class="comment">// "value"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Symbols 也可以与计算出的属性名声明相结合来声明对象的属性和类成员。</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> getClassNameSymbol = Symbol()</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> C &#123;</span><br><span class="line">    [getClassNameSymbol]() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'C'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c = <span class="keyword">new</span> C()</span><br><span class="line"><span class="keyword">let</span> className = c[getClassNameSymbol]() <span class="comment">// "C"</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>Symbol.hasInstance</p>
+<blockquote>
+<p>方法，会被 instanceof 运算符调用。构造器对象用来识别一个对象是否是其实例。</p>
+</blockquote>
+</li>
+<li><p>Symbol.isConcatSpreadable</p>
+<blockquote>
+<p>布尔值，表示当在一个对象上调用 Array.prototype.concat 时，这个对象的数组元素是否可展开</p>
+</blockquote>
+</li>
+<li><p>Symbol.iterator</p>
+<blockquote>
+<p>方法，被 for-of 语句调用。返回对象的默认迭代器</p>
+</blockquote>
+</li>
+<li><p>Symbol.match</p>
+<blockquote>
+<p>方法，被 String.prototype.match 调用。正则表达式用来匹配字符串。</p>
+</blockquote>
+</li>
+<li><p>Symbol.replace</p>
+<blockquote>
+<p>方法，被 String.prototype.search 调用。正则表达式返回被匹配部分在字符串中的索引。</p>
+</blockquote>
+</li>
+<li><p>Symbol.species</p>
+<blockquote>
+<p>函数值，为一个构造函数。用来创建派生对象。</p>
+</blockquote>
+</li>
+<li><p>Symbol.split</p>
+<blockquote>
+<p>方法，被 String.prototype.split 调用。正则表达式来用分割字符串。</p>
+</blockquote>
+</li>
+<li><p>Symbol.toPrimitive</p>
+<blockquote>
+<p>方法，被 ToPrimitive 抽象操作调用。把对象转换为相应的原始值。</p>
+</blockquote>
+</li>
+<li><p>Symbol.toStringTag</p>
+<blockquote>
+<p>方法，被内置方法 Object.prototype.toString 调用。返回创建对象时默认的字符串描述。</p>
+</blockquote>
+</li>
+<li><p>Symbol.unscopables</p>
+<blockquote>
+<p>对象，它自己拥有的属性会被 with 作用域排除在外</p>
+</blockquote>
+</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

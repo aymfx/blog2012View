@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>&#39;c语言基础&#39; | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础"><span class="toc-text">基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#C语言结构"><span class="toc-text">C语言结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C语言注释方法有两种："><span class="toc-text">C语言注释方法有两种：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标识符定义"><span class="toc-text">标识符定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量赋值"><span class="toc-text">变量赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#基本数据类型"><span class="toc-text">基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基本数据类型-整型、实型与字符型"><span class="toc-text">基本数据类型 - 整型、实型与字符型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#格式化输出语句"><span class="toc-text">格式化输出语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常亮"><span class="toc-text">常亮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#自动类型转换"><span class="toc-text">自动类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#强制类型转换"><span class="toc-text">强制类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符"><span class="toc-text">运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算符的优先级"><span class="toc-text">运算符的优先级</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#if语句"><span class="toc-text">if语句</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">&#39;c语言基础&#39;</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-08-29</span>
+        </div>
+        <div class="article-container">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><blockquote>
+<p>最近在准备c++的考试，没办法只能把忘掉的C语言基础再补回来,做点笔记</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><h3 id="C语言结构"><a href="#C语言结构" class="headerlink" title="C语言结构"></a>C语言结构</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  printf('欢迎来C语言世界')</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> #include &lt;stdio.h&gt;就是一条预处理命令，它的作用是通知C语言编译系统在对C程序进行正式编译之前需做一些预处理工作。</p>
+</blockquote>
+<blockquote>
+<p>函数就是实现代码逻辑的一个小的单元</p>
+</blockquote>
+<blockquote>
+<p>在最新的C标准中，main函数前的类型为int而不是void</p>
+</blockquote>
+<blockquote>
+<p>一个C程序有且只有一个主函数，即main函数。</p>
+</blockquote>
+<h3 id="C语言注释方法有两种："><a href="#C语言注释方法有两种：" class="headerlink" title="C语言注释方法有两种："></a>C语言注释方法有两种：</h3><ul>
+<li>多行注释：  /* 注释内容 */ </li>
+<li>单行注释：  //注释一行</li>
+</ul>
+<h3 id="标识符定义"><a href="#标识符定义" class="headerlink" title="标识符定义"></a>标识符定义</h3><blockquote>
+<p>C 语言规定，标识符可以是字母(A～Z，a～z)、数字(0～9)、下划线_组成的字符串，并且第一个字符必须是字母或下划线。</p>
+</blockquote>
+<p>(1)标识符的长度最好不要超过8位，因为在某些版本的C中规定标识符前8位有效，当两个标识符前8位相同时，则被认为是同一个标识符。 </p>
+<p>(2)标识符是严格区分大小写的。例如Imooc和imooc 是两个不同的标识符。 </p>
+<p>(3)标识符最好选择有意义的英文单词组成做到”见名知意”，不要使用中文。</p>
+<p>(4)标识符不能是C语言的关键字。</p>
+<h3 id="变量赋值"><a href="#变量赋值" class="headerlink" title="变量赋值"></a>变量赋值</h3><blockquote>
+<p>变量就是可以变化的量，而每个变量都会有一个名字（标识符）。变量占据内存中一定的存储单元。使用变量之前必须先定义变量，要区分变量名和变量值是两个不同的概念。就好比：住在房间里的客人与房间号是两个不同的概念。</p>
+</blockquote>
+<p>定义方式</p>
+<ul>
+<li>数据类型 变量名;</li>
+<li>数据类型 变量名，变量名，。。。;</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> num;</span><br><span class="line"> num = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">int</span> num1,num2,num3;</span><br><span class="line">num1 = <span class="number">1</span>;</span><br><span class="line">num2 = <span class="number">2</span>;</span><br><span class="line">num3 = <span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在定义中不允许连续赋值，如int a=b=c=5;是不合法的</p>
+</blockquote>
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><blockquote>
+<p>C语言中，数据类型可分为：基本数据类型，构造数据类型，指针类型，空类型四大类</p>
+</blockquote>
+<p><img src="http://img.mukewang.com/552b3d930001acdd04260268.jpg" alt="数据类型"></p>
+<h4 id="基本数据类型-整型、实型与字符型"><a href="#基本数据类型-整型、实型与字符型" class="headerlink" title="基本数据类型 - 整型、实型与字符型"></a>基本数据类型 - 整型、实型与字符型</h4><p><img src="http://img.mukewang.com/547fd0af0001b55b06300091.jpg" alt="基本数据类型"></p>
+<p>整形</p>
+<p><img src="http://img.mukewang.com/55adb2e70001360607410143.jpg" alt="整形"></p>
+<blockquote>
+<p>int、short int、long int是根据编译环境的不同，所取范围不同。而其中short int和long int至少是表中所写范围，但是int在表中是以16位编译环境写的取值范围。另外 c语言int的取值范围在于他占用的字节数 ，不同的编译器，规定是不一样。ANSI标准定义int是占2个字节，TC是按ANSI标准的，它的int是占2个字节的。但是在VC里，一个int是占4个字节的</p>
+</blockquote>
+<p>浮点数</p>
+<p><img src="http://img.mukewang.com/547fd1250001132307420082.jpg" alt="浮点数"></p>
+<p>字符串</p>
+<blockquote>
+<p>C语言中不存在字符串变量，字符串只能存在字符数组中</p>
+</blockquote>
+<h3 id="格式化输出语句"><a href="#格式化输出语句" class="headerlink" title="格式化输出语句"></a>格式化输出语句</h3><blockquote>
+<p>格式化输出语句，也可以说是占位输出，是将各种类型的数据按照格式化后的类型及指定的位置从计算机上显示</p>
+</blockquote>
+<ul>
+<li>格式为：printf(“输出格式符”，输出项);</li>
+</ul>
+<p><img src="http://img.mukewang.com/54856b620001e2ad04880099.jpg" alt="格式符"></p>
+<h3 id="常亮"><a href="#常亮" class="headerlink" title="常亮"></a>常亮</h3><ul>
+<li>直接常量也称为字面量，是可以直接拿来使用，无需说明的量</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">printf</span>(<span class="string">"%d\n"</span>,<span class="number">1100</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%f\n"</span>,<span class="number">1.100</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%l\n"</span>,<span class="number">1.105990</span>);</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%c\n"</span>,<span class="string">"p"</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在C语言中，可以用一个标识符来表示一个常量，称之为符号常量。符号常量在使用之前必须先定义，其一般形式为：#define 标识符 常量值</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PI 3.1415926</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"圆周率是多少%f\n"</span>,PI);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>常量是不可改变的</p>
+<h3 id="自动类型转换"><a href="#自动类型转换" class="headerlink" title="自动类型转换"></a>自动类型转换</h3><p>自动转换发生在不同数据类型运算时，在编译的时候自动完成</p>
+<p><img src="http://img.mukewang.com/549aa7070001c93b03810128.jpg" alt="自动类型转换"></p>
+<ul>
+<li>char类型数据转换为int类型数据遵循ASCII码中的对应值</li>
+<li>字节小的可以向字节大的自动转换，但字节大的不能向字节小的自动转换</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> c = <span class="string">'a'</span>;</span><br><span class="line">    <span class="keyword">int</span> n = c ;       <span class="comment">//将c赋值给n</span></span><br><span class="line">    <span class="keyword">float</span> f = c ;     <span class="comment">//将c赋值给f</span></span><br><span class="line">    <span class="keyword">double</span> d = c;     <span class="comment">//将c赋值给d</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,n); <span class="comment">//97</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%f\n"</span>,f); <span class="comment">//97.000000</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%lf\n"</span>,d); <span class="comment">//97.000000</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="强制类型转换"><a href="#强制类型转换" class="headerlink" title="强制类型转换"></a>强制类型转换</h3><p>强制类型转换是通过定义类型转换运算来实现的</p>
+<p> 形式为：(数据类型) (表达式) </p>
+<p>注意项:</p>
+<ul>
+<li>数据类型和表达式都必须加括号，如把(int)(x/2+y)写成(int)x/2+y则成了把x转换成int型之后再除2再与y相加了。</li>
+<li>转换后不会改变原数据的类型及变量值，只在本次运算中临时性转换。</li>
+<li>强制转换后的运算结果不遵循四舍五入原则</li>
+</ul>
+<h3 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h3><pre><code>※ 算术运算符  a+b  a*b a-b a/b  a%b</code></pre><p><img src="http://img.mukewang.com/54ac8dfb000126ad04510145.jpg" alt></p>
+<pre><code>※ 赋值运算符   a=b</code></pre><p><img src="http://img.mukewang.com/5492bd4700016e9103370083.jpg" alt></p>
+<pre><code>※ 关系运算符   &gt;  &lt;  = &gt;= &lt;=  !=</code></pre><p><img src="http://img.mukewang.com/5481551100017fbe04250141.jpg" alt></p>
+<pre><code>※ 逻辑运算符  &amp; || !</code></pre><p><img src="http://img.mukewang.com/54816483000195a203180087.jpg" alt></p>
+<pre><code>※ 三目运算符  a&gt;b ? &quot;a&quot; : &quot;b&quot;</code></pre><h3 id="运算符的优先级"><a href="#运算符的优先级" class="headerlink" title="运算符的优先级"></a>运算符的优先级</h3><p><img src="http://img.mukewang.com/54817fa90001654403370200.jpg" alt></p>
+<h3 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a>if语句</h3><p>if</p>
+<p><img src="http://img.mukewang.com/549cf202000188f802600278.jpg" alt></p>
+<p>if - else</p>
+<p><img src="http://img.mukewang.com/549cf0ad000157f603260281.jpg" alt></p>
+<p>if - else - if</p>
+<p><img src="http://img.mukewang.com/549cf81d0001d6e205180223.jpg" alt></p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

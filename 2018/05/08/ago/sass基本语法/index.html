@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>sass基本语法 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#环境-参考"><span class="toc-text">环境 参考</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#使用变量"><span class="toc-text">使用变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#变量使用"><span class="toc-text">变量使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套规则"><span class="toc-text">嵌套规则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导入sass文件"><span class="toc-text">导入sass文件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注释"><span class="toc-text">注释</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#混合器"><span class="toc-text">混合器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#使用-include"><span class="toc-text">使用 @include</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#给混合器传参数"><span class="toc-text">给混合器传参数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可以指定默认参数"><span class="toc-text">可以指定默认参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择器继承-extend"><span class="toc-text">选择器继承 @extend</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#颜色函数"><span class="toc-text">颜色函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#另外几种颜色函数"><span class="toc-text">另外几种颜色函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据类型-Data-Types"><span class="toc-text">数据类型 (Data Types)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运算"><span class="toc-text">运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-text">小结</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">sass基本语法</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-05-08</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>Sass的学名叫“CSS预处理器”，就是在CSS的基础上，引入了变量、嵌套、mixin（混合）、运算以及函数等功能，增加了代码的灵活性，可以让我们以更少的代码实现同样的效果，而且代码的整洁度、可读性更强。</p>
+</blockquote>
+<a id="more"></a>   
+
+<h3 id="环境-参考"><a href="#环境-参考" class="headerlink" title="环境 参考"></a>环境 参考</h3><blockquote>
+<p>我是放在vue脚手架中操作的，不需要装，大致的语法是一样的，编译参考上文</p>
+</blockquote>
+<blockquote>
+<p>本文是参考Sass中文网的，我只是个精简版的</p>
+</blockquote>
+<blockquote>
+<p>Sass中文网</p>
+</blockquote>
+<h4 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h4><blockquote>
+<p>变量声明用 $作为前缀</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$text-Size = 30px;</span><br><span class="line"></span><br><span class="line">$plain-font: &quot;Myriad Pro&quot;、Myriad、&quot;Helvetica Neue&quot;、Helvetica、&quot;Liberation Sans&quot;、Arial和sans-serif; sans-serif;</span><br><span class="line"></span><br><span class="line">$hight-color:#fff;</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量使用"><a href="#变量使用" class="headerlink" title="变量使用"></a>变量使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">编译前:</span><br><span class="line">  $h1-Size:36px;</span><br><span class="line">  $plain-font: &quot;Myriad Pro&quot;,Myriad,&quot;Helvetica Neue&quot;,Helvetica,&quot;Liberation Sans&quot;,Arial和sans-serif,sans-serif;</span><br><span class="line">  $h1-color:#f99;</span><br><span class="line">  h1&#123;</span><br><span class="line">    font-size: $h1-Size;</span><br><span class="line">    font-family: $plain-font;</span><br><span class="line">    color: $h1-color;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">编译后:</span><br><span class="line">font-size: 36px;</span><br><span class="line">font-family: &quot;Myriad Pro&quot;, Myriad, &quot;Helvetica Neue&quot;, Helvetica, &quot;Liberation Sans&quot;, Arial和sans-serif, sans-serif;</span><br><span class="line">color: #f99;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可能看起来代码量反而增多了，但是在写大型项目的时候会让我们加快速度编码 $link-color与$ink_color指向的是同一变量，使用时小心</p>
+</blockquote>
+<h3 id="嵌套规则"><a href="#嵌套规则" class="headerlink" title="嵌套规则"></a>嵌套规则</h3><blockquote>
+<p>大家肯定经历过这种事情</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">.container h1&#123;&#125;</span><br><span class="line">  .container a&#123;&#125;</span><br><span class="line">  .container img&#123;&#125;</span><br><span class="line">  .container span&#123;&#125;</span><br><span class="line">  .container div&#123;&#125;</span><br><span class="line">//需要重复写同一个选择器</span><br><span class="line">sass的嵌套可以避免这种情况</span><br><span class="line">  $box-size:600px;</span><br><span class="line">  // $box-background:$h1-color-125;   //颜色可以进行加减乘除 但是变量一定要先声明在使用啊</span><br><span class="line">  $h1-Size:36px;</span><br><span class="line">  $plain-font: &quot;Myriad Pro&quot;,Myriad,&quot;Helvetica Neue&quot;,Helvetica,&quot;Liberation Sans&quot;,Arial和sans-serif,sans-serif;</span><br><span class="line">  $h1-color:#f99;</span><br><span class="line">  $h1_color:#99d;</span><br><span class="line">  $box-background:$h1-color - 100;</span><br><span class="line">  #container&#123;</span><br><span class="line">    background: $box-background;</span><br><span class="line">    height: $box-size;</span><br><span class="line">    width: $box-size;</span><br><span class="line">    margin: 0 auto;</span><br><span class="line">    h1&#123;</span><br><span class="line">    font-size: $h1-Size;</span><br><span class="line">    font-family: $plain-font;</span><br><span class="line">    color: $h1-color;</span><br><span class="line">    text-align: center;</span><br><span class="line">    &#125;</span><br><span class="line">    ul&#123;</span><br><span class="line">      font-size: 24px;</span><br><span class="line">      text-align: center;</span><br><span class="line">      &amp; &gt; li&#123;  //&amp;表示父级元素 最靠近他的那个</span><br><span class="line">        color: #fff;</span><br><span class="line">        a&#123;</span><br><span class="line">          text-decoration: underline;</span><br><span class="line">&amp;:hover&#123;</span><br><span class="line">color:#f999;</span><br><span class="line">text-decoration:none;</span><br><span class="line">&#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">群组选择器的嵌套</span><br><span class="line">#container&#123;</span><br><span class="line">div,span.ul&#123;color:#f88;&#125;</span><br><span class="line">&#125;</span><br><span class="line">这种嵌套不要超过三层，不然降低网站的浏览速度</span><br><span class="line"></span><br><span class="line">配合 &gt; + ~ 三种选择器</span><br><span class="line">article &#123;</span><br><span class="line">~artlice &#123;color:#f99&#125;</span><br><span class="line">&gt; section &#123;background:#f00;&#125;</span><br><span class="line">dl &gt; &#123;</span><br><span class="line">dt&#123;color:#f99&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">嵌套属性</span><br><span class="line"> nav &#123;</span><br><span class="line">border: &#123;</span><br><span class="line">style:solid;</span><br><span class="line">width:1px;</span><br><span class="line">color:#9ff;</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">&amp; 表示 父级元素也可以这样用</span><br><span class="line">编译前</span><br><span class="line"></span><br><span class="line">#main &#123;</span><br><span class="line">  color: black;</span><br><span class="line">  &amp;-sidebar &#123; border: 1px solid; &#125;</span><br><span class="line">&#125;</span><br><span class="line">编译后</span><br><span class="line"></span><br><span class="line">#main &#123;</span><br><span class="line">  color: black; &#125;</span><br><span class="line">  #main-sidebar &#123;</span><br><span class="line">    border: 1px solid; &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="导入sass文件"><a href="#导入sass文件" class="headerlink" title="导入sass文件"></a>导入sass文件</h4><blockquote>
+<p>当我们不需要把导入的文件生成一个单独的css时，我们仅需在在文件名前面加一个_</p>
+</blockquote>
+<blockquote>
+<p>@import ‘/sass/_sigle.css’  //这就会将内容导出到这个引用的地方</p>
+</blockquote>
+<ul>
+<li>被导入文件的名字以.css结尾；</li>
+<li>被导入文件的名字是一个URL地址（例如<a href="http://www.sass.hk/css/css.css" target="_blank" rel="noopener">http://www.sass.hk/css/css.css</a> ），由此可用谷歌字体API提供的相应服务；</li>
+<li>被导入文件的名字是CSS的url()值。</li>
+</ul>
+<blockquote>
+<p>设置默认值 加 !default</p>
+</blockquote>
+<blockquote>
+<p>当多个文件导入，有重名的变量时，保证引用的时重新定义过的，如果没有重新定义则使用预先定义好的默认值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ defalut-color:red !default;</span><br><span class="line">.box&#123;</span><br><span class="line">color:$ defalut-color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>####嵌入导入</p>
+<blockquote>
+<p>你的局部sass文件在哪里被引用，就会导出到那个地方</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">aside&#123;</span><br><span class="line">div&#123;@import &apos;_div.css&apos;&#125;  //css被导入了，很强大呀</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">/*!  我是强力注释 我会出现在css文件里面*/</span><br><span class="line">div&#123;</span><br><span class="line">color:#f09; // 我不会出现在css里面</span><br><span class="line">font-size:36px; /*我也不会*/</span><br><span class="line">&#125;</span><br><span class="line">插值语句用于注释</span><br><span class="line">$version: &quot;1.2.3&quot;;</span><br><span class="line">/* This CSS is generated by My Snazzy Framework version #&#123;$version&#125;. */</span><br><span class="line">编译后</span><br><span class="line">/* This CSS is generated by My Snazzy Framework version 1.2.3. */</span><br></pre></td></tr></table></figure>
+
+<h4 id="混合器"><a href="#混合器" class="headerlink" title="混合器"></a>混合器</h4><blockquote>
+<p>当一组css在多个地方使用时，可以使用这种方式</p>
+</blockquote>
+<blockquote>
+<p>先定义一个混合器 @mixin</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@mixin imgradius&#123;</span><br><span class="line">     display: inline;</span><br><span class="line">     text-align: center;</span><br><span class="line">     width: 120px;</span><br><span class="line">     height: 120px;</span><br><span class="line">     border-radius: 24px;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用-include"><a href="#使用-include" class="headerlink" title="使用 @include"></a>使用 @include</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">img&#123;</span><br><span class="line">    @include imgradius;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="给混合器传参数"><a href="#给混合器传参数" class="headerlink" title="给混合器传参数"></a>给混合器传参数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">定义下</span><br><span class="line"></span><br><span class="line"> @mixin li-style($type,$position)&#123;</span><br><span class="line">        list-style-type:$type;</span><br><span class="line">        list-style-position:$position;</span><br><span class="line">  &#125;</span><br><span class="line">使用下</span><br><span class="line"></span><br><span class="line">li:first-child&#123;</span><br><span class="line">      @include li-style(circle,inside)</span><br><span class="line">    &#125;</span><br><span class="line">    li:last-child&#123;</span><br><span class="line">      @include li-style(square,inside)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="可以指定默认参数"><a href="#可以指定默认参数" class="headerlink" title="可以指定默认参数"></a>可以指定默认参数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@mixin li-style($type:decimal,$position:inside)&#123;</span><br><span class="line">        list-style-type:$type;</span><br><span class="line">        list-style-position:$position;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> li:last-child&#123;</span><br><span class="line">      @include li-style();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="选择器继承-extend"><a href="#选择器继承-extend" class="headerlink" title="选择器继承 @extend"></a>选择器继承 @extend</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.biaoti&#123;</span><br><span class="line">    font-size: $h1-Size;</span><br><span class="line">    font-family: $plain-font;</span><br><span class="line">    color: $h1-color;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">h1 &#123;</span><br><span class="line">    @extend .biaoti;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="颜色函数"><a href="#颜色函数" class="headerlink" title="颜色函数"></a>颜色函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$box-color: red;        </span><br><span class="line">ul &#123;</span><br><span class="line">    color: $box-color;      </span><br><span class="line">&#125;</span><br><span class="line">li &#123;</span><br><span class="line">    background-color: darken($box-color,30%);       </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//编译后：</span><br><span class="line">ul &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">li &#123;</span><br><span class="line">  background-color: #660000;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="另外几种颜色函数"><a href="#另外几种颜色函数" class="headerlink" title="另外几种颜色函数"></a>另外几种颜色函数</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lighten(#cc3, 10%) // #d6d65c</span><br><span class="line">grayscale(#cc3) // #808080</span><br><span class="line">complement(#cc3) // #33c</span><br></pre></td></tr></table></figure>
+
+<h4 id="数据类型-Data-Types"><a href="#数据类型-Data-Types" class="headerlink" title="数据类型 (Data Types)"></a>数据类型 (Data Types)</h4><blockquote>
+<p>数字，1, 2, 13, 10px<br>字符串，有引号字符串与无引号字符串，”foo”, ‘bar’, baz<br>SassScript 支持 CSS 的两种字符串类型：有引号字符串 (quoted strings)，如 “Lucida Grande” ‘<a href="http://sass-lang.com&#39;；与无引号字符串" target="_blank" rel="noopener">http://sass-lang.com&#39;；与无引号字符串</a> (unquoted strings)，如 sans-serif bold，在编译 CSS 文件时不会改变其类型。只有一种情况例外，使用 #{} (interpolation) 时，有引号字符串将被编译为无引号字符串，这样便于在 mixin 中引用选择器名</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@mixin firefox-message($selector) &#123;</span><br><span class="line">  body.firefox #&#123;$selector&#125;:before &#123;</span><br><span class="line">    content: &quot;Hi, Firefox users!&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">@include firefox-message(&quot;.header&quot;);</span><br><span class="line"></span><br><span class="line">编译后</span><br><span class="line"></span><br><span class="line">body.firefox .header:before &#123;</span><br><span class="line">  content: &quot;Hi, Firefox users!&quot;; &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>颜色，blue, #04a3f9, rgba(255,0,0,0.5)<br>布尔型，true, false<br>空值，null<br>数组 (list)，用空格或逗号作分隔符，1.5em 1em 0 2em, Helvetica, Arial, sans-serif<br>maps, 相当于 JavaScript 的 object，(key1: value1, key2: value2)</p>
+</blockquote>
+<h3 id="运算"><a href="#运算" class="headerlink" title="运算"></a>运算</h3><blockquote>
+<p>支持数字算数，支持关系运算</p>
+</blockquote>
+<blockquote>
+<p>/ 除法是特例，通常在这几种种情况下展现<br>如果值，或值的一部分，是变量或者函数的返回值<br>如果值被圆括号包裹<br>如果值是算数表达式的一部分</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">  font: 10px/8px;             // Plain CSS, no division</span><br><span class="line">  $width: 1000px;</span><br><span class="line">  width: $width/2;            // Uses a variable, does division</span><br><span class="line">  width: round(1.5)/2;        // Uses a function, does division</span><br><span class="line">  height: (500px/2);          // Uses parentheses, does division</span><br><span class="line">  margin-left: 5px + 8px/2px; // Uses +, does division</span><br><span class="line">&#125;</span><br><span class="line">编译后</span><br><span class="line">p &#123;</span><br><span class="line">  font: 10px/8px;</span><br><span class="line">  width: 500px;</span><br><span class="line">  height: 250px;</span><br><span class="line">  margin-left: 9px; &#125;</span><br><span class="line"></span><br><span class="line">保证变量不做除法运算的方法</span><br><span class="line">p &#123;</span><br><span class="line">  $font-size: 12px;</span><br><span class="line">  $line-height: 30px;</span><br><span class="line">  font: #&#123;$font-size&#125;/#&#123;$line-height&#125;;</span><br><span class="line">&#125;</span><br><span class="line">编译后</span><br><span class="line">p &#123;</span><br><span class="line">  font: 12px/30px; &#125;</span><br><span class="line">加号链接符的秘密</span><br><span class="line">如果有引号字符串（位于 + 左侧）连接无引号字符串，运算结果是有引号的，相反，无引号字符串（位于 + 左侧）连接有引号字符串，运算结果则没有引号。</span><br><span class="line"></span><br><span class="line">p:before &#123;</span><br><span class="line">  content: &quot;Foo &quot; + Bar;</span><br><span class="line">  font-family: sans- + &quot;serif&quot;;</span><br><span class="line">&#125;</span><br><span class="line">编译为</span><br><span class="line">p:before &#123;</span><br><span class="line">  content: &quot;Foo Bar&quot;;</span><br><span class="line">  font-family: sans-serif; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><blockquote>
+<p><a href="https://www.sass.hk/docs/#t7-3-6" target="_blank" rel="noopener">https://www.sass.hk/docs/#t7-3-6</a> 这是比较齐全的地址 仅供学习之用。</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

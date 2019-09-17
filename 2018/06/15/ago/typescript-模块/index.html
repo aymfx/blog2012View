@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>typescript-模块 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#导出"><span class="toc-text">导出</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#导入"><span class="toc-text">导入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#默认导出"><span class="toc-text">默认导出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#export-和-import-require"><span class="toc-text">export = 和 import = require()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#生成模块代码"><span class="toc-text">生成模块代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#可选的模块加载和其它高级加载场景"><span class="toc-text">可选的模块加载和其它高级加载场景</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">typescript-模块</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-06-15</span>
+        </div>
+        <div class="article-container">
+          <p> <img src="https://upload-images.jianshu.io/upload_images/10843623-d1427ac46b2dd12f.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="typescript"></p>
+<blockquote>
+<p>模块在其自身的作用域里执行，而不是在全局作用域里；这意味着定义在一个模块里的变量，函数，类等等在模块外部是不可见的，除非你明确地使用export形式之一导出它们。 相反，如果想使用其它模块导出的变量，函数，类，接口等的时候，你必须要导入它们，可以使用 import形式之一。</p>
+</blockquote>
+<a id="more"></a>   
+
+<blockquote>
+<p>模块是自声明的；两个模块之间的关系是通过在文件级别上使用imports和exports建立的。</p>
+</blockquote>
+<blockquote>
+<p>TypeScript与ECMAScript 2015一样，任何包含顶级import或者export的文件都被当成一个模块。相反地，如果一个文件不带有顶级的import或者export声明，那么它的内容被视为全局可见的（因此对模块也是可见的）。</p>
+</blockquote>
+<h3 id="导出"><a href="#导出" class="headerlink" title="导出"></a>导出</h3><blockquote>
+<p>任何声明（比如变量，函数，类，类型别名或接口）都能够通过添加export关键字来导出</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">interface</span> StringValidator &#123;</span><br><span class="line">    isAcceptable(s: <span class="built_in">string</span>): <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>导出重命名 用 as</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> ZipCodeValidator <span class="keyword">implements</span> StringValidator &#123;</span><br><span class="line">    isAcceptable(s: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> s.length === <span class="number">5</span> &amp;&amp; numberRegexp.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; ZipCodeValidator &#125;;</span><br><span class="line"><span class="keyword">export</span> &#123; ZipCodeValidator <span class="keyword">as</span> mainValidator &#125;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重新导出</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> ParseIntBasedZipCodeValidator &#123;</span><br><span class="line">    isAcceptable(s: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> s.length === <span class="number">5</span> &amp;&amp; <span class="built_in">parseInt</span>(s).toString() === s;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出原先的验证器但做了重命名,不会增加新的局部变量</span></span><br><span class="line"><span class="keyword">export</span> &#123;ZipCodeValidator <span class="keyword">as</span> RegExpBasedZipCodeValidator&#125; <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>或者一个模块可以包裹多个模块，并把他们导出的内容联合在一起通过语法：export * from “module”。</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./StringValidator"</span>; <span class="comment">// exports interface StringValidator</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./LettersOnlyValidator"</span>; <span class="comment">// exports class LettersOnlyValidator</span></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;  <span class="comment">// exports class ZipCodeValidator</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h4><blockquote>
+<p>导入一个模块中的某个导出内容</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; ZipCodeValidator &#125; <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myValidator = <span class="keyword">new</span> ZipCodeValidator();</span><br></pre></td></tr></table></figure>
+
+<p>可以对导入内容重命名</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ZipCodeValidator <span class="keyword">as</span> ZCV &#125; <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br><span class="line"><span class="keyword">let</span> myValidator = <span class="keyword">new</span> ZCV();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>将整个模块导入到一个变量，并通过它来访问模块的导出部分</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> validator <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br><span class="line"><span class="keyword">let</span> myValidator = <span class="keyword">new</span> validator.ZipCodeValidator();</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>具有副作用的导入模块</p>
+</blockquote>
+<p>尽管不推荐这么做，一些模块会设置一些全局状态供其它模块使用。 这些模块可能没有任何的导出或用户根本就不关注它的导出。 使用下面的方法来导入这类模块</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"./my-module.js"</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="默认导出"><a href="#默认导出" class="headerlink" title="默认导出"></a>默认导出</h4><blockquote>
+<p>每个模块都可以有一个default导出。 默认导出使用 default关键字标记；并且一个模块只能够有一个default导出。 需要使用一种特殊的导入形式来导入 default导出</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//JQuery.d.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span> <span class="keyword">let</span> $: JQuery;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> $;</span><br><span class="line"></span><br><span class="line"><span class="comment">// App.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> $ <span class="keyword">from</span> <span class="string">"JQuery"</span>;</span><br><span class="line"></span><br><span class="line">$(<span class="string">"button.continue"</span>).html( <span class="string">"Next Step..."</span> );</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>导出静态类</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ZipCodeValidator.ts</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> ZipCodeValidator &#123;</span><br><span class="line">    <span class="keyword">static</span> numberRegexp = <span class="regexp">/^[0-9]+$/</span>;</span><br><span class="line">    isAcceptable(s: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> s.length === <span class="number">5</span> &amp;&amp; ZipCodeValidator.numberRegexp.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Test.ts</span></span><br><span class="line"><span class="keyword">import</span> validator <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> myValidator = <span class="keyword">new</span> validator();</span><br></pre></td></tr></table></figure>
+
+<!-- more -->
+<h3 id="export-和-import-require"><a href="#export-和-import-require" class="headerlink" title="export = 和 import = require()"></a>export = 和 import = require()</h3><blockquote>
+<p>用这种方式我们兼容传统的CommonJS和AMD的工作流模型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//ZipCodeValidator.ts</span></span><br><span class="line"><span class="keyword">let</span> numberRegexp = <span class="regexp">/^[0-9]+$/</span>;</span><br><span class="line"><span class="keyword">class</span> ZipCodeValidator &#123;</span><br><span class="line">    isAcceptable(s: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> s.length === <span class="number">5</span> &amp;&amp; numberRegexp.test(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> = ZipCodeValidator;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Test.ts</span></span><br><span class="line"><span class="keyword">import</span> zip = <span class="built_in">require</span>(<span class="string">"./ZipCodeValidator"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Some samples to try</span></span><br><span class="line"><span class="keyword">let</span> strings = [<span class="string">"Hello"</span>, <span class="string">"98052"</span>, <span class="string">"101"</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Validators to use</span></span><br><span class="line"><span class="keyword">let</span> validator = <span class="keyword">new</span> zip();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Show whether each string passed each validator</span></span><br><span class="line">strings.forEach(<span class="function"><span class="params">s</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`"<span class="subst">$&#123; s &#125;</span>" - <span class="subst">$&#123; validator.isAcceptable(s) ? <span class="string">"matches"</span> : <span class="string">"does not match"</span> &#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="生成模块代码"><a href="#生成模块代码" class="headerlink" title="生成模块代码"></a>生成模块代码</h4><blockquote>
+<p>根据不同的规范生成不同的代码</p>
+</blockquote>
+<blockquote>
+<p>Node.js来说，使用–module commonjs； 对于Require.js来说，使用–module amd。比如：</p>
+</blockquote>
+<blockquote>
+<p>tsc –module commonjs Test.ts</p>
+</blockquote>
+<h4 id="可选的模块加载和其它高级加载场景"><a href="#可选的模块加载和其它高级加载场景" class="headerlink" title="可选的模块加载和其它高级加载场景"></a>可选的模块加载和其它高级加载场景</h4><blockquote>
+<p>有时候，你只想在某种条件下才加载某个模块。 在TypeScript里，使用下面的方式来实现它和其它的高级加载场景，我们可以直接调用模块加载器并且可以保证类型完全</p>
+</blockquote>
+<blockquote>
+<p>编译器会检测是否每个模块都会在生成的JavaScript中用到。 如果一个模块标识符只在类型注解部分使用，并且完全没有在表达式中使用时，就不会生成 require这个模块的代码。 省略掉没有用到的引用对性能提升是很有益的，并同时提供了选择性加载模块的能力。</p>
+</blockquote>
+<blockquote>
+<p>这种模式的核心是import id = require(“…”)语句可以让我们访问模块导出的类型。 模块加载器会被动态调用（通过 require），就像下面if代码块里那样。 它利用了省略引用的优化，所以模块只在被需要时加载。 为了让这个模块工作，一定要注意 import定义的标识符只能在表示类型处使用（不能在会转换成JavaScript的地方）</p>
+</blockquote>
+<blockquote>
+<p>为了确保类型安全性，我们可以使用typeof关键字。 typeof关键字，当在表示类型的地方使用时，会得出一个类型值，这里就表示模块的类型</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> <span class="function"><span class="keyword">function</span> <span class="title">require</span>(<span class="params">moduleName: <span class="built_in">string</span></span>): <span class="title">any</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; ZipCodeValidator <span class="keyword">as</span> Zip &#125; <span class="keyword">from</span> <span class="string">"./ZipCodeValidator"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (needZipValidation) &#123;</span><br><span class="line">    <span class="keyword">let</span> ZipCodeValidator: <span class="keyword">typeof</span> Zip = <span class="built_in">require</span>(<span class="string">"./ZipCodeValidator"</span>);</span><br><span class="line">    <span class="keyword">let</span> validator = <span class="keyword">new</span> ZipCodeValidator();</span><br><span class="line">    <span class="keyword">if</span> (validator.isAcceptable(<span class="string">"..."</span>)) &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>模块里不要使用命名空间</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

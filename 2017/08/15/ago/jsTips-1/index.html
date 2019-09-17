@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>jsTips-1 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解-bind"><span class="toc-text">理解 bind</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">jsTips-1</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-08-15</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>闭包</p>
+</blockquote>
+ <a id="more"></a>   
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> generateClosure = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">get</span> = function() &#123;</span><br><span class="line">        count++</span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">get</span></span><br><span class="line">&#125;</span><br><span class="line">var counter = generateClosure()</span><br><span class="line">console.log(counter()) // 输出 1</span><br><span class="line">console.log(counter()) // 输出 2</span><br><span class="line">console.log(counter()) // 输出 3</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这段代码中， generateClosure() 函数中有一个局部变量 count ，初值为 0。还有一<br>个叫做 get 的函数， get 将其父作用域，也就是 generateClosure() 函数中的 count 变量增加 1，并返回 count 的值。 generateClosure() 的返回值是 get 函数。在外部我们通过 counter 变量调用了 generateClosure() 函数并获取了它的返回值，也就是 get 函数，接下来反复调用几次 counter() ，我们发现每次返回的值都递增了 1。</p>
+</blockquote>
+<blockquote>
+<p>让我们看看上面的例子有什么特点，按照通常命令式编程思维的理解， count 是<br>generateClosure 函数内部的变量，它的生命周期就是 generateClosure 被调用的时<br>期，当 generateClosure 从调用栈中返回时， count 变量申请的空间也就被释放。问题是，在 generateClosure() 调用结束后， counter() 却引用了“已经释放了的” count<br>变量，而且非但没有出错，反而每次调用 counter() 时还修改并返回了 count 。这是怎么回事呢</p>
+</blockquote>
+<blockquote>
+<p>这正是所谓闭包的特性。当一个函数返回它内部定义的一个函数时，就产生了一个闭包，<br>闭包不但包括被返回的函数，还包括这个函数的定义环境。上面例子中，当函数<br>generateClosure() 的内部函数 get 被一个外部变量 counter 引用时， counter 和<br>generateClosure() 的局部变量就是一个闭包。如果还不够清晰，下面这个例子可以帮助<br>你理解：</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> generateClosure = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> <span class="keyword">get</span> = function() &#123;</span><br><span class="line">        count++</span><br><span class="line">        <span class="keyword">return</span> count</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">get</span></span><br><span class="line">&#125;</span><br><span class="line">var counter1 = generateClosure()</span><br><span class="line">var counter2 = generateClosure()</span><br><span class="line">console.log(counter1()) // 输出 1</span><br><span class="line">console.log(counter2()) // 输出 1</span><br><span class="line">console.log(counter1()) // 输出 2</span><br><span class="line">console.log(counter1()) // 输出 3</span><br><span class="line">console.log(counter2()) // 输出 2</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面这个例子解释了闭包是如何产生的： counter1 和 counter2 分别调用了 generate-Closure() 函数，生成了两个闭包的实例，它们内部引用的 count 变量分别属于各自的运行环境。我们可以理解为，在 generateClosure() 返回 get 函数时，私下将 get 可能引用到的 generateClosure() 函数的内部变量（也就是 count 变量）也返回了，并在内存中生成了一个副本，之后 generateClosure() 返回的函数的两个实例 counter1 和 counter2 就是相互独立的了。</p>
+</blockquote>
+<h1 id="理解-bind"><a href="#理解-bind" class="headerlink" title="理解 bind"></a>理解 bind</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someuser = &#123;</span><br><span class="line">    name: <span class="string">'byvoid'</span>,</span><br><span class="line">    func: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line">    name: <span class="string">'foobar'</span>,</span><br><span class="line">&#125;</span><br><span class="line">func = someuser.func.bind(foo)</span><br><span class="line">func() <span class="comment">// 输出 foobar</span></span><br><span class="line">func2 = func.bind(someuser)</span><br><span class="line">func2() <span class="comment">// 输出 foobar</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>全局函数 func 通过 someuser.func.bind 将 this 指针绑定到了 foo ，调用 func() 输<br>出了 foobar 。我们试图将 func2 赋值为已绑定的 func 重新通过 bind 将 this 指针绑定到<br>someuser 的结果，而调用 func2 时却发现输出值仍为 foobar ，即 this 指针还是停留在 foo<br>对象上，这是为什么呢？要想解释这个现象，我们必须了解 bind 方法的原理</p>
+</blockquote>
+<blockquote>
+<p>gulp-smushit 压缩图片</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

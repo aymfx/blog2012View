@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>html--三栏布局（两边固定宽度，中间自适应） | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。"><span class="toc-text">绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。"><span class="toc-text">二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100-的浮动元素包起来。"><span class="toc-text">三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100%的浮动元素包起来。</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">html--三栏布局（两边固定宽度，中间自适应）</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-05</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>html–三栏布局（两边固定宽度，中间自适应</p>
+</blockquote>
+<a id="more"></a>   
+
+<h2 id="绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。"><a href="#绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。" class="headerlink" title="绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。"></a>绝对定位法：左右两栏采用绝对定位，分别固定于页面的左右两侧，中间的主体栏用左右margin值撑开距离。于是实现了三栏自适应布局。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">#left&#123;</span></span><br><span class="line">       width: 180px;</span><br><span class="line">       height: 100%;      </span><br><span class="line">       background: blue;</span><br><span class="line">       position: absolute;</span><br><span class="line">       left: 0px;</span><br><span class="line">       top: 0px;</span><br><span class="line">    &#125;</span><br><span class="line"> <span class="comment">#middle&#123;</span></span><br><span class="line">         background: red;</span><br><span class="line">         margin: 0 200px;</span><br><span class="line">   height: 100%;</span><br><span class="line"></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">#right&#123;</span></span><br><span class="line">width: 180px;        </span><br><span class="line">       background: blue;</span><br><span class="line">       position: absolute;</span><br><span class="line">       right: 0px;</span><br><span class="line">       top: 0px;</span><br><span class="line">       height: 100%;    </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此方法的优点在于：理解容易，上手简单，受内部元素影响而破坏布局的概率低，就是比较经得起折腾。<br>缺点在于：如果中间栏含有最小宽度限制，或是含有宽度的内部元素，当浏览器宽度小到一定程度，会发生层重叠的情况</p>
+</blockquote>
+<h2 id="二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。"><a href="#二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。" class="headerlink" title="二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。"></a>二、自身浮动法：左栏左浮动，右栏右浮动，中间栏放最后。</h2><p>​    </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#left&#123;</span></span><br><span class="line">         width: 180px;</span><br><span class="line">         height: 100%;      </span><br><span class="line">         background: blue;</span><br><span class="line">         <span class="built_in">float</span>: left;</span><br><span class="line">      &#125;</span><br><span class="line">	  <span class="comment">#middle&#123;</span></span><br><span class="line">		  background: red;</span><br><span class="line">           margin: 0 200px;</span><br><span class="line">		   height: 100%;</span><br><span class="line">	  &#125;</span><br><span class="line">	  <span class="comment">#right&#123;</span></span><br><span class="line">         width: 180px;</span><br><span class="line">         height: 100%;      </span><br><span class="line">         background: blue;</span><br><span class="line">         <span class="built_in">float</span>: right;</span><br><span class="line">	  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>   这种方式需要注意三个div的顺序，左右两栏的顺序不分先后，但是中间一栏必须放在最后。<br>     此方法的优点是：代码足够简洁与高效<br>     缺点是：中间主体存在克星，clear:both属性。如果要使用此方法，需避免明显的clear样式。</p>
+<h2 id="三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100-的浮动元素包起来。"><a href="#三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100-的浮动元素包起来。" class="headerlink" title="三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100%的浮动元素包起来。"></a>三、margin负值法：左右两栏均左浮动，左右两栏采用负的margin值。中间栏被宽度为100%的浮动元素包起来。</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#middle&#123;</span></span><br><span class="line">   	    width: 100%;</span><br><span class="line">   	    <span class="built_in">float</span>: left;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">#main&#123;</span></span><br><span class="line">   	    background: red;</span><br><span class="line">   	    margin: 0 200px;</span><br><span class="line">   	    height: 100%;</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">#left&#123;</span></span><br><span class="line">            width: 200px;</span><br><span class="line">            <span class="built_in">float</span>: left;</span><br><span class="line">            margin-left: -100%;</span><br><span class="line">            height: 100%;</span><br><span class="line">            background:blue;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line">     <span class="comment">#right&#123;</span></span><br><span class="line">            width: 200px;</span><br><span class="line">            <span class="built_in">float</span>: left;</span><br><span class="line">            margin-left: -200px;</span><br><span class="line">            height: 100%;</span><br><span class="line">            background:blue;</span><br><span class="line">            </span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>此方法的优点在于：三栏相互关联，可谓真正意义上的自适应，有一定的抗性——布局不易受内部影响。<br>缺点在于：相对比较难理解些，上手不容易，代码相对复杂。出现百分比宽度，过多的负值定位，如果出现布局的bug，排查不易。</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一种和第二种方法的div排版</span><br><span class="line">&lt;div id=<span class="string">"middle"</span>&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"left"</span>&gt;xsxsx&lt;/div&gt;</span><br><span class="line">&lt;div id=<span class="string">"right"</span>&gt;xsxsx&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">第三种方法的div排版</span><br><span class="line">&lt;div id=<span class="string">"middle"</span>&gt;</span><br><span class="line">   	    &lt;div id=<span class="string">"main"</span>&gt;aaaaaaaaa&lt;/div&gt;</span><br><span class="line">   &lt;/div&gt;</span><br><span class="line">   &lt;div id=<span class="string">"left"</span>&gt;vvvvvvvvvvv&lt;/div&gt;</span><br><span class="line">   &lt;div id=<span class="string">"right"</span>&gt;ccccccccccccc&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>es6-块级作用域绑定 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#var，let-const-三者的区别"><span class="toc-text">var，let, const 三者的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-是用来声明静态变量的，一但设置了值之后就不可改变"><span class="toc-text">const 是用来声明静态变量的，一但设置了值之后就不可改变</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const在对象中是绑定了这个对象，但是对象的内容是可以改变的"><span class="toc-text">const在对象中是绑定了这个对象，但是对象的内容是可以改变的</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#var-可以重复声明变量-let和const声明的变量不能重新声明"><span class="toc-text">var 可以重复声明变量 let和const声明的变量不能重新声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#临时死区"><span class="toc-text">临时死区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#循环中的块级作用域绑定"><span class="toc-text">循环中的块级作用域绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#全局作用域的绑定"><span class="toc-text">全局作用域的绑定</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">es6-块级作用域绑定</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-01-24</span>
+        </div>
+        <div class="article-container">
+          <p><img src="http://upload-images.jianshu.io/upload_images/10843623-82935528251fe29d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="timg.jpg"></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>花点时间重新复习一遍es6的语法</p>
+</blockquote>
+<blockquote>
+<p>我的博客地址 ：<a href="http://www.aymfx.cn/" target="_blank" rel="noopener">http://www.aymfx.cn/</a></p>
+</blockquote>
+ <a id="more"></a>   
+
+
+<h3 id="var，let-const-三者的区别"><a href="#var，let-const-三者的区别" class="headerlink" title="var，let, const 三者的区别"></a>var，let, const 三者的区别</h3><blockquote>
+<p>var 声明的变量会有变量提升的过程，将被提升到作用域的顶部，或者函数的顶部</p>
+</blockquote>
+<blockquote>
+<p>let 声明的变量，只能在声明的块作用域中访问和使用，存在于函数内部以及花括号之间的区域</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    let a = 3;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(a); //a is not defined</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function()&#123;</span><br><span class="line">    let a = 3;</span><br><span class="line">&#125;</span><br><span class="line">console.log(a); //a is not defined</span><br></pre></td></tr></table></figure>
+
+<h3 id="const-是用来声明静态变量的，一但设置了值之后就不可改变"><a href="#const-是用来声明静态变量的，一但设置了值之后就不可改变" class="headerlink" title="const 是用来声明静态变量的，一但设置了值之后就不可改变"></a>const 是用来声明静态变量的，一但设置了值之后就不可改变</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const a = 20;</span><br><span class="line">a= 60;</span><br><span class="line">//Assignment to constant variable.</span><br></pre></td></tr></table></figure>
+
+<h3 id="const在对象中是绑定了这个对象，但是对象的内容是可以改变的"><a href="#const在对象中是绑定了这个对象，但是对象的内容是可以改变的" class="headerlink" title="const在对象中是绑定了这个对象，但是对象的内容是可以改变的"></a>const在对象中是绑定了这个对象，但是对象的内容是可以改变的</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const a = &#123;length:2&#125;</span><br><span class="line"></span><br><span class="line">a.length = 6;</span><br></pre></td></tr></table></figure>
+
+<h3 id="var-可以重复声明变量-let和const声明的变量不能重新声明"><a href="#var-可以重复声明变量-let和const声明的变量不能重新声明" class="headerlink" title="var 可以重复声明变量 let和const声明的变量不能重新声明"></a>var 可以重复声明变量 let和const声明的变量不能重新声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var count = 30;</span><br><span class="line">let count = 40;</span><br><span class="line">VM49:2 Uncaught SyntaxError: Identifier &apos;count&apos; has already been declared</span><br></pre></td></tr></table></figure>
+
+<h3 id="临时死区"><a href="#临时死区" class="headerlink" title="临时死区"></a>临时死区</h3><p>let和const不会出现变量提升的情况，未定义的值将直接报错,也就产生所谓的临时死区</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">if(true)&#123;</span><br><span class="line">    console.log(typeof value);  //alue is not defined</span><br><span class="line">    let value = &quot;blue&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意这种情况</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof value);  //alue is not defined</span><br><span class="line">if(true)&#123;</span><br><span class="line">    </span><br><span class="line">    let value = &quot;blue&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="循环中的块级作用域绑定"><a href="#循环中的块级作用域绑定" class="headerlink" title="循环中的块级作用域绑定"></a>循环中的块级作用域绑定</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var fun = [];</span><br><span class="line">for(var i = 0;i&lt;10;i++)&#123;</span><br><span class="line">    fun.push(function()&#123;console.log(i)&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun.forEach(function(f)&#123;f()&#125;)  //0VM118:3 10</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面代码输出了10个10,不对的，我们期待是0-9，改成这样的话</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let fun = [];</span><br><span class="line">for(let i = 0;i&lt;10;i++)&#123;</span><br><span class="line">    fun.push(function()&#123;console.log(i)&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fun.forEach(function(f)&#123;f()&#125;)  //0VM118:3 10</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>以上写法对于 for-in 以及for-of 同样适用</p>
+</blockquote>
+<blockquote>
+<p>循环中使用const声明</p>
+</blockquote>
+<blockquote>
+<p>这样会报错</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var f = [];</span><br><span class="line">for(const i =0;i&lt;10;i++)&#123;</span><br><span class="line">    f.push(function()&#123;</span><br><span class="line">        console.log(i);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125; //Assignment to constant variable</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>但是 for-in 和for-of，由于是绑定元素不会报错，上面在第二次循环修改了变量的值导致报错</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var f = [];</span><br><span class="line">obj = &#123;</span><br><span class="line">    a:1,</span><br><span class="line">    b:2,</span><br><span class="line">    c:3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">for(const key in obj)&#123;</span><br><span class="line">    f.push(function()&#123;</span><br><span class="line">        console.log(key);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">f.forEach(function(f)&#123;f()&#125;) </span><br><span class="line">//a</span><br><span class="line">//VM184:10 b</span><br><span class="line">//VM184:10 c</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">f= [&apos;1&apos;,2,4,5]</span><br><span class="line"></span><br><span class="line">for(const key of f)&#123;</span><br><span class="line">    console.log(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//VM204:4 1</span><br><span class="line">//VM204:4 2</span><br><span class="line">//VM204:4 4</span><br><span class="line">//VM204:4 5</span><br></pre></td></tr></table></figure>
+
+<h3 id="全局作用域的绑定"><a href="#全局作用域的绑定" class="headerlink" title="全局作用域的绑定"></a>全局作用域的绑定</h3><blockquote>
+<p>var 在全局中相当于添加了window对象的属性，但是有可能误操作覆盖了已有的全局属性</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(window.RegExp); //ƒ RegExp() &#123; [native code] &#125;</span><br><span class="line">var RegExp = &quot;正则表达式&quot;</span><br><span class="line">console.log(window.RegExp); //正则表达式</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>相对于var来说let和const不会创建一个新的绑定,他会屏蔽window的属性，而不是添加或者覆盖window的属性</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(window.RegExp); //ƒ RegExp() &#123; [native code] &#125;</span><br><span class="line">let RegExp = &quot;正则表达式&quot;</span><br><span class="line">console.log(window.RegExp); //ƒ RegExp() &#123; [native code] &#125;</span><br><span class="line">console.log(RegExp) //正则表达式</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

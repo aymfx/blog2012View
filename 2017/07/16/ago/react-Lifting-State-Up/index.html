@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react-Lifting State Up | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#案例一"><span class="toc-text">案例一</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react-Lifting State Up</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-16</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>Lifting State Up</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h1><blockquote>
+<p>通过输入温度改变条件</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">function BoilingVerdict(props) &#123;</span><br><span class="line">    if(props.celsius&gt;=100) &#123;</span><br><span class="line">        return &lt;p&gt;水开了&lt;/p&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    return &lt;p&gt;水没开&lt;/p&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Calculator extends Component &#123;</span><br><span class="line">    constructor (props) &#123;</span><br><span class="line">        super(props)</span><br><span class="line">        this.handleChange = this.handleChange.bind(this);</span><br><span class="line">        this.state  = &#123;temperature:&apos;&apos;&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChange(e) &#123;</span><br><span class="line">        this.setState(&#123;temperature:e.target.value&#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render()&#123;</span><br><span class="line">        const temperature = this.state.temperature;</span><br><span class="line"></span><br><span class="line">        return (&lt;div&gt;</span><br><span class="line">            &lt;fieldest&gt;</span><br><span class="line">                &lt;legend&gt;</span><br><span class="line">                    输入温度吧</span><br><span class="line">                &lt;/legend&gt;</span><br><span class="line">                &lt;input type=&quot;text&quot;</span><br><span class="line">                       value=&#123;temperature&#125;</span><br><span class="line">                       onChange=&#123;this.handleChange&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">                &lt;BoilingVerdict</span><br><span class="line">                    celsius=&#123;parseFloat(temperature)&#125;</span><br><span class="line">                /&gt;</span><br><span class="line">            &lt;/fieldest&gt;</span><br><span class="line">        &lt;/div&gt;)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过输入温度改变不同的的状态,共享状态是通过将其移动到需要它的组件的最接近的共同祖先来完成的，通过 event up 改变父组件状态值</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">const scaleNames = &#123;</span><br><span class="line">    c: &apos;Celsius&apos;,</span><br><span class="line">    f: &apos;Fahrenheit&apos;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function toCelsius(fahrenheit) &#123;</span><br><span class="line">    return (fahrenheit - 32) * 5 / 9;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function toFahrenheit(celsius) &#123;</span><br><span class="line">    return (celsius * 9 / 5) + 32;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function tryConvert(temperature, convert) &#123;</span><br><span class="line">    const input = parseFloat(temperature);</span><br><span class="line">    if (Number.isNaN(input)) &#123;</span><br><span class="line">        return &apos;&apos;;</span><br><span class="line">    &#125;</span><br><span class="line">    const output = convert(input);</span><br><span class="line">    const rounded = Math.round(output * 1000) / 1000;</span><br><span class="line">    return rounded.toString();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function BoilingVerdict(props) &#123;</span><br><span class="line">    if (props.celsius &gt;= 100) &#123;</span><br><span class="line">        return &lt;p&gt;The water would boil.&lt;/p&gt;;</span><br><span class="line">    &#125;</span><br><span class="line">    return &lt;p&gt;The water would not boil.&lt;/p&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class TemperatureInput extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.handleChange = this.handleChange.bind(this);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleChange(e) &#123;</span><br><span class="line">        this.props.onTemperatureChange(e.target.value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        const temperature = this.props.temperature;</span><br><span class="line">        const scale = this.props.scale;</span><br><span class="line">        return (</span><br><span class="line">            &lt;fieldset&gt;</span><br><span class="line">                &lt;legend&gt;Enter temperature in &#123;scaleNames[scale]&#125;:&lt;/legend&gt;</span><br><span class="line">                &lt;input value=&#123;temperature&#125;</span><br><span class="line">                       onChange=&#123;this.handleChange&#125; /&gt;</span><br><span class="line">            &lt;/fieldset&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Calculator extends React.Component &#123;</span><br><span class="line">    constructor(props) &#123;</span><br><span class="line">        super(props);</span><br><span class="line">        this.handleCelsiusChange = this.handleCelsiusChange.bind(this);</span><br><span class="line">        this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);</span><br><span class="line">        this.state = &#123;temperature: &apos;&apos;, scale: &apos;c&apos;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleCelsiusChange(temperature) &#123;</span><br><span class="line">        this.setState(&#123;scale: &apos;c&apos;, temperature&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    handleFahrenheitChange(temperature) &#123;</span><br><span class="line">        this.setState(&#123;scale: &apos;f&apos;, temperature&#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        const scale = this.state.scale;</span><br><span class="line">        const temperature = this.state.temperature;</span><br><span class="line">        const celsius = scale === &apos;f&apos; ? tryConvert(temperature, toCelsius) : temperature;</span><br><span class="line">        const fahrenheit = scale === &apos;c&apos; ? tryConvert(temperature, toFahrenheit) : temperature;</span><br><span class="line"></span><br><span class="line">        return (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;TemperatureInput</span><br><span class="line">                    scale=&quot;c&quot;</span><br><span class="line">                    temperature=&#123;celsius&#125;</span><br><span class="line">                    onTemperatureChange=&#123;this.handleCelsiusChange&#125; /&gt;</span><br><span class="line">                &lt;TemperatureInput</span><br><span class="line">                    scale=&quot;f&quot;</span><br><span class="line">                    temperature=&#123;fahrenheit&#125;</span><br><span class="line">                    onTemperatureChange=&#123;this.handleFahrenheitChange&#125; /&gt;</span><br><span class="line">                &lt;BoilingVerdict</span><br><span class="line">                    celsius=&#123;parseFloat(celsius)&#125; /&gt;</span><br><span class="line">            &lt;/div&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在任何一个 react 对象中，任何数据都应该是单一来源。</p>
+</blockquote>
+<blockquote>
+<p>这个状态需要第一时间被添加到它需要的组件上，如果其他组件也需要它，我们可以把他的状态提升到它最近的组件上，而不是试图在不同组件同步,这就是自相而下的数据流。</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

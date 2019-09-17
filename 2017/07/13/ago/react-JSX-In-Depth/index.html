@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react -JSX In Depth | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JSX-的语法糖是以下格式"><span class="toc-text">JSX 的语法糖是以下格式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用点作为-jsx-的类型-Using-Dot-Notation-for-JSX-Type"><span class="toc-text">使用点作为 jsx 的类型 Using Dot Notation for JSX Type</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#自定义的组件必须大写，否则-jsx-认为元素是-html-标签"><span class="toc-text">自定义的组件必须大写，否则 jsx 认为元素是 html 标签</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#JSX-的类型不能是一个不能是一个表达式"><span class="toc-text">JSX 的类型不能是一个不能是一个表达式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Props-in-JSX"><span class="toc-text">Props in JSX</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#属性默认为-true，一般不推荐使用，与-es6-的-foo-foo-foo-省略很相近"><span class="toc-text">属性默认为 true，一般不推荐使用，与 es6 的{foo}({foo:foo})省略很相近</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#利用-es6-的…传播属性（props）"><span class="toc-text">利用 es6 的…传播属性（props）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#false-null-undefind-true-这些不会被渲染出来但是他们将可以作为-boolean-值判断"><span class="toc-text">false null undefind true 这些不会被渲染出来但是他们将可以作为 boolean 值判断</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react -JSX In Depth</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-13</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react-JSX In Depth</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="JSX-的语法糖是以下格式"><a href="#JSX-的语法糖是以下格式" class="headerlink" title="JSX 的语法糖是以下格式"></a>JSX 的语法糖是以下格式</h1><blockquote>
+<p>React.createElement(component,props,..childeren)</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">compiles before:</span><br><span class="line">&lt;MyButton color=&quot;blue&quot; shadowSize=&#123;2&#125;&gt;</span><br><span class="line">  Click Me</span><br><span class="line">&lt;/MyButton&gt;</span><br><span class="line"></span><br><span class="line">compiles into:</span><br><span class="line"></span><br><span class="line">React.createElement(</span><br><span class="line">  MyButton,</span><br><span class="line">  &#123;color: &apos;blue&apos;, shadowSize: 2&#125;,</span><br><span class="line">  &apos;Click Me&apos;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h1 id="使用点作为-jsx-的类型-Using-Dot-Notation-for-JSX-Type"><a href="#使用点作为-jsx-的类型-Using-Dot-Notation-for-JSX-Type" class="headerlink" title="使用点作为 jsx 的类型 Using Dot Notation for JSX Type"></a>使用点作为 jsx 的类型 Using Dot Notation for JSX Type</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const MyComponents = &#123;</span><br><span class="line">  DatePicker: function DatePicker(props) &#123;</span><br><span class="line">    return &lt;div&gt;Imagine a &#123;props.color&#125; datepicker here.&lt;/div&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function BlueDatePicker() &#123;</span><br><span class="line">  return &lt;MyComponents.DatePicker color=&quot;blue&quot; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="自定义的组件必须大写，否则-jsx-认为元素是-html-标签"><a href="#自定义的组件必须大写，否则-jsx-认为元素是-html-标签" class="headerlink" title="自定义的组件必须大写，否则 jsx 认为元素是 html 标签"></a>自定义的组件必须大写，否则 jsx 认为元素是 html 标签</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">// Wrong! This is a component and should have been capitalized:</span><br><span class="line">function hello(props) &#123;</span><br><span class="line">  // Correct! This use of &lt;div&gt; is legitimate because div is a valid HTML tag:</span><br><span class="line">  return &lt;div&gt;Hello &#123;props.toWhat&#125;&lt;/div&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function HelloWorld() &#123;</span><br><span class="line">  // Wrong! React thinks &lt;hello /&gt; is an HTML tag because it&apos;s not capitalized:</span><br><span class="line">  return &lt;hello toWhat=&quot;World&quot; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">import React from &apos;react&apos;;</span><br><span class="line"></span><br><span class="line">// Correct! This is a component and should be capitalized:</span><br><span class="line">function Hello(props) &#123;</span><br><span class="line">  // Correct! This use of &lt;div&gt; is legitimate because div is a valid HTML tag:</span><br><span class="line">  return &lt;div&gt;Hello &#123;props.toWhat&#125;&lt;/div&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function HelloWorld() &#123;</span><br><span class="line">  // Correct! React knows &lt;Hello /&gt; is a component because it&apos;s capitalized.</span><br><span class="line">  return &lt;Hello toWhat=&quot;World&quot; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="JSX-的类型不能是一个不能是一个表达式"><a href="#JSX-的类型不能是一个不能是一个表达式" class="headerlink" title="JSX 的类型不能是一个不能是一个表达式"></a>JSX 的类型不能是一个不能是一个表达式</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import &#123; PhotoStory, VideoStory &#125; from &apos;./stories&apos;;</span><br><span class="line"></span><br><span class="line">const components = &#123;</span><br><span class="line">  photo: PhotoStory,</span><br><span class="line">  video: VideoStory</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function Story(props) &#123;</span><br><span class="line">  // Wrong! JSX type can&apos;t be an expression.</span><br><span class="line">  return &lt;components[props.storyType] story=&#123;props.story&#125; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import React from &apos;react&apos;;</span><br><span class="line">import &#123; PhotoStory, VideoStory &#125; from &apos;./stories&apos;;</span><br><span class="line"></span><br><span class="line">const components = &#123;</span><br><span class="line">  photo: PhotoStory,</span><br><span class="line">  video: VideoStory</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">function Story(props) &#123;</span><br><span class="line">  // Correct! JSX type can be a capitalized variable.</span><br><span class="line">  const SpecificStory = components[props.storyType];</span><br><span class="line">  return &lt;SpecificStory story=&#123;props.story&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Props-in-JSX"><a href="#Props-in-JSX" class="headerlink" title="Props in JSX"></a>Props in JSX</h1><blockquote>
+<p>在 jsx 中只能存在表达式，if 和 for 都不属于表达式，所以在里面不能用他们，但是有替代方法</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function NumberDescriber(props) &#123;</span><br><span class="line">  let description;</span><br><span class="line">  if (props.number % 2 == 0) &#123;</span><br><span class="line">    description = &lt;strong&gt;even&lt;/strong&gt;;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    description = &lt;i&gt;odd&lt;/i&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">  return &lt;div&gt;&#123;props.number&#125; is an &#123;description&#125; number&lt;/div&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用字面量以及符号转义</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;MyComponent message=&quot;hello world&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;MyComponent message=&#123;&apos;hello world&apos;&#125; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;MyComponent message=&quot;&amp;lt;3&quot; /&gt;</span><br><span class="line"></span><br><span class="line">&lt;MyComponent message=&#123;&apos;&lt;3&apos;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="属性默认为-true，一般不推荐使用，与-es6-的-foo-foo-foo-省略很相近"><a href="#属性默认为-true，一般不推荐使用，与-es6-的-foo-foo-foo-省略很相近" class="headerlink" title="属性默认为 true，一般不推荐使用，与 es6 的{foo}({foo:foo})省略很相近"></a>属性默认为 true，一般不推荐使用，与 es6 的{foo}({foo:foo})省略很相近</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;MyTextBox autocomplete /&gt;</span><br><span class="line"></span><br><span class="line">&lt;MyTextBox autocomplete=&#123;true&#125; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="利用-es6-的…传播属性（props）"><a href="#利用-es6-的…传播属性（props）" class="headerlink" title="利用 es6 的…传播属性（props）"></a>利用 es6 的…传播属性（props）</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function App1() &#123;</span><br><span class="line">  return &lt;Greeting firstName=&quot;Ben&quot; lastName=&quot;Hector&quot; /&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function App2() &#123;</span><br><span class="line">  const props = &#123;firstName: &apos;Ben&apos;, lastName: &apos;Hector&apos;&#125;;</span><br><span class="line">  return &lt;Greeting &#123;...props&#125; /&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="false-null-undefind-true-这些不会被渲染出来但是他们将可以作为-boolean-值判断"><a href="#false-null-undefind-true-这些不会被渲染出来但是他们将可以作为-boolean-值判断" class="headerlink" title="false null undefind true 这些不会被渲染出来但是他们将可以作为 boolean 值判断"></a>false null undefind true 这些不会被渲染出来但是他们将可以作为 boolean 值判断</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">  &#123;showHeader &amp;&amp; &lt;Header /&gt;&#125;</span><br><span class="line">  &lt;Content /&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

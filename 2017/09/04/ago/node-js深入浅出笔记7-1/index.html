@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记7 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#内存的控制"><span class="toc-text">内存的控制</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#查看node内存的信息"><span class="toc-text">查看node内存的信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v8提供了调整内存大小的命令"><span class="toc-text">v8提供了调整内存大小的命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#v8的垃圾回收机制"><span class="toc-text">v8的垃圾回收机制</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记7</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-04</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="内存的控制"><a href="#内存的控制" class="headerlink" title="内存的控制"></a>内存的控制</h1><blockquote>
+<p>node毕竟是在v8上跑的服务，v8的内存管理机制，在浏览器使用起来绰绰有余，但是对于node确有限制，对内存的需求还是很大的，但是浏览器能分配的内存不是很大，所以还是有些局限性</p>
+</blockquote>
+<h2 id="查看node内存的信息"><a href="#查看node内存的信息" class="headerlink" title="查看node内存的信息"></a>查看node内存的信息</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&gt; process.memoryUsage();</span><br><span class="line"></span><br><span class="line">&#123; <span class="attr">rss</span>: <span class="number">21295104</span>,</span><br><span class="line">  heapTotal: <span class="number">8425472</span>,</span><br><span class="line">  heapUsed: <span class="number">3987064</span>,</span><br><span class="line">  external: <span class="number">8942</span> &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//heapTotal申请的总堆内存</span></span><br><span class="line">  <span class="comment">//heapUsed 当前使用量</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="v8提供了调整内存大小的命令"><a href="#v8提供了调整内存大小的命令" class="headerlink" title="v8提供了调整内存大小的命令"></a>v8提供了调整内存大小的命令</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//两者选其一</span></span><br><span class="line">node --max-old-space-size=<span class="number">1700</span> test.js</span><br><span class="line">node --max-<span class="keyword">new</span>-space-size=<span class="number">1024</span> test.js</span><br></pre></td></tr></table></figure>
+
+<h2 id="v8的垃圾回收机制"><a href="#v8的垃圾回收机制" class="headerlink" title="v8的垃圾回收机制"></a>v8的垃圾回收机制</h2><blockquote>
+<p>v8的内存分代图</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170904/a1.png" alt="流程图"></p>
+<blockquote>
+<p> node –max-old-space-size 用于设置老生带最大值</p>
+</blockquote>
+<blockquote>
+<p>  node –max-new-space-size用于设置新生代最大值</p>
+</blockquote>
+<blockquote>
+<p>在不设置内存的情况默认 老生代默认64位约1400mb 32位约700mb</p>
+</blockquote>
+<blockquote>
+<p>如图所示 源代码</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170904/a2.png" alt="流程图"></p>
+<blockquote>
+<p>对于新生代,它由两个 reserved_semispace_size所组成,一个reserved_semispace_size 的64位约16m，32位约8m。</p>
+</blockquote>
+<blockquote>
+<p>下图就可以解释 v8堆内存在64位上有1464mb,在32位上有732mb</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170904/a3.png" alt="流程图"></p>
+<blockquote>
+<p>Scavenge算法</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170904/a4.png" alt="流程图"></p>
+<blockquote>
+<p>当一个对象经过多次复制依然存活时，它将会被认为是生命周期较长的对象，这种较长生命周期的对象随后会被移动到老生代中，这种过程叫做晋升</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170904/a5.png" alt="流程图"></p>
+<p><img src="https://aymfx.github.io/img/a20170904/a6.png" alt="流程图"></p>
+<blockquote>
+<p>老生代处理的算法  懵逼了 Mark-Sweep &amp; Mark-Compact</p>
+</blockquote>
+<ul>
+<li>看看书，先带过</li>
+</ul>
+<blockquote>
+<p>用命令行查看垃圾回收日志</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">node --trace_gc -e <span class="string">'var a=[];for(var i=0;i&lt;1000000;i++) a.push(new Array(100));'</span> &gt; gc.log</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过分析垃圾回收日志，可以了解垃圾回收的运行状况，找出那些阶段比较耗时 </p>
+</blockquote>
+<blockquote>
+<p>使用–prof参数，可以分析v8执行的性能以及垃圾回收所占用的时间</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//app.js</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i =<span class="number">0</span> ;i&lt;<span class="number">1000000</span> ;i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> a=&#123;&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">node --prof app.js //运行</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>git秘钥生成 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#记录-以后直接复制粘贴"><span class="toc-text">记录 以后直接复制粘贴</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置name和email"><span class="toc-text">配置name和email</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取公私key"><span class="toc-text">获取公私key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将公钥放入github的ssh"><span class="toc-text">将公钥放入github的ssh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#问题，上传出现问题"><span class="toc-text">问题，上传出现问题</span></a></li></ol></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">git秘钥生成</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-08-09</span>
+        </div>
+        <div class="article-container">
+          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>重装系统是真的难过，每次环境都要自己配一遍，浪费了好多时间呀，有钱要买台macpro，专门用来敲代码，不装任何其他垃圾软件。系统慢了真拖延时间</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h2 id="记录-以后直接复制粘贴"><a href="#记录-以后直接复制粘贴" class="headerlink" title="记录 以后直接复制粘贴"></a>记录 以后直接复制粘贴</h2><h3 id="配置name和email"><a href="#配置name和email" class="headerlink" title="配置name和email"></a>配置name和email</h3><blockquote>
+<p>git config –global user.name ‘aymfx’</p>
+</blockquote>
+<blockquote>
+<p>git config –global user.email ‘1095731371@qq.com’</p>
+</blockquote>
+<h3 id="获取公私key"><a href="#获取公私key" class="headerlink" title="获取公私key"></a>获取公私key</h3><blockquote>
+<p>ssh-keygen -t rsa -C ‘1095731371@qq.com’</p>
+</blockquote>
+<h3 id="将公钥放入github的ssh"><a href="#将公钥放入github的ssh" class="headerlink" title="将公钥放入github的ssh"></a>将公钥放入github的ssh</h3><blockquote>
+<p>进入 C:\Users\aymfx.ssh</p>
+</blockquote>
+<blockquote>
+<p>id_rsa中的内容便是私钥，id_rsa.pub中的内容便是公钥</p>
+</blockquote>
+<blockquote>
+<p>将id_rsa.pub 上传</p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/settings/keys" target="_blank" rel="noopener">https://github.com/settings/keys</a></p>
+</blockquote>
+<blockquote>
+<p>好了,可以将自己的博客文章上传了。重装系统真麻烦，都要重头来，8月，对我和我妈都好点，希望她身体赶紧康复，我也尽快找到自己满意的工作。</p>
+</blockquote>
+<h3 id="问题，上传出现问题"><a href="#问题，上传出现问题" class="headerlink" title="问题，上传出现问题"></a>问题，上传出现问题</h3><blockquote>
+<p>Host key verification failed.  fatal: Could not read from remote repository. </p>
+</blockquote>
+<blockquote>
+<p>删除 .deploy_git文件</p>
+</blockquote>
+<blockquote>
+<p>没有丝毫作用 报错</p>
+</blockquote>
+<blockquote>
+<p>Error: ssh_exchange_identification: read: Connection reset by peer</p>
+</blockquote>
+<blockquote>
+<p>看官网 <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">https://hexo.io/docs/troubleshooting.html</a></p>
+</blockquote>
+<blockquote>
+<p>没有  可能是秘钥不对 测试</p>
+</blockquote>
+<blockquote>
+<p>ssh -v <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+</blockquote>
+<blockquote>
+<p>确认之后有报错 Connection reset by 52.74.223.119 port 22</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

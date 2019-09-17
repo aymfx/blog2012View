@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>常用的正则表达式 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#写下几个常用的正则表达式"><span class="toc-text">写下几个常用的正则表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#手机号校验"><span class="toc-text">手机号校验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#图形验证码"><span class="toc-text">图形验证码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#手机验证码"><span class="toc-text">手机验证码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#登录密码"><span class="toc-text">登录密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#邀请码"><span class="toc-text">邀请码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#手机号-邮箱-用户名"><span class="toc-text">手机号/邮箱/用户名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#身份证号"><span class="toc-text">身份证号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#银行卡号"><span class="toc-text">银行卡号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#充值金额"><span class="toc-text">充值金额</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#交易密码-和手机验证码"><span class="toc-text">交易密码 和手机验证码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检测中文"><span class="toc-text">检测中文</span></a></li></ol></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">常用的正则表达式</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2019-10-04</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>写下几个常用的正则表达式</p>
+</blockquote>
+ <a id="more"></a>
+
+<h1 id="写下几个常用的正则表达式"><a href="#写下几个常用的正则表达式" class="headerlink" title="写下几个常用的正则表达式"></a>写下几个常用的正则表达式</h1><blockquote>
+<p>这是自己写的几个，可能仅仅适合我，但是参考价值还是有的嘛</p>
+</blockquote>
+<p>这是自己写的几个，可能仅仅适合我，但是参考价值还是有的嘛这是自己写的几个，可能仅仅适合我，但是参考价值还是有的嘛这是自己写的几个，可能仅仅适合我，但是参考价值还是有的嘛</p>
+<h3 id="手机号校验"><a href="#手机号校验" class="headerlink" title="手机号校验"></a>手机号校验</h3><blockquote>
+<p>校验规则  长度=11，文本0-9，首位=1</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^1\d&#123;10&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'13798548658'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;   </span><br><span class="line"></span><br><span class="line"><span class="comment">//测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> str1 = <span class="string">'12548785487'</span> <span class="comment">//success</span></span><br><span class="line"><span class="keyword">let</span> str2 = <span class="string">'2158'</span> <span class="comment">//fail</span></span><br><span class="line"><span class="keyword">let</span> str3 = <span class="string">'21587954863'</span> <span class="comment">//fail</span></span><br><span class="line"><span class="keyword">let</span> str4 = <span class="string">'11587954863'</span> <span class="comment">//success</span></span><br><span class="line"><span class="keyword">let</span> str5 = <span class="string">'撒大大奥术大师多'</span> <span class="comment">//fail</span></span><br><span class="line"><span class="keyword">let</span> str6 = <span class="string">'1387957ssas'</span> <span class="comment">//fail</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="图形验证码"><a href="#图形验证码" class="headerlink" title="图形验证码"></a>图形验证码</h4><blockquote>
+<p>长度=4，文本0-9，a-z，A-Z</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^[A-Za-z0-9]&#123;4&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'  ascc'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '1254'  success</span></span><br><span class="line"><span class="comment">// let testSting = 'ass2'  success</span></span><br><span class="line"><span class="comment">// let testSting = '1ZAa'  success</span></span><br><span class="line"><span class="comment">// let testSting = 'asss2' fail </span></span><br><span class="line"><span class="comment">// let testSting = '--qa' fail</span></span><br><span class="line"><span class="comment">// let testSting = '  ascc' fail  需要做去空格处理</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="手机验证码"><a href="#手机验证码" class="headerlink" title="手机验证码"></a>手机验证码</h4><blockquote>
+<p>长度=6，文本0-9</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">const PhoneReg = /^[0-9]&#123;6&#125;$/;</span><br><span class="line">let testSting = &apos;999999&apos;</span><br><span class="line">if (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    console.log(&apos;success&apos;)</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    console.error(&apos;fail&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试用例</span><br><span class="line"></span><br><span class="line">// let testSting = &apos;999999&apos;  success</span><br><span class="line">// let testSting = &apos;121202&apos;  success</span><br><span class="line">// let testSting = &apos;ascc&apos; fail</span><br><span class="line">// let testSting = &apos;ascc12&apos; fail</span><br><span class="line">// let testSting = &apos;12658&apos; fail</span><br><span class="line">// let testSting = &apos;1265  &apos; fail</span><br><span class="line">// let testSting = &apos;1212-2  &apos; fail</span><br></pre></td></tr></table></figure>
+
+<h4 id="登录密码"><a href="#登录密码" class="headerlink" title="登录密码"></a>登录密码</h4><blockquote>
+<p>长度&gt;=6且&lt;=20，文本0-9，a-z，A-Z，符号不含空格</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">const PhoneReg = /^\S&#123;6,20&#125;$/;</span><br><span class="line">let testSting = &apos;12aa、、 &apos;</span><br><span class="line">if (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    console.log(&apos;success&apos;)</span><br><span class="line">&#125;else&#123;</span><br><span class="line">    console.error(&apos;fail&apos;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 测试用例</span><br><span class="line"></span><br><span class="line">// let testSting = &apos;？？？？？？&apos;  success</span><br><span class="line">// let testSting = &apos;12aa、、&apos;  success</span><br><span class="line">// let testSting = &apos;999999&apos;  success</span><br><span class="line">// let testSting = &apos;ascc..&apos; fail</span><br><span class="line">// let testSting = &apos;12aa、、 &apos; fail</span><br></pre></td></tr></table></figure>
+
+<h3 id="邀请码"><a href="#邀请码" class="headerlink" title="邀请码"></a>邀请码</h3><blockquote>
+<p>文本0-9，a-z，A-Z</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^\w+$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'12aaAA'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '12aaAA'  success</span></span><br><span class="line"><span class="comment">// let testSting = '999999'  success</span></span><br><span class="line"><span class="comment">// let testSting = '12aa、、 ' fail</span></span><br><span class="line"><span class="comment">// let testSting = '12+++' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="手机号-邮箱-用户名"><a href="#手机号-邮箱-用户名" class="headerlink" title="手机号/邮箱/用户名"></a>手机号/邮箱/用户名</h3><blockquote>
+<p>长度&lt;=20，文本0-9，a-z，A-Z，字符@</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^[0-9a-zA-Z@]&#123;0,20&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'1asdasdasdasd'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '12aaAA'  success</span></span><br><span class="line"><span class="comment">// let testSting = '1asdasdasdasd'  success</span></span><br><span class="line"><span class="comment">// let testSting = '12aaAA@'  success</span></span><br><span class="line"><span class="comment">// let testSting = '12aaAA.' fail</span></span><br><span class="line"><span class="comment">// let testSting = '12aaAA@++' fail</span></span><br><span class="line"><span class="comment">// let testSting = '1asdasdasdasdasdasdadasdasd' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="身份证号"><a href="#身份证号" class="headerlink" title="身份证号"></a>身份证号</h3><blockquote>
+<p>长度=15或18，文本0-9，x，X</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/(^\d&#123;15&#125;$)|(^\d&#123;18&#125;$)|(^\d&#123;17&#125;(\d|X|x)$)/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'5103221988x5060715'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '36082219750711058X'  success</span></span><br><span class="line"><span class="comment">// let testSting = '510322198805060715'  success</span></span><br><span class="line"><span class="comment">// let testSting = '510322198805000'  success</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '36082219750711058a' fail</span></span><br><span class="line"><span class="comment">// let testSting = '510322198xxx805000' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="银行卡号"><a href="#银行卡号" class="headerlink" title="银行卡号"></a>银行卡号</h3><blockquote>
+<p>长度&gt;=16且&lt;=20，文本0-9</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^[0-9]&#123;16,20&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">''</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '1234567891234567'  success</span></span><br><span class="line"><span class="comment">// let testSting = '12345678912345678787'  success</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '123456789123456' fail</span></span><br><span class="line"><span class="comment">// let testSting = '1234567891234567878c' fail</span></span><br><span class="line"><span class="comment">// let testSting = '1234567891234567878=' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="充值金额"><a href="#充值金额" class="headerlink" title="充值金额"></a>充值金额</h3><blockquote>
+<p>长度&lt;=5，文本0-9，首位&gt;0</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^[1-9][0-9]&#123;0,5&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'12'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '258700'  success</span></span><br><span class="line"><span class="comment">// let testSting = '12'  success</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '01232' fail</span></span><br><span class="line"><span class="comment">// let testSting = '2.587' fail</span></span><br><span class="line"><span class="comment">// let testSting = '25827=' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="交易密码-和手机验证码"><a href="#交易密码-和手机验证码" class="headerlink" title="交易密码 和手机验证码"></a>交易密码 和手机验证码</h3><blockquote>
+<p>长度=6，文本0-9</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PhoneReg = <span class="regexp">/^[0-9]&#123;6&#125;$/</span>;</span><br><span class="line"><span class="keyword">let</span> testSting = <span class="string">'011222'</span></span><br><span class="line"><span class="keyword">if</span> (PhoneReg.test(testSting)) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'success'</span>)</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.error(<span class="string">'fail'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试用例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '258700'  success</span></span><br><span class="line"><span class="comment">// let testSting = '011222'  success</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// let testSting = '12' fail</span></span><br><span class="line"><span class="comment">// let testSting = '12122' fail</span></span><br><span class="line"><span class="comment">// let testSting = '12 122' fail</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="检测中文"><a href="#检测中文" class="headerlink" title="检测中文"></a>检测中文</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//检测中文的正则</span></span><br><span class="line"><span class="keyword">var</span> chineseReg = <span class="regexp">/^[u4e00-u9fa5]&#123;0,20&#125;$/</span>;</span><br><span class="line">chineseReg.test();</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

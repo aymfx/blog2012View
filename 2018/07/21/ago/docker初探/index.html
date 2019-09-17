@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>docker初探 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#启动-Docker-后台服务"><span class="toc-text">启动 Docker 后台服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#停止-Docker-后台服务"><span class="toc-text">停止 Docker 后台服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装加速镜像"><span class="toc-text">安装加速镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#测试运行-hello-world"><span class="toc-text">测试运行 hello-world</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#警告"><span class="toc-text">警告</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#命令"><span class="toc-text">命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看容器是否在运行"><span class="toc-text">查看容器是否在运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在-ubuntu-15-10-的镜像下用-bin-echo-输出-“Hello-world”-如果不存在镜像，先下载再运行"><span class="toc-text">在 ubuntu:15.10 的镜像下用 /bin/echo 输出 “Hello world” 如果不存在镜像，先下载再运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#docker-run-i-t-ubuntu-15-10-bin-bash"><span class="toc-text">docker run -i -t ubuntu:15.10 /bin/bash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在容器内使用-docker-logs-命令，查看容器内的标准输出"><span class="toc-text">在容器内使用 docker logs 命令，查看容器内的标准输出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#停止容器"><span class="toc-text">停止容器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建一个-node-web-服务"><span class="toc-text">创建一个 node web 服务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拉取-node-镜像"><span class="toc-text">拉取 node 镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查看镜像是否下载"><span class="toc-text">查看镜像是否下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建-package-json"><span class="toc-text">创建 package.json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Dockerfile"><span class="toc-text">Dockerfile</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#app-js"><span class="toc-text">app.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#建一个文件夹"><span class="toc-text">建一个文件夹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#当前文件夹执行下列命令"><span class="toc-text">当前文件夹执行下列命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行镜像"><span class="toc-text">运行镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可以访问成功"><span class="toc-text">可以访问成功</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">docker初探</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-07-21</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>docker初探</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p>sudo yum install docker</p>
+</blockquote>
+<h3 id="启动-Docker-后台服务"><a href="#启动-Docker-后台服务" class="headerlink" title="启动 Docker 后台服务"></a>启动 Docker 后台服务</h3><blockquote>
+<p>service docker start</p>
+</blockquote>
+<h3 id="停止-Docker-后台服务"><a href="#停止-Docker-后台服务" class="headerlink" title="停止 Docker 后台服务"></a>停止 Docker 后台服务</h3><blockquote>
+<p>service docker stop</p>
+</blockquote>
+<h3 id="安装加速镜像"><a href="#安装加速镜像" class="headerlink" title="安装加速镜像"></a>安装加速镜像</h3><blockquote>
+<p>vi /etc/docker/daemon.json</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"registry-mirrors"</span>: [<span class="string">"http://hub-mirror.c.163.com"</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="测试运行-hello-world"><a href="#测试运行-hello-world" class="headerlink" title="测试运行 hello-world"></a>测试运行 hello-world</h3><h2 id="警告"><a href="#警告" class="headerlink" title="警告"></a>警告</h2><p>WARNING: IPv4 forwarding is disabled. Networking will not work.</p>
+<blockquote>
+<p>vi /etc/sysctl.conf</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net.ipv4.ip_forward = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>重启 network 服务 systemctl restart network</p>
+</blockquote>
+<blockquote>
+<p>查看是否修改成功 sysctl net.ipv4.ip_forward</p>
+</blockquote>
+<blockquote>
+<p>成功返回 net.ipv4.ip_forward = 1</p>
+</blockquote>
+<h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><h3 id="查看容器是否在运行"><a href="#查看容器是否在运行" class="headerlink" title="查看容器是否在运行"></a>查看容器是否在运行</h3><blockquote>
+<p>docker ps</p>
+</blockquote>
+<h3 id="在-ubuntu-15-10-的镜像下用-bin-echo-输出-“Hello-world”-如果不存在镜像，先下载再运行"><a href="#在-ubuntu-15-10-的镜像下用-bin-echo-输出-“Hello-world”-如果不存在镜像，先下载再运行" class="headerlink" title="在 ubuntu:15.10 的镜像下用 /bin/echo 输出 “Hello world” 如果不存在镜像，先下载再运行"></a>在 ubuntu:15.10 的镜像下用 /bin/echo 输出 “Hello world” 如果不存在镜像，先下载再运行</h3><blockquote>
+<p>docker run ubuntu:15.10 /bin/echo “Hello world”</p>
+</blockquote>
+<h3 id="docker-run-i-t-ubuntu-15-10-bin-bash"><a href="#docker-run-i-t-ubuntu-15-10-bin-bash" class="headerlink" title="docker run -i -t ubuntu:15.10 /bin/bash"></a>docker run -i -t ubuntu:15.10 /bin/bash</h3><ul>
+<li>t:在新容器内指定一个伪终端或终端。</li>
+<li>i:允许你对容器内的标准输入(STDIN) 进行交互。</li>
+</ul>
+<p>ctrl+D 退出新容器创建的终端</p>
+<h3 id="在容器内使用-docker-logs-命令，查看容器内的标准输出"><a href="#在容器内使用-docker-logs-命令，查看容器内的标准输出" class="headerlink" title="在容器内使用 docker logs 命令，查看容器内的标准输出"></a>在容器内使用 docker logs 命令，查看容器内的标准输出</h3><blockquote>
+<p>docker ps</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>CONTAINER ID</th>
+<th align="right">IMAGE</th>
+<th align="right">COMMAND</th>
+<th align="right">CREATED</th>
+<th align="right">STATUS</th>
+<th align="right">PORTS</th>
+<th align="right">NAMES</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>22e838e0b7a9</td>
+<td align="right">ubuntu:15.10</td>
+<td align="right">“/bin/sh -c ‘while…”</td>
+<td align="right">8 minutes ago</td>
+<td align="right">Up 8 minutes</td>
+<td align="right"></td>
+<td align="right">sharp_darwin</td>
+</tr>
+</tbody></table>
+<p>通过 CONTAINER ID 或者 NAMES 查看运行日志</p>
+<blockquote>
+<p>docker logs 22e838e0b7a9</p>
+</blockquote>
+<blockquote>
+<p>docker logs sharp_darwin</p>
+</blockquote>
+<h3 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h3><blockquote>
+<p>docker stop 22e838e0b7a9</p>
+</blockquote>
+<blockquote>
+<p>docker stop sharp_darwin</p>
+</blockquote>
+<h2 id="创建一个-node-web-服务"><a href="#创建一个-node-web-服务" class="headerlink" title="创建一个 node web 服务"></a>创建一个 node web 服务</h2><h3 id="拉取-node-镜像"><a href="#拉取-node-镜像" class="headerlink" title="拉取 node 镜像"></a>拉取 node 镜像</h3><blockquote>
+<p>docker pull node</p>
+</blockquote>
+<h3 id="查看镜像是否下载"><a href="#查看镜像是否下载" class="headerlink" title="查看镜像是否下载"></a>查看镜像是否下载</h3><blockquote>
+<p>docker image</p>
+</blockquote>
+<h3 id="创建-package-json"><a href="#创建-package-json" class="headerlink" title="创建 package.json"></a>创建 package.json</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"demo"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</span><br><span class="line">  <span class="attr">"description"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"main"</span>: <span class="string">"app.js"</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"test"</span>: <span class="string">"echo \"Error: no test specified\" &amp;&amp; exit 1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"keywords"</span>: [],</span><br><span class="line">  <span class="attr">"author"</span>: <span class="string">""</span>,</span><br><span class="line">  <span class="attr">"license"</span>: <span class="string">"ISC"</span>,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"express"</span>: <span class="string">"^4.16.3"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dockerfile"><a href="#Dockerfile" class="headerlink" title="Dockerfile"></a>Dockerfile</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FROM node:<span class="number">8.9</span>-alpine</span><br><span class="line">ENV NODE_ENV production</span><br><span class="line">WORKDIR /usr/src/app</span><br><span class="line">COPY [<span class="string">"package.json"</span>, <span class="string">"package-lock.json*"</span>, <span class="string">"npm-shrinkwrap.json*"</span>, <span class="string">"./"</span>]</span><br><span class="line">RUN npm install --production --silent &amp;&amp; mv node_modules ../</span><br><span class="line">COPY . .</span><br><span class="line">EXPOSE <span class="number">3000</span></span><br><span class="line">CMD npm start</span><br></pre></td></tr></table></figure>
+
+<h3 id="app-js"><a href="#app-js" class="headerlink" title="app.js"></a>app.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">"use strict"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">"express"</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> PORT = <span class="number">3000</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express();</span><br><span class="line">app.get(<span class="string">"/"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.send(<span class="string">"Hello Docker\n"</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(PORT);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"Running on http://localhost:"</span> + PORT);</span><br></pre></td></tr></table></figure>
+
+<h3 id="建一个文件夹"><a href="#建一个文件夹" class="headerlink" title="建一个文件夹"></a>建一个文件夹</h3><blockquote>
+<p>mkdir app</p>
+</blockquote>
+<blockquote>
+<p>cd app</p>
+</blockquote>
+<blockquote>
+<p>把所有文件放到里面</p>
+</blockquote>
+<h3 id="当前文件夹执行下列命令"><a href="#当前文件夹执行下列命令" class="headerlink" title="当前文件夹执行下列命令"></a>当前文件夹执行下列命令</h3><blockquote>
+<p>docker build -t mynodeapp . 创建 image</p>
+</blockquote>
+<blockquote>
+<p>docker image 查看我们创建的镜像</p>
+</blockquote>
+<h3 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h3><blockquote>
+<p>docker run -d -p 3000:3000 297513a264fd</p>
+</blockquote>
+<ul>
+<li>-d 容器会在后台运行</li>
+<li>-p 表示端口映射，把本机的 3000 映射到容器的 3000 端口这样外网就能通过本机的 3000 访问我们的 web 了</li>
+<li>297513a264fd 我们的 image id</li>
+</ul>
+<h3 id="可以访问成功"><a href="#可以访问成功" class="headerlink" title="可以访问成功"></a>可以访问成功</h3><p>-_-开心</p>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

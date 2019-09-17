@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>node.js深入浅出笔记9 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#理解Buffer"><span class="toc-text">理解Buffer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer对象"><span class="toc-text">Buffer对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer内存的分配"><span class="toc-text">Buffer内存的分配</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer-的转换"><span class="toc-text">Buffer 的转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字符串转Buffer"><span class="toc-text">字符串转Buffer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Buffer-转字符串"><span class="toc-text">Buffer 转字符串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer的拼接"><span class="toc-text">Buffer的拼接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正确拼接Buffer"><span class="toc-text">正确拼接Buffer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Buffer与性能"><span class="toc-text">Buffer与性能</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">node.js深入浅出笔记9</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-09-06</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>node.js深入浅出笔记</p>
+</blockquote>
+<a id="more"></a>   
+
+<h1 id="理解Buffer"><a href="#理解Buffer" class="headerlink" title="理解Buffer"></a>理解Buffer</h1><blockquote>
+<p>这不是英雄联盟的buff,它是用于操作字节的，是个混血儿，是JavaScript与c++结合的模块，他是被放在全局对象上的</p>
+</blockquote>
+<p><img src="https://aymfx.github.io/img/a20170906/a1.png" alt="流程图"></p>
+<h2 id="Buffer对象"><a href="#Buffer对象" class="headerlink" title="Buffer对象"></a>Buffer对象</h2><blockquote>
+<p>它类似于数组，但它的元素是16进制的两位数。即0-255的数值</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">//命令行敲的</span><br><span class="line"></span><br><span class="line">&gt; var str = <span class="string">"越努力，越幸运，ly"</span></span><br><span class="line">undefined</span><br><span class="line">&gt; var buf = new Buffer(str,<span class="string">'utf-8'</span>)</span><br><span class="line">undefined</span><br><span class="line">&gt; buf</span><br><span class="line">&lt;Buffer e8 b6 8a e5 8a aa e5 8a 9b ef bc 8c e8 b6 8a e5 b9 b8 e8 bf 90 ef bc 8c 6c 79&gt;</span><br><span class="line">&gt; buf[10]</span><br><span class="line">188</span><br><span class="line">&gt; buf[10]=10</span><br><span class="line">10</span><br><span class="line">&gt; buf[10]</span><br><span class="line">10</span><br><span class="line">&gt; buf[11]=-100</span><br><span class="line">-100</span><br><span class="line">&gt; buf[11]</span><br><span class="line">156</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Buffer内存的分配"><a href="#Buffer内存的分配" class="headerlink" title="Buffer内存的分配"></a>Buffer内存的分配</h2><blockquote>
+<p>在C++层面申请内存，在javascript中分配内存，node采用slab分配机制</p>
+</blockquote>
+<blockquote>
+<p>slab相当于申请好的固定大小的内存区块，它具有三种状态</p>
+</blockquote>
+<ul>
+<li>full:完全分配状态</li>
+<li>partial:部分分配状态</li>
+<li>empty:没有分配状态</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Buffer.poolSize = 8*1024;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>8kb的值技术每个slab的大小的值，在js层面，以它作为单位单元进行内存分配,node以8kb作为接线区分buffer是大对象还是小对象</p>
+</blockquote>
+<blockquote>
+<p>对于小于8kb的buffer来说，他可以被分配多个buffer对象。</p>
+</blockquote>
+<blockquote>
+<p>对于大于8kb的buffer来说，将会直接分配一个SlowBuffer对象作为slab对象，这个slab单元将会被这个大buffer对象独占</p>
+</blockquote>
+<h2 id="Buffer-的转换"><a href="#Buffer-的转换" class="headerlink" title="Buffer 的转换"></a>Buffer 的转换</h2><blockquote>
+<p>Buffer对象可以与字符串之间相互转换</p>
+</blockquote>
+<h3 id="字符串转Buffer"><a href="#字符串转Buffer" class="headerlink" title="字符串转Buffer"></a>字符串转Buffer</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new Buffer(str,[encoding]);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过调用write()可以实现存储不同编码类型的字符串转码的值</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buf.write(string,[offset],[length],[encoding])</span><br></pre></td></tr></table></figure>
+
+<h3 id="Buffer-转字符串"><a href="#Buffer-转字符串" class="headerlink" title="Buffer 转字符串"></a>Buffer 转字符串</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">buf.toString([encoding],[start],[end])</span><br></pre></td></tr></table></figure>
+
+<h2 id="Buffer的拼接"><a href="#Buffer的拼接" class="headerlink" title="Buffer的拼接"></a>Buffer的拼接</h2><blockquote>
+<p>在Buffer传输场景中，它是一段一段的传输的</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rs = fs.createReadStream(<span class="string">'a.txt'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">trunk</span>)</span>&#123;</span><br><span class="line">    data +=trunk;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是有问题的，当我们在处理宽字符的问题,依然会出现乱码</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> rs = fs.createReadStream(<span class="string">'a.txt'</span>,&#123;<span class="attr">highWaterMark</span>:<span class="number">11</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#123;highWaterMark:11&#125; 这个代表一次读取11字符，由于中文占三个，可能存在乱码</span></span><br><span class="line"></span><br><span class="line">rs.setEncoding(<span class="string">'utf-8'</span>);<span class="comment">//这是是解决方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">trunk</span>)</span>&#123;</span><br><span class="line">    data +=trunk;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">rs.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>对于以上的原因，是因为可读流内部设置了一个decoder对象，在每次data都通过该对象进行Bufffer到字符串的解码</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> StringDecoder = <span class="built_in">require</span>(<span class="string">'string_decoder'</span>).StringDecoder;</span><br><span class="line"><span class="keyword">var</span> decoder = <span class="keyword">new</span> StringDecoder(<span class="string">'utf8'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> buf1 = <span class="keyword">new</span> Buffer([<span class="string">'0xe5'</span>,<span class="string">'0xba'</span>,<span class="string">'0x8a'</span>,<span class="string">'0xe5'</span>,<span class="string">'0x89'</span>,<span class="string">'0x8d'</span>,<span class="string">'0xe6'</span>,<span class="string">'0x98'</span>,<span class="string">'0x8e'</span>,<span class="string">'0xe6'</span>,<span class="string">'0x9c'</span>,<span class="string">'0x88'</span>,<span class="string">'0xe5'</span>,<span class="string">'0x85'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(decoder.write(buf1));<span class="comment">//床前明月</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> buf2 = <span class="keyword">new</span> Buffer([<span class="string">'0x89'</span>,<span class="string">'0xef'</span>,<span class="string">'0xbc'</span>,<span class="string">'0x8c'</span>,<span class="string">'0xe7'</span>,<span class="string">'0x96'</span>,<span class="string">'0x91'</span>,<span class="string">'0xe4'</span>,<span class="string">'0xbc'</span>,<span class="string">'0xbc'</span>,<span class="string">'0xe5'</span>,<span class="string">'0x9c'</span>,<span class="string">'0xb0'</span>,<span class="string">'0xe4'</span>,<span class="string">'0xb8'</span>,<span class="string">'0x8a'</span>,<span class="string">'0xe9'</span>,<span class="string">'0x9c'</span>,<span class="string">'0x9c'</span>]);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(decoder.write(buf2));<span class="comment">//光，疑似地上霜</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>stringDecoder会保留未被处理的字符，于是就看不见乱码了，但还是会有些问题呀，处理的编码比较少</p>
+</blockquote>
+<h3 id="正确拼接Buffer"><a href="#正确拼接Buffer" class="headerlink" title="正确拼接Buffer"></a>正确拼接Buffer</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> chunks=[];</span><br><span class="line"><span class="keyword">var</span> size = <span class="number">0</span>;</span><br><span class="line">res.on(<span class="string">'data'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">chunk</span>)</span>&#123;</span><br><span class="line">    chunks.push(chunks);</span><br><span class="line">    size +=chunk.length;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">res.on(<span class="string">'end'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> buf = Buffer.concat(chunks,size);</span><br><span class="line">    <span class="keyword">var</span> str = iconv.decode(buf,<span class="string">'utf8'</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(str);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以看下如何把小buffer拼接成大的buffer</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">Buffer.concat = <span class="function"><span class="keyword">function</span>(<span class="params">list,length</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">Array</span>.isArray(list)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Usage:Buffer.concat(list,[length])'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(list.length === <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Buffer(<span class="number">0</span>);</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(listen.length ===<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> list[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">typeof</span> length !=<span class="string">'number'</span>)&#123;</span><br><span class="line">        length = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span> ; i&lt;list.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> buf = list[i];</span><br><span class="line">            length +=buf.length;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> buffer = <span class="keyword">new</span> Buffer(length);</span><br><span class="line">    <span class="keyword">var</span> pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;list.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> buf = list[i];</span><br><span class="line">        buf.copy(buffer,pos);</span><br><span class="line">        pos +=buf.length;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> buffer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Buffer与性能"><a href="#Buffer与性能" class="headerlink" title="Buffer与性能"></a>Buffer与性能</h2> 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

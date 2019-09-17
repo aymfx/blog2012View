@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>react - 用sass编写css | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#第一步安装编译所需的依赖"><span class="toc-text">第一步安装编译所需的依赖</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在node-modules-react-scripts-config下找到-webpack-config-dev-js-文件"><span class="toc-text">在node_modules/react-scripts/config下找到 webpack.config.dev.js 文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#在exculde中添加scss，用来匹配scss文件"><span class="toc-text">在exculde中添加scss，用来匹配scss文件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#这里添加sass配置文件"><span class="toc-text">这里添加sass配置文件</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">react - 用sass编写css</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2017-07-19</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>react - 用sass编写css</p>
+</blockquote>
+<a id="more"></a> 
+
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><blockquote>
+<p>这适用于create-react-app配置的react开发环境，</p>
+</blockquote>
+<h1 id="第一步安装编译所需的依赖"><a href="#第一步安装编译所需的依赖" class="headerlink" title="第一步安装编译所需的依赖"></a>第一步安装编译所需的依赖</h1><blockquote>
+<p>npm install sass-loader node-sass –save-dev </p>
+</blockquote>
+<h1 id="在node-modules-react-scripts-config下找到-webpack-config-dev-js-文件"><a href="#在node-modules-react-scripts-config下找到-webpack-config-dev-js-文件" class="headerlink" title="在node_modules/react-scripts/config下找到 webpack.config.dev.js 文件"></a>在node_modules/react-scripts/config下找到 webpack.config.dev.js 文件</h1><h1 id="在exculde中添加scss，用来匹配scss文件"><a href="#在exculde中添加scss，用来匹配scss文件" class="headerlink" title="在exculde中添加scss，用来匹配scss文件"></a>在exculde中添加scss，用来匹配scss文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">exclude: [</span><br><span class="line">          /\.html$/,</span><br><span class="line">          /\.(js|jsx)$/,</span><br><span class="line">          /\.css$/,</span><br><span class="line">          /\.json$/,</span><br><span class="line">          /\.bmp$/,</span><br><span class="line">          /\.gif$/,</span><br><span class="line">          /\.jpe?g$/,</span><br><span class="line">          /\.png$/,</span><br><span class="line">          /\.scss$/,//这里添加</span><br><span class="line">        ],</span><br></pre></td></tr></table></figure>
+
+<h1 id="这里添加sass配置文件"><a href="#这里添加sass配置文件" class="headerlink" title="这里添加sass配置文件"></a>这里添加sass配置文件</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],</span><br><span class="line">        loader: require.resolve(&apos;url-loader&apos;),</span><br><span class="line">        options: &#123;</span><br><span class="line">          limit: 10000,</span><br><span class="line">          name: &apos;static/media/[name].[hash:8].[ext]&apos;,</span><br><span class="line">        &#125;,</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//  编译sass</span><br><span class="line">      &#123;</span><br><span class="line">         test:/\.scss$/,</span><br><span class="line">         loaders: [&apos;style-loader&apos;, &apos;css-loader&apos;, &apos;sass-loader&apos;],</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这是开发环境的配置，如需在生产环境开发只需在webpack.config.prod.js做同样的配置</p>
+</blockquote>
+<blockquote>
+<p>配置完成后记得重新运行命令 npm start or yarn start</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

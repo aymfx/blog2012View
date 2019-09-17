@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>css3-3d转换和3D动画 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#3D转换"><span class="toc-text">3D转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3D翻转方法"><span class="toc-text">3D翻转方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D位置移动-的3种写法"><span class="toc-text">3D位置移动 的3种写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D视距"><span class="toc-text">3D视距</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D视角"><span class="toc-text">3D视角</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3D动画"><span class="toc-text">3D动画</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#例子"><span class="toc-text">例子:</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">css3-3d转换和3D动画</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-18</span>
+        </div>
+        <div class="article-container">
+          <h1 id="3D转换"><a href="#3D转换" class="headerlink" title="3D转换"></a>3D转换</h1> <a id="more"></a>   
+
+<h2 id="3D翻转方法"><a href="#3D翻转方法" class="headerlink" title="3D翻转方法"></a>3D翻转方法</h2><pre><code>rotateX();沿x轴翻转
+rotateY();沿Y轴翻转
+rotateZ();沿Z轴翻转(类似于rotate()在水平旋转)</code></pre><h2 id="3D位置移动-的3种写法"><a href="#3D位置移动-的3种写法" class="headerlink" title="3D位置移动 的3种写法"></a>3D位置移动 的3种写法</h2><pre><code>transform: translate3d(30px,30px,800px)
+transform:translateZ(800px) translateX(30px) translateY(30px);
+transform:translateZ(800px) translate(30px,30px);</code></pre><h2 id="3D视距"><a href="#3D视距" class="headerlink" title="3D视距"></a>3D视距</h2><pre><code>perspective:value;
+用于看3D效果</code></pre><h2 id="3D视角"><a href="#3D视角" class="headerlink" title="3D视角"></a>3D视角</h2><pre><code>transform-style:preserve-3d;
+用于子元素保持3d效果
+transform-origin:left/right top/bottom
+用于确定翻转位置,默认为center</code></pre><h1 id="3D动画"><a href="#3D动画" class="headerlink" title="3D动画"></a>3D动画</h1><pre><code>1.创建动画的运动规则，并且取名
+    @keyframes name{
+        from{}
+        to{}
+        to{}
+    }
+
+2.绑定动画在某个元素上
+动画属性
+animation:(简写)name  5s  linear  2s  infinite alternate;
+
+animation-name:        动画名
+
+animation-duration:        时间 默认0
+
+animation-timing-function:曲线 默认ease
+        linear： 线性过渡。等同于贝塞尔曲线(0.0, 0.0, 1.0, 1.0) 
+        ease： 平滑过渡。等同于贝塞尔曲线(0.25, 0.1, 0.25, 1.0) 
+        ease-in： 由慢到快。等同于贝塞尔曲线(0.42, 0, 1.0, 1.0) 
+        ease-out： 由快到慢。等同于贝塞尔曲线(0, 0, 0.58, 1.0) 
+        ease-in-out： 由慢到快再到慢。等同于贝塞尔曲线(0.42, 0, 0.58, 1.0) 
+        cubic-bezier(&lt;number&gt;, &lt;number&gt;, &lt;number&gt;, &lt;number&gt;)： 特定的贝塞尔曲线类型，4个数值需在[0, 1]区间内 
+
+animation-delay    :延时 默认0
+
+animation-iteration-count:播放次数 默认1
+        infinite： 无限循环 
+        &lt;number&gt;： 指定对象动画的具体循环次数 
+
+animation-direction:周期后是否倒放
+        running： 运动 
+        paused： 暂停 
+
+animation-play-state:是否暂停 默认 running
+        running： 运动 
+        paused： 暂停 
+
+animation-fill-mode:动画结束后的状态
+        none： 默认值。不设置对象动画之外的状态 
+        forwards： 设置对象状态为动画结束时的状态 
+        backwards： 设置对象状态为动画开始时的状态 
+        both： 设置对象状态为动画结束或开始的状态 </code></pre><h1 id="例子"><a href="#例子" class="headerlink" title="例子:"></a>例子:</h1><!-- 正方体 -->
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;正方体&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">	*&#123;margin:0;padding:0;&#125;</span><br><span class="line">	li&#123;list-style: none;&#125;</span><br><span class="line">	.wrap&#123;transform-style:preserve-3d;transition:2s all; margin: 80px auto;width:100px;&#125;</span><br><span class="line">	.wrap ul&#123;transform:rotateX(45deg) rotateY(45deg);position: relative;transform-style:preserve-3d; width: 100px;height: 100px;&#125;</span><br><span class="line">	.wrap ul li&#123;width: 100px;height: 100px;opacity:0.2;left: 0;top:0;position: absolute;&#125;</span><br><span class="line">	.wrap ul .down&#123;background:<span class="comment">#f00;transform: translateZ(-50px);&#125;</span></span><br><span class="line">	.wrap ul .up&#123;background:<span class="comment">#f00;transform: translateZ(50px);&#125;</span></span><br><span class="line"></span><br><span class="line">	.wrap ul .left&#123;background:<span class="comment">#ff0;transform: translateX(-50px) rotateY(90deg) ;&#125;</span></span><br><span class="line">	.wrap ul .right&#123;background:<span class="comment">#f0f;transform: translateX(50px) rotateY(90deg) ;&#125;</span></span><br><span class="line"></span><br><span class="line">	.wrap ul .top&#123;background:<span class="comment">#f0f;transform: translateX(-50px) rotateX(90deg) ;&#125;</span></span><br><span class="line">	.wrap ul .top&#123;background:<span class="comment">#ff9;transform: translateX(50px) rotateX(90deg) ;&#125;</span></span><br><span class="line"></span><br><span class="line">	.wrap:hover&#123;transform:rotateY(360deg);&#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;div class=<span class="string">"wrap"</span>&gt;</span><br><span class="line">		  &lt;ul&gt;  &lt;li class=<span class="string">"left"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  		&lt;li class=<span class="string">"right"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  		&lt;li class=<span class="string">"top"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  		&lt;li class=<span class="string">"bottom"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  		</span><br><span class="line">		  		&lt;li class=<span class="string">"up"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  		&lt;li class=<span class="string">"down"</span>&gt;&lt;/li&gt;</span><br><span class="line">		  &lt;/ul&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<!-- 导航 -->
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"utf-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;3d导航&lt;/title&gt;</span><br><span class="line">	&lt;style <span class="built_in">type</span>=<span class="string">"text/css"</span>&gt;</span><br><span class="line">	    *&#123;padding:0;margin: 0;&#125;</span><br><span class="line">	    li&#123;list-style: none;&#125;</span><br><span class="line">		ul&#123;width: 1000px;margin:50px auto;&#125;</span><br><span class="line">		ul li&#123;<span class="built_in">float</span>: left;transform-style: preserve-3d;&#125;</span><br><span class="line">		ul li a&#123;display: block;width:199px;height:50px;border-right: 1px solid <span class="comment">#666;position: relative; text-align: center;transform-style: preserve-3d;transition:1s all;&#125;</span></span><br><span class="line">		ul li:last-child a&#123;border: 0;&#125;</span><br><span class="line">		ul li a p&#123;width:199px;height:50px;position: absolute;left: 0;top: 0; font:700 12px/50px <span class="string">""</span>;&#125;</span><br><span class="line">		ul li a .a1&#123;background: <span class="comment">#f99;&#125;</span></span><br><span class="line">		ul li a .a2&#123; </span><br><span class="line">			background-color: <span class="comment">#51938f;</span></span><br><span class="line">			  -webkit-background-size: 5px 5px;</span><br><span class="line">			  background-size: 5px 5px;</span><br><span class="line">			  background-position: 0 0, 30px 30px;  </span><br><span class="line">			  background-image:linear-gradient(45deg, <span class="comment">#478480 25%, transparent 25%, transparent 75%, #478480 75%, #478480),linear-gradient(45deg, #478480 25%, transparent 25%, transparent 75%, #478480 75%, #478480);</span></span><br><span class="line"></span><br><span class="line">			transform-origin: bottom;transform: rotateX(-90deg) translateY(50px);</span><br><span class="line">			&#125;</span><br><span class="line">		ul li a:hover&#123;transform-origin: top;transform: rotateX(90deg);&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	&lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	&lt;ul&gt;</span><br><span class="line">		&lt;li&gt;</span><br><span class="line">		&lt;a href=<span class="string">""</span>&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a1"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a2"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line">		&lt;/li&gt;</span><br><span class="line">		&lt;li&gt;</span><br><span class="line">		&lt;a href=<span class="string">""</span>&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a1"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a2"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line">		&lt;/li&gt;</span><br><span class="line">		&lt;li&gt;</span><br><span class="line">		&lt;a href=<span class="string">""</span>&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a1"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a2"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line">		&lt;/li&gt;</span><br><span class="line">		&lt;li&gt;</span><br><span class="line">		&lt;a href=<span class="string">""</span>&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a1"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a2"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line">		&lt;/li&gt;</span><br><span class="line">		&lt;li&gt;</span><br><span class="line">		&lt;a href=<span class="string">""</span>&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a1"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">			&lt;p class=<span class="string">"a2"</span>&gt;首页&lt;/p&gt;</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line">		&lt;/li&gt;</span><br><span class="line"></span><br><span class="line">	&lt;/ul&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

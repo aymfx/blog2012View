@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>趣味题 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#“1”-“2”-“3”-map-parseInt-输出的是啥"><span class="toc-text">[“1”, “2”, “3”].map(parseInt) 输出的是啥?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#typeof-null-null-instanceof-Object-输出的是啥"><span class="toc-text">[typeof null, null instanceof Object] 输出的是啥?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-2-1-reduce-Math-pow-reduce-Math-pow-输出的是啥"><span class="toc-text">[ [3,2,1].reduce(Math.pow), [].reduce(Math.pow) ] 输出的是啥?</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-1"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-2"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-3"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-4"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-5"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-6"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-7"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-8"><span class="toc-text">下面输出啥？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#下面输出啥？-9"><span class="toc-text">下面输出啥？</span></a></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">趣味题</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2018-06-15</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>周五了。学点趣味的东西放松下</p>
+</blockquote>
+ <a id="more"></a>   
+
+<h4 id="“1”-“2”-“3”-map-parseInt-输出的是啥"><a href="#“1”-“2”-“3”-map-parseInt-输出的是啥" class="headerlink" title="[“1”, “2”, “3”].map(parseInt) 输出的是啥?"></a>[“1”, “2”, “3”].map(parseInt) 输出的是啥?</h4><blockquote>
+<p>答案: [1, NaN, NaN]</p>
+</blockquote>
+<p>map里面的函数有三个参数  </p>
+<ul>
+<li>数组的值、</li>
+<li>数组的下标</li>
+<li>数组</li>
+</ul>
+<p>parseInt 接收两个值</p>
+<ul>
+<li>string 必需。要被解析的字符串。</li>
+<li>radix 可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。如果该参数小于 2 或者大于 36，则 parseInt() 将返回 NaN</li>
+</ul>
+<p>即</p>
+<ul>
+<li>parseInt(‘1’,0) 1</li>
+<li>parseInt(‘2’,1) NaN</li>
+<li>parseInt(‘3’,2) NaN  二进制</li>
+</ul>
+<h4 id="typeof-null-null-instanceof-Object-输出的是啥"><a href="#typeof-null-null-instanceof-Object-输出的是啥" class="headerlink" title="[typeof null, null instanceof Object] 输出的是啥?"></a>[typeof null, null instanceof Object] 输出的是啥?</h4><blockquote>
+<p>答案: [[“object”, false]]  常识不解释</p>
+</blockquote>
+<h4 id="3-2-1-reduce-Math-pow-reduce-Math-pow-输出的是啥"><a href="#3-2-1-reduce-Math-pow-reduce-Math-pow-输出的是啥" class="headerlink" title="[ [3,2,1].reduce(Math.pow), [].reduce(Math.pow) ] 输出的是啥?"></a>[ [3,2,1].reduce(Math.pow), [].reduce(Math.pow) ] 输出的是啥?</h4><blockquote>
+<p>答案: 数组为空时会报错</p>
+</blockquote>
+<p>reduce 四个参数</p>
+<ul>
+<li>total    必需。初始值, 或者计算结束后的返回值。</li>
+<li>currentValue    必需。当前元素</li>
+<li>currentIndex    可选。当前元素的索引</li>
+<li>arr    可选。当前元素所属的数组对象。</li>
+</ul>
+<p>即</p>
+<ul>
+<li>Math.pow(3,2)</li>
+<li>Math.pow(9,1)</li>
+</ul>
+<h4 id="下面输出啥？"><a href="#下面输出啥？" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> val = <span class="string">'smtg'</span>;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Value is '</span> + (val === <span class="string">'smtg'</span>) ? <span class="string">'Something'</span> : <span class="string">'Nothing'</span>);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案: Something  +运算符大于三目</p>
+</blockquote>
+<h4 id="下面输出啥？-1"><a href="#下面输出啥？-1" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ary = [<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>];</span><br><span class="line">ary[<span class="number">10</span>] = <span class="number">10</span>;</span><br><span class="line">ary.filter(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x === <span class="literal">undefined</span>;&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案: []  Array.prototype.filter不会为空元素调用的</p>
+</blockquote>
+<h4 id="下面输出啥？-2"><a href="#下面输出啥？-2" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> two   = <span class="number">0.2</span></span><br><span class="line"><span class="keyword">var</span> one   = <span class="number">0.1</span></span><br><span class="line"><span class="keyword">var</span> eight = <span class="number">0.8</span></span><br><span class="line"><span class="keyword">var</span> six   = <span class="number">0.6</span></span><br><span class="line">[two - one == one, eight - six == two]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案:[true, false]  js精度问题</p>
+</blockquote>
+<h4 id="下面输出啥？-3"><a href="#下面输出啥？-3" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCase</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(value) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'A'</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Case A'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'B'</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Case B'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'undefined'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Do not know!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">showCase(<span class="keyword">new</span> <span class="built_in">String</span>(<span class="string">'A'</span>));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案:switch uses === internally and new String(x) !== x  内部是全等的？？</p>
+</blockquote>
+<h4 id="下面输出啥？-4"><a href="#下面输出啥？-4" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showCase2</span>(<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span>(value) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'A'</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Case A'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'B'</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Case B'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="literal">undefined</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'undefined'</span>);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Do not know!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">showCase2(<span class="built_in">String</span>(<span class="string">'A'</span>));</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案:Case A      String（x）不会创建一个对象，但会返回一个字符串，即typeof String（1）===“string” </p>
+</blockquote>
+<h4 id="下面输出啥？-5"><a href="#下面输出啥？-5" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isOdd</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num % <span class="number">2</span> == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isEven</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num % <span class="number">2</span> == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isSane</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isEven(num) || isOdd(num);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> values = [<span class="number">7</span>, <span class="number">4</span>, <span class="string">'13'</span>, <span class="number">-9</span>, <span class="literal">Infinity</span>];</span><br><span class="line">values.map(isSane);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案:[true, true, true, false, false]    无穷大％2给出NaN，-9％2给出-1（模运算符保持符号，所以它的结果只是可靠的，而不是0）</p>
+</blockquote>
+<h4 id="下面输出啥？-6"><a href="#下面输出啥？-6" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="number">3</span>, <span class="number">8</span>)</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">3</span>, <span class="number">2</span>)</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="number">3</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案:3, NaN, NaN   3在基数2中不存在，所以显然这是一个NaN，但是0呢？ parseInt会考虑一个假基数，并假设你的意思是10，所以它返回3。</p>
+</blockquote>
+<h4 id="下面输出啥？-7"><a href="#下面输出啥？-7" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.isArray( <span class="built_in">Array</span>.prototype )</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案true   Array.prototype是一个数组 </p>
+</blockquote>
+<h4 id="下面输出啥？-8"><a href="#下面输出啥？-8" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">0</span>];</span><br><span class="line"><span class="keyword">if</span> ([<span class="number">0</span>]) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(a == <span class="literal">true</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">"wut"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案false   作为一个布尔值被认为是真的[0]。唉，在比较中使用它时，它会以不同的方式转换</p>
+</blockquote>
+<h4 id="下面输出啥？-9"><a href="#下面输出啥？-9" class="headerlink" title="下面输出啥？"></a>下面输出啥？</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[]==[]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>答案false   比较运算符按照啥来比较？？</p>
+</blockquote>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

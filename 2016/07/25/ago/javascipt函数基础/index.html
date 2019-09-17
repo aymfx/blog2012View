@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>javascipt函数基础 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JavaScript函数基础"><span class="toc-text">JavaScript函数基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义方法"><span class="toc-text">定义方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用方法"><span class="toc-text">调用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法"><span class="toc-text">方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arguments对象"><span class="toc-text">arguments对象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数参数"><span class="toc-text">函数参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指针标识"><span class="toc-text">指针标识</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">javascipt函数基础</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-07-25</span>
+        </div>
+        <div class="article-container">
+          <h1 id="JavaScript函数基础"><a href="#JavaScript函数基础" class="headerlink" title="JavaScript函数基础"></a>JavaScript函数基础</h1><a id="more"></a>   
+
+<h2 id="定义方法"><a href="#定义方法" class="headerlink" title="定义方法"></a>定义方法</h2><ul>
+<li><p>静态方法</p>
+<ul>
+<li>function 函数名([参数列表]){函数体；[return [返回值；]]}</li>
+</ul>
+</li>
+<li><p>动态匿名方法</p>
+<ul>
+<li><p>var 函数名=new Function([“虚参列表”]，”函数体”);</p>
+<pre><code>var add = new Function(x,y, var sum; sum=x+y;return sum;);
+    var s = add(100,39);
+    alert(s=+s);</code></pre></li>
+</ul>
+</li>
+<li><p>直接量方法 函数名=function([参数列表]){函数体；[return [返回值；]]}</p>
+</li>
+</ul>
+<h2 id="调用方法"><a href="#调用方法" class="headerlink" title="调用方法"></a>调用方法</h2><ul>
+<li>直接调用： 函数名(实参列表)</li>
+<li>在连接中调用：<a href="javascript:函数名()" target="_blank" rel="noopener">描述文字</a></li>
+<li>在事件中调用：事件类型=”函数名()”</li>
+<li>递归调用</li>
+<li>自执行 (function(){})()</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
+<li><p>apply:将函数作为对象的方法来调用将指定参数传递给该方法</p>
+</li>
+<li><p>call:将函数作为对象的方法来调用将指定参数传递给该方法</p>
+<pre><code>&lt;script type=&quot;text/javascript&quot;&gt;
+function A(){
+this.flag = &apos;A&apos;;
+this.tip = function(){
+alert(this.flag);
+};
+}
+function B(){
+this.flag = &apos;B&apos;;
+}
+var a = new A();
+var b = new B();
+//a.tip.call(b);
+a.tip.apply(b);
+&lt;/script&gt;</code></pre></li>
+<li><p>toString：返回函数的字符串表示</p>
+<pre><code>function a(){
+    alert(a)
+    }</code></pre></li>
+</ul>
+<pre><code>document.write(a.toString());//function a(){ alert(a) }</code></pre><h2 id="arguments对象"><a href="#arguments对象" class="headerlink" title="arguments对象"></a>arguments对象</h2><ul>
+<li><p>功能:存放实参的参数列表</p>
+</li>
+<li><p>特性</p>
+<ul>
+<li>在函数体内使用</li>
+<li>带有下标属性，但并非数组</li>
+<li>函数声明时自动初始化</li>
+</ul>
+</li>
+<li><p>属性</p>
+<ul>
+<li><p>length:获取函数实参的长度</p>
+</li>
+<li><p>callee:返回当前正在指向的函数</p>
+<pre><code> function a(){
+    document.write(arguments.callee);
+
+}
+
+a();//function a(){ document.write(arguments.callee); }</code></pre></li>
+<li><p>caler返回调用当前正在执行函数的函数名</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a>函数参数</h2><ul>
+<li>参数类型<ul>
+<li>形参<ul>
+<li>定义函数时使用的参数</li>
+<li>接收调用该函数时传递的参数</li>
+</ul>
+</li>
+<li>实参<ul>
+<li>调用函数时传递给函数的实际参数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>特性<ul>
+<li>参数个数没有限制<ul>
+<li>实参&lt;形参 ：多余形参=undefined;</li>
+<li>实参&gt;形参 ：多余的被忽略</li>
+</ul>
+</li>
+<li>参数的类型没有限制</li>
+<li>通过arguments对象访问参数数组</li>
+<li>参数始终按值传递<ul>
+<li>基本类型：传值</li>
+<li>引用类型:地址</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="指针标识"><a href="#指针标识" class="headerlink" title="指针标识"></a>指针标识</h2><ul>
+<li>this:指向当前操作的对象</li>
+<li>callee:指向参数集合所属函数</li>
+<li>prototype:指向函数附带的函数原型对象</li>
+<li>constructor:指向创建该对象的构造函数</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>

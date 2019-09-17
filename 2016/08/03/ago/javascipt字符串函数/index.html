@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+  <head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <title>javascipt字符串函数 | Aymfx&#39;s Blog</title>
+  
+  <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1408911_ujc2i49ntb.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+  <body>
+    <div class='container'>
+      <header id="header">
+  <section class='header-main'>
+    <div class='outer'>
+        <a href="/" class="logo">Aymfx's Blog</a> 
+      <nav class="navbar">
+        
+        <a href="/" class="menu-item-link">首页</a>
+        
+        <a href="/archives" class="menu-item-link">归档</a>
+        
+        <a href="/tags" class="menu-item-link">标签</a>
+        
+        <a href="/about" class="menu-item-link">关于我</a>
+        
+        <a href="/photos" class="menu-item-link">相册</a>
+        
+        <a href="https://github.com/aymfx" class="menu-item-link">交友</a>
+        
+      </nav>
+    </div>
+  </section>
+</header>
+    <main class="main">
+      <div class='post-detail'>
+    <div id="toc" class='left'>
+    <h4>
+        文章目录
+    </h4>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#字符方法"><span class="toc-text">字符方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#位置方法"><span class="toc-text">位置方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#匹配方法"><span class="toc-text">匹配方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#操作方法"><span class="toc-text">操作方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#拼接方法"><span class="toc-text">拼接方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#截取方法"><span class="toc-text">截取方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#根据下标截取子串"><span class="toc-text">根据下标截取子串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据长度截取子串"><span class="toc-text">根据长度截取子串</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#空格处理"><span class="toc-text">空格处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#比较方法：localeCompare"><span class="toc-text">比较方法：localeCompare()</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#编码方法"><span class="toc-text">编码方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字符串常规编码与解码"><span class="toc-text">#字符串常规编码与解码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#URI字符串编码与解码"><span class="toc-text">URI字符串编码与解码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#URI组件编码与解码"><span class="toc-text">URI组件编码与解码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#转换方式"><span class="toc-text">转换方式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#大小写转换"><span class="toc-text">大小写转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#转换为大写"><span class="toc-text">转换为大写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#转换为小写"><span class="toc-text">转换为小写</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#代码转换"><span class="toc-text">代码转换</span></a></li></ol></li></ol>
+</div>
+    <article class="post-detail animated slideInDown right">
+        <div class="post-title">
+          <h2 class="title">javascipt字符串函数</h2>
+        </div>
+         <div class="post-meta"> 
+          <i class='iconfont iconriqi'></i>
+          <span class="post-time">2016-08-03</span>
+        </div>
+        <div class="article-container">
+          <blockquote>
+<p>查找方法</p>
+</blockquote>
+<a id="more"></a>   
+
+<h2 id="字符方法"><a href="#字符方法" class="headerlink" title="字符方法"></a>字符方法</h2><ul>
+<li>charAt()<ul>
+<li>功能:返回字符串第n个字符</li>
+<li>参数:超出范围-返回空字符串</li>
+<li>返回值:string中第n个字符的实际值</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;assddsddsad&quot;;</span><br><span class="line">console.log(str.charAt(3));//d</span><br><span class="line">console.log(str.charAt(20));//什么没有 空</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>charCodeAt()<ul>
+<li>功能:返回字符串中第n个字符的代码</li>
+<li>参数：num —-超出范围返回NaN</li>
+<li>返回值:<ul>
+<li>内容：string中第n个字符的Unicode编码</li>
+<li>范围:0~65535之间的16位整数</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;assddsddsad&quot;;</span><br><span class="line">console.log(str.charCodeAt(3));//100</span><br><span class="line">console.log(str.charCodeAt(20));//NaN</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>fromCharCode()<ul>
+<li>功能：根据字符串编码创建字符串</li>
+<li>参数:0个或多个整数 代表字符Unicode编码</li>
+<li>返回值:由指定编码字符组成的新字符串</li>
+<li>特性:静态方法,实为构造函数String()的属性</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(String.fromCharCode(520));//Ȉ</span><br><span class="line">console.log(String.fromCharCode(880));//Ͱ</span><br></pre></td></tr></table></figure>
+
+<h2 id="位置方法"><a href="#位置方法" class="headerlink" title="位置方法"></a>位置方法</h2><ul>
+<li>indexOf():从前向后检索字符串,看其是否含有指定子串</li>
+<li>lastIndexOf()：从后向前检索字符串,看其是否含有指定子串</li>
+<li>共性<ul>
+<li>功能:根据指定字符串查找下标位置</li>
+<li>参数<ul>
+<li>必选：将要查询的自字符串</li>
+<li>可选:开始查找的位置下标<ul>
+<li>值为负数:视作0</li>
+<li>省略:从默认位置开始</li>
+<li>超出0-length-1,返回-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>返回值<ul>
+<li>找到:子串首次出现的下标</li>
+<li>未找到:返回-1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;asdalove&quot;;</span><br><span class="line">console.log(str.indexOf(&quot;2&quot;))//-1</span><br><span class="line">console.log(str.indexOf(&quot;2&quot;,8))//-1</span><br><span class="line">console.log(str.indexOf(&quot;a&quot;,2))//3</span><br><span class="line">console.log(str.indexOf(&quot;a&quot;,0))//0</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;,0))//0</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;,2))//0</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;,-100))//0</span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;,20))//3 </span><br><span class="line">console.log(str.lastIndexOf(&quot;a&quot;,2))//0</span><br></pre></td></tr></table></figure>
+
+<h2 id="匹配方法"><a href="#匹配方法" class="headerlink" title="匹配方法"></a>匹配方法</h2><ul>
+<li>match()<ul>
+<li>功能:找到一个或多个正则表达式的匹配</li>
+<li>参数<ul>
+<li>要进行模式匹配的正则表达式</li>
+<li>非正则表达式-将其传递给RegExp()构造函数，并转换为正则表达式的对象</li>
+</ul>
+</li>
+<li>返回值：存放匹配结果的数组<ul>
+<li>有全局标记g<ul>
+<li>执行全局检索<ul>
+<li>找到：返回数组<ul>
+<li>内容:所有匹配的子串</li>
+<li>缺陷:<ul>
+<li>没有派生属性</li>
+<li>不提供与子表达式匹配的文本信息</li>
+<li>不声明每个匹配子串的位置</li>
+</ul>
+</li>
+<li>弥补:使用RegExp.exec()方法</li>
+</ul>
+</li>
+<li>没找到:返回null</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>无全局标记g<ul>
+<li>执行一次匹配<ul>
+<li>找到：返回数组<ul>
+<li>内容<ul>
+<li>第0个元素：匹配文本</li>
+<li>其他元素：与正则表达式匹配的文本</li>
+</ul>
+</li>
+<li>属性<ul>
+<li>input:调用该方法的字符串对象</li>
+<li>index:匹配为本的起始字符在字符串的位置</li>
+<li>lastIndex:匹配为本的末尾字符在字符串的位置</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>没找到:返回null</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;The rain in SPAIN stays mainly in the plain&quot;;</span><br><span class="line">console.log(str.match(/ain/g));//[&quot;ain&quot;, &quot;ain&quot;, &quot;ain&quot;]</span><br><span class="line">console.log(str.match(/ain/gi));//[&quot;ain&quot;, &quot;AIN&quot;, &quot;ain&quot;, &quot;AIN&quot;]   i可以保证不区分大小写</span><br><span class="line">console.log(str.match(/ain/));//[&quot;ain&quot;, index: 5, input: &quot;The rain in SPAIN stays mainly in the plain&quot;]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>search()<ul>
+<li>功能:检索字符串中正则表达式匹配的子串</li>
+<li>参数:与match()相同</li>
+<li>返回值<ul>
+<li>找到:字符串中第一个与正则表达式相匹配的子串的起始位置</li>
+<li>未找到:返回-1</li>
+</ul>
+</li>
+<li>特性:忽略全局标记g和lastIndex()属性</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;The rain in SPAIN stays mainly in the plain&quot;;</span><br><span class="line">console.log(str.search(&quot;in&quot;));//6</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>replace()<ul>
+<li>功能:替换一个正则表达式匹配的子串</li>
+<li>参数<ul>
+<li>参数1：需要进行替换正则表达式对象或字符串</li>
+<li>参数2:替换文本或替换函数</li>
+</ul>
+</li>
+<li>特性<ul>
+<li>如果参数1仅为字符串则只进行一次匹配替换，若代替所有的子串则必须制定全局标记g</li>
+<li>如果参数2仅为字符串则可使用特殊字符序列<ul>
+<li>$$==$</li>
+<li>$&amp;==匹配整个模式的子字符串</li>
+<li>$’==匹配的自字符串之前的子字符串</li>
+<li>$`==匹配的子字符串之后的子字符串</li>
+<li>$n==匹配第n个捕获的子字符串 n=0~9</li>
+<li>$nn==匹配第nn个捕获的子字符串 n=01~99</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var str=&apos;i love you&apos;;</span><br><span class="line">console.log(str.replace(&apos;i&apos;,&apos;liuyang&apos;));</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>split<ul>
+<li>功能:根据指定的分割符将字符串分割成多个子串，并返回成数组</li>
+<li>参数<ul>
+<li>必须:指定的分隔符</li>
+<li>可选：指定数组的长度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var str = &quot;The rain in SPAIN stays mainly in the plain&quot;;</span><br><span class="line">console.log(str.split(&quot; &quot;));[&quot;The&quot;, &quot;rain&quot;, &quot;in&quot;, &quot;SPAIN&quot;, &quot;stays&quot;, &quot;mainly&quot;, &quot;in&quot;, &quot;the&quot;, &quot;plain&quot;]</span><br></pre></td></tr></table></figure>
+
+<h1 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h1><h2 id="拼接方法"><a href="#拼接方法" class="headerlink" title="拼接方法"></a>拼接方法</h2><ul>
+<li>concat<ul>
+<li>语法:string.concat(value,….)</li>
+<li>功能:链接字符串</li>
+<li>参数:要链接到string上的一个或多个值</li>
+<li>返回值:把所有参数都连接到字符串string上得到的新字符串</li>
+<li>特性：功能与”+”相同原始字符串的实际值并未正真被修改</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var str1=&quot;i&quot;;</span><br><span class="line">var str2=&quot; love &quot;;</span><br><span class="line">var str3=&quot;you&quot;;</span><br><span class="line">console.log(str1.concat(str2,str3));//i love you</span><br></pre></td></tr></table></figure>
+
+<h2 id="截取方法"><a href="#截取方法" class="headerlink" title="截取方法"></a>截取方法</h2><h3 id="根据下标截取子串"><a href="#根据下标截取子串" class="headerlink" title="根据下标截取子串"></a>根据下标截取子串</h3><ul>
+<li>slice()<ul>
+<li>参数1：必需。规定从何处开始选取。如果是负数，那么它规定从数组尾部开始算起的位置。也就是说，-1 指最后一个元素，-2 指倒数第二个元素，以此类推。</li>
+<li>参数2：可选。规定从何处结束选取。该参数是数组片断结束处的数组下标。如果没有指定该参数，那么切分的数组包含从 start 到数组结束的所有元素。如果这个参数是负数，那么它规定的是从数组尾部开始算起的元素。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;abcdefghijk&quot;;</span><br><span class="line">console.log(str.slice(-7,-5))//4 6  ef</span><br><span class="line">console.log(str);//abcdefghijk</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>substring()<ul>
+<li>from:    必需。一个非负的整数，规定要提取的子串的第一个字符在 string Object 中的位置。</li>
+<li>to:    可选。一个非负的整数，比要提取的子串的最后一个字符在 string Object 中的位置多 1。如果省略该参数，那么返回的子串会一直到字符串的结尾。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;Hello world!&quot;;</span><br><span class="line">document.write(str.substring(3)+&quot;&lt;br&gt;&quot;);//lo world!</span><br><span class="line">document.write(str.substring(3,7));//lo w</span><br></pre></td></tr></table></figure>
+
+<h3 id="根据长度截取子串"><a href="#根据长度截取子串" class="headerlink" title="根据长度截取子串"></a>根据长度截取子串</h3><ul>
+<li>substr()<ul>
+<li>start:    必需。要抽取的子串的起始下标。必须是数值。如果是负数，那么该参数声明从字符串的尾部开始算起的位置。也就是说，-1 指字符串中最后一个字符，-2 指倒数第二个字符，以此类推。</li>
+<li>length:可选。子串中的字符数。必须是数值。如果省略了该参数，那么返回从 stringObject 的开始位置到结尾的字串。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;abcdefghijk&quot;;</span><br><span class="line">console.log();</span><br><span class="line">console.log(str.substr(2,3));//cde</span><br><span class="line">console.log(str.substr(-20,5));//cdefghijk  从0开始</span><br><span class="line">console.log(str.substr(-2,5));//jk</span><br><span class="line">console.log(str.substr(2,20));//cdefghijk</span><br></pre></td></tr></table></figure>
+
+<h2 id="空格处理"><a href="#空格处理" class="headerlink" title="空格处理"></a>空格处理</h2><ul>
+<li>trim 清除前置及后置空格</li>
+<li>trimLeft:清除前置空格</li>
+<li>trimRight：清除后置空格</li>
+</ul>
+<h2 id="比较方法：localeCompare"><a href="#比较方法：localeCompare" class="headerlink" title="比较方法：localeCompare()"></a>比较方法：localeCompare()</h2><ul>
+<li>localeCompare()<ul>
+<li>功能:用本地特定顺序比较两个字符串</li>
+<li>参数:与原字符串进行比较的字符串</li>
+<li>返回值:说明比较的数字<ul>
+<li>负数:原字符串&lt;参数字符串</li>
+<li>0：原字符串=参数字符串</li>
+<li>正数:原字符串&gt;参数字符串</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var str=&quot;北京&quot;;</span><br><span class="line">var var2=&quot;北京&quot;;</span><br><span class="line">var res=str.localeCompare(var2);</span><br><span class="line">console.log(res); //0</span><br></pre></td></tr></table></figure>
+
+<h1 id="编码方法"><a href="#编码方法" class="headerlink" title="编码方法"></a>编码方法</h1><h1 id="字符串常规编码与解码"><a href="#字符串常规编码与解码" class="headerlink" title="#字符串常规编码与解码"></a>#字符串常规编码与解码</h1><ul>
+<li>escape()</li>
+<li>unescape()<h2 id="URI字符串编码与解码"><a href="#URI字符串编码与解码" class="headerlink" title="URI字符串编码与解码"></a>URI字符串编码与解码</h2></li>
+<li>encodeURI()</li>
+<li>decodeURI()<h2 id="URI组件编码与解码"><a href="#URI组件编码与解码" class="headerlink" title="URI组件编码与解码"></a>URI组件编码与解码</h2></li>
+<li>encodeURIComponent()</li>
+<li>decodeURIComponent()</li>
+</ul>
+<h1 id="转换方式"><a href="#转换方式" class="headerlink" title="转换方式"></a>转换方式</h1><h2 id="大小写转换"><a href="#大小写转换" class="headerlink" title="大小写转换"></a>大小写转换</h2><h3 id="转换为大写"><a href="#转换为大写" class="headerlink" title="转换为大写"></a>转换为大写</h3><ul>
+<li>toUpperCase();</li>
+<li>toLocaleUpperCase()  本地<h3 id="转换为小写"><a href="#转换为小写" class="headerlink" title="转换为小写"></a>转换为小写</h3></li>
+<li>toLowerCase();</li>
+<li>toLocaleLowerCase()本地<h3 id="代码转换"><a href="#代码转换" class="headerlink" title="代码转换"></a>代码转换</h3></li>
+<li>用js动态格式化html,但不具有语义性 ，舍弃</li>
+</ul>
+ 
+        </div> 
+      </article> 
+</div>
+
+
+
+    </main>
+    </div>
+  </body>
+</html>
